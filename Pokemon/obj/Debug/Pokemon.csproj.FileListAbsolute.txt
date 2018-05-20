@@ -1,0 +1,10 @@
+c:\users\maciej\source\repos\Pokemon\Pokemon\obj\Debug\Pokemon.csprojResolveAssemblyReference.cache
+c:\users\maciej\source\repos\Pokemon\Pokemon\obj\Debug\Pokemon.Properties.Resources.resources
+c:\users\maciej\source\repos\Pokemon\Pokemon\obj\Debug\Pokemon.csproj.GenerateResource.Cache
+c:\users\maciej\source\repos\Pokemon\Pokemon\obj\Debug\Pokemon.csproj.CoreCompileInputs.cache
+c:\users\maciej\source\repos\Pokemon\Pokemon\bin\Debug\Pokemon.exe.config
+c:\users\maciej\source\repos\Pokemon\Pokemon\bin\Debug\Pokemon.exe
+c:\users\maciej\source\repos\Pokemon\Pokemon\bin\Debug\Pokemon.pdb
+c:\users\maciej\source\repos\Pokemon\Pokemon\obj\Debug\Pokemon.exe
+c:\users\maciej\source\repos\Pokemon\Pokemon\obj\Debug\Pokemon.pdb
+C:\Users\Maciej\source\repos\Pokemon\Pokemon\obj\Debug\Pokemon.BattleForm.resources
