@@ -38,8 +38,8 @@ namespace Pokemon
 
         private void Begin()
         {
-            Pokemon pokemon = PokemonGenerator.GetPokemon(74,50);
-            Pokemon enemyPokemon = PokemonGenerator.GetPokemon(74, 50);
+            Pokemon pokemon = PokemonGenerator.GetPokemon(74,10);
+            Pokemon enemyPokemon = PokemonGenerator.GetPokemon(74, 10);
 
             playerPkmnImage.Image = IdToImage(true, pokemon.ID);
             enemyPkmnImage.Image = IdToImage(false, enemyPokemon.ID);
@@ -163,7 +163,7 @@ namespace Pokemon
 
 
             damage = battle.Attack(true, attack);
-            BattleLog.AppendText($"{battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
+            BattleLog.AppendText($"Your {battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
             tbLog.Text = BattleLog.Log;
 
             UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
@@ -182,7 +182,7 @@ namespace Pokemon
                 
 
                 damage = battle.Attack(false, attack);
-                BattleLog.AppendText($"{battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");
+                BattleLog.AppendText($"Enemy {battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");
                 tbLog.Text = BattleLog.Log;
             }
 

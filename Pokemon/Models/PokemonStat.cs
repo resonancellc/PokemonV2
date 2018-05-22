@@ -15,6 +15,20 @@ namespace Pokemon
         public int SpecialDefence { get; set; }
         public int Speed { get; set; }
         public int Health { get; set; }
+
+        public Stat()
+        {
+
+        }
+
+        public Stat(Stat stat)
+        {
+            this.Attack = stat.Attack;
+            this.Defence = stat.Defence;
+            this.SpecialAttack = stat.SpecialAttack;
+            this.SpecialDefence = stat.SpecialDefence;
+            this.Speed = stat.Speed;
+        }
     }
 
     public class PokemonStat : Stat

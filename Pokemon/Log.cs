@@ -17,8 +17,7 @@ namespace Pokemon
 
         public static void AppendText(string text)
         {
-            Log += Environment.NewLine;
-            Log += text;
+            Log += text + Environment.NewLine;
         }
 
         public static void ClearText()

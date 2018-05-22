@@ -24,76 +24,136 @@ namespace Pokemon
 
         public static int CalculateAttackPower(bool isPlayerAttack, Attack attack, Battle battle)
         {
+            int damage = 0;
             if (isPlayerAttack)
             {
                 if (attack.BoostStats != string.Empty && attack.BoostStats != null)
                 {
-                    ChangeTempStats(attack, battle);
+                    ChangeTempStats(isPlayerAttack, attack, battle);
                 }
-                return Convert.ToInt32((((2 * battle.Pokemon.Level / 5) + 2) * attack.Power * ((float)battle.TempPokeStat.Attack / (float)battle.TempEnemyPokeStat.Defence)) / 50);
+                damage = Convert.ToInt32((((2 * battle.Pokemon.Level / 5) + 2) * attack.Power * ((float)battle.TempPokeStat.Attack / (float)battle.TempEnemyPokeStat.Defence)) / 50);
+                BattleLog.AppendText($"Zaatakowano {battle.EnemyPokemon.Name} za {damage} - jego obrona wynosiła {(float)battle.TempEnemyPokeStat.Defence}");
+                return damage;
             }
             else
             {
                 if (attack.BoostStats != string.Empty && attack.BoostStats != null)
                 {
-                    ChangeTempStats(attack, battle);
+                    ChangeTempStats(isPlayerAttack, attack, battle);
                 }
-                return Convert.ToInt32((((2 * battle.EnemyPokemon.Level / 5) + 2) * attack.Power * ((float)battle.TempEnemyPokeStat.Attack / (float)battle.TempPokeStat.Defence)) / 50);
+                damage = Convert.ToInt32((((2 * battle.EnemyPokemon.Level / 5) + 2) * attack.Power * ((float)battle.TempEnemyPokeStat.Attack / (float)battle.TempPokeStat.Defence)) / 50);
+                return damage;
             }
         }
 
-        private static void ChangeTempStats(Attack attack, Battle battle)
+        private static void ChangeTempStats(bool isPlayerAttack, Attack attack, Battle battle)
         {
             string[] attributes = attack.BoostStats.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
             if (attributes.Length > 0)
             {
                 if (attributes[0] == "enemy")
                 {
-                    switch (attributes[1])
+                    if (isPlayerAttack) // gracz na przeciwnika
                     {
-                        case "attack":
-                            if (battle.TempEnemyPokeStat.Attack > 10 && battle.TempEnemyPokeStat.Attack > battle.EnemyPokemon.Stat.Attack - 25)
-                            {
-                                battle.TempEnemyPokeStat.Attack += Int32.Parse(attributes[2]) * 5;
-                            }
-                            break;
-                        case "defence":
-                            battle.TempEnemyPokeStat.Defence += Int32.Parse(attributes[2]) * 5;
-                            break;
-                        case "specialAttack":
-                            battle.TempEnemyPokeStat.SpecialAttack += Int32.Parse(attributes[2]) * 5;
-                            break;
-                        case "specialDefence":
-                            battle.TempEnemyPokeStat.SpecialDefence += Int32.Parse(attributes[2]) * 5;
-                            break;
-                        case "speed":
-                            battle.TempEnemyPokeStat.Speed += Int32.Parse(attributes[2]) * 5;
-                            break;
-                        default:
-                            break;
+                        switch (attributes[1])
+                        {
+                            case "attack":
+                                battle.EnemyPokemon.statModifierStages[0] += Int32.Parse(attributes[2]);
+                                battle.TempEnemyPokeStat.Attack = Convert.ToInt32((float)battle.EnemyPokemon.Stat.Attack * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[0]));
+                                break;
+                            case "defence":
+                                battle.TempEnemyPokeStat.Defence += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "specialAttack":
+                                battle.TempEnemyPokeStat.SpecialAttack += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "specialDefence":
+                                battle.TempEnemyPokeStat.SpecialDefence += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "speed":
+                                battle.TempEnemyPokeStat.Speed += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            default:
+                                break;
+                        }
                     }
-                }
-                else
-                {
-                    switch (attributes[1])
+                    else // przeciwnik na gracza
                     {
-                        case "attack":
-                            battle.TempPokeStat.Attack += Int32.Parse(attributes[2]) * 5;
-                            break;
-                        case "defence":
-                            battle.TempPokeStat.Defence += Int32.Parse(attributes[2]) * 5;
-                            break;
-                        case "specialAttack":
-                            battle.TempPokeStat.SpecialAttack += Int32.Parse(attributes[2]) * 5;
-                            break;
-                        case "specialDefence":
-                            battle.TempPokeStat.SpecialDefence += Int32.Parse(attributes[2]) * 5;
-                            break;
-                        case "speed":
-                            battle.TempPokeStat.Speed += Int32.Parse(attributes[2]) * 5;
-                            break;
-                        default:
-                            break;
+                        switch (attributes[1])
+                        {
+                            case "attack":
+                                battle.TempPokeStat.Attack += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "defence":
+                                battle.TempPokeStat.Defence += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "specialAttack":
+                                battle.TempPokeStat.SpecialAttack += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "specialDefence":
+                                battle.TempPokeStat.SpecialDefence += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "speed":
+                                battle.TempPokeStat.Speed += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                }
+                else // używane na siebie
+                {
+                    if (isPlayerAttack) // gracz na siebie
+                    {
+                        switch (attributes[1])
+                        {
+                            case "attack":
+                                battle.TempPokeStat.Attack += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "defence":
+                                battle.TempPokeStat.Defence += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "specialAttack":
+                                battle.TempPokeStat.SpecialAttack += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "specialDefence":
+                                battle.TempPokeStat.SpecialDefence += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "speed":
+                                battle.TempPokeStat.Speed += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else // przeciwnik na siebie
+                    {
+                        switch (attributes[1])
+                        {
+                            case "attack":
+                                battle.TempEnemyPokeStat.Attack += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "defence":
+                                if (battle.EnemyPokemon.statModifierStages[1] < 6)
+                                {
+                                    battle.EnemyPokemon.statModifierStages[1] += Int32.Parse(attributes[2]);
+                                    battle.TempEnemyPokeStat.Defence = Convert.ToInt32(battle.EnemyPokemonStartStats.Defence * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[1]));
+                                }
+                                
+                                break;
+                            case "specialAttack":
+                                battle.TempEnemyPokeStat.SpecialAttack += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "specialDefence":
+                                battle.TempEnemyPokeStat.SpecialDefence += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            case "speed":
+                                battle.TempEnemyPokeStat.Speed += Int32.Parse(attributes[2]) * 5;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }

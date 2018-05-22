@@ -10,21 +10,21 @@ namespace Pokemon
     public class Battle
     {
         public Pokemon Pokemon { get; set; }
+        public Stat PokemonStartStats { get; set; }
+
         public Pokemon EnemyPokemon { get; set; }
-        public Stat StartPokeStat { get; set; }
-        public Stat TempPokeStat { get; set; }
-        public Stat TempEnemyPokeStat { get; set; }
+        public Stat EnemyPokemonStartStats { get; set; }
+
 
         public Battle(Pokemon pokemon, Pokemon enemyPokemon)
         {
             this.Pokemon = pokemon;
+            this.PokemonStartStats = new Stat(pokemon.Stat);
+
             this.EnemyPokemon = enemyPokemon;
-
-            this.StartPokeStat = pokemon.Stat;
-
-            this.TempPokeStat = pokemon.Stat;
-            this.TempEnemyPokeStat = enemyPokemon.Stat;
+            this.EnemyPokemonStartStats = new Stat(enemyPokemon.Stat);
         }
+
 
         public int Attack(bool isPlayerAttack, Attack attack)
         {

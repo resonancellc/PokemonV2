@@ -18,6 +18,7 @@ namespace Pokemon
     
         public PokemonEnum.Type type;
         public Attack[] attackPool = new Attack[4];
+        public int[] statModifierStages = { 0,0,0,0,0 }; 
  
         public Pokemon(int id, int level, Stat pokemonStat)
         {
@@ -25,6 +26,7 @@ namespace Pokemon
             this.Name = StaticTypes.GetPokemonNameByID(id);
             this.Level = level;
             this.Stat = pokemonStat;
+
             this.HPMax = pokemonStat.Health;
             this.HPCurrent = this.HPMax;
             SetPokemonAttackPool();
@@ -42,6 +44,7 @@ namespace Pokemon
                     Name = (string)values[1],
                     Power = StaticTypes.attackList.Where(x=>x.Name == (string)values[1]).FirstOrDefault().Power,
                     Accuracy = StaticTypes.attackList.Where(x => x.Name == (string)values[1]).FirstOrDefault().Accuracy,
+                    BoostStats = StaticTypes.attackList.Where(x => x.Name == (string)values[1]).FirstOrDefault().BoostStats
                 };
 
                 if (attack.Level > this.Level) continue;
