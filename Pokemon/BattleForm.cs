@@ -38,7 +38,8 @@ namespace Pokemon
 
         private void Begin()
         {
-            Pokemon pokemon = PokemonGenerator.GetPokemon(74,10);
+             
+            Pokemon pokemon = PokemonGenerator.GetPokemon(4,25);
             Pokemon enemyPokemon = PokemonGenerator.GetPokemon(74, 10);
 
             playerPkmnImage.Image = IdToImage(true, pokemon.ID);
@@ -60,6 +61,10 @@ namespace Pokemon
                 if (pokemon.attackPool[i] != null)
                 {
                     attackButtons[i].Text = pokemon.attackPool[i].Name;
+                    if (pokemon.attackPool[i].Name.Length > 9)
+                    {
+                        attackButtons[i].Font = new System.Drawing.Font("Unispace", 8, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    }
                     attackButtons[i].Enabled = true;
                 }
             }

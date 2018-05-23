@@ -29,7 +29,10 @@ namespace Pokemon
         public int Attack(bool isPlayerAttack, Attack attack)
         {
             int damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
-
+            if (attack.Power.HasValue  && damage < 1)
+            {
+                damage = 1;
+            }
             if (isPlayerAttack) EnemyPokemon.Hurt(damage);
             else Pokemon.Hurt(damage);
 

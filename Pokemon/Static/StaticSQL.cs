@@ -17,7 +17,7 @@ namespace Pokemon
             ConnectionString = conn;
         }
 
-        private static DataTable ExecureSQLQuery(string query)
+        private static DataTable ExecuteSQLQuery(string query)
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
@@ -37,14 +37,19 @@ namespace Pokemon
             }
         }
 
+        public static DataTable GetAvailablePokemonIDs()
+        {
+            return ExecuteSQLQuery("SELECT ID FROM Pokemon");
+        }
+
         public static DataTable GetPokemonList()
         {
-            return ExecureSQLQuery("SELECT ID, Name FROM Pokemon");
+            return ExecuteSQLQuery("SELECT ID, Name FROM Pokemon");
         }
 
         public static DataTable GetPokemonStatList()
         {
-            return ExecureSQLQuery(@"SELECT Pokemon.ID, Pokemon.Name, BaseStats.Health, BaseStats.Attack,BaseStats.Defence,BaseStats.SpecialAttack,BaseStats.SpecialDefence,BaseStats.Speed 
+            return ExecuteSQLQuery(@"SELECT Pokemon.ID, Pokemon.Name, BaseStats.Health, BaseStats.Attack,BaseStats.Defence,BaseStats.SpecialAttack,BaseStats.SpecialDefence,BaseStats.Speed 
                                      FROM Pokemon 
                                      INNER JOIN BaseStats ON Pokemon.ID = BaseStats.ID 
                                      ORDER BY Pokemon.ID ASC");
@@ -52,7 +57,7 @@ namespace Pokemon
 
         public static DataTable GetPokemonAttackList()
         {
-            return ExecureSQLQuery(@"SELECT ID,[Name],[Power],Accuracy,BoostStats
+            return ExecuteSQLQuery(@"SELECT ID,[Name],[Power],Accuracy,BoostStats
                                      FROM Attack");
         }
 

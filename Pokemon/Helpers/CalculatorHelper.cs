@@ -31,7 +31,11 @@ namespace Pokemon
                 {
                     ChangeTempStats(isPlayerAttack, attack, battle);
                 }
-                damage = Convert.ToInt32((((2 * battle.Pokemon.Level / 5) + 2) * attack.Power * ((float)battle.Pokemon.Stat.Attack / (float)battle.EnemyPokemon.Stat.Defence)) / 50);
+                if (attack.Power.HasValue)
+                {
+                    damage = Convert.ToInt32((((2 * battle.Pokemon.Level / 5) + 2) * attack.Power * ((float)battle.Pokemon.Stat.Attack / (float)battle.EnemyPokemon.Stat.Defence)) / 50);
+                }
+
                 BattleLog.AppendText($"Zaatakowano {battle.EnemyPokemon.Name} za {damage} - jego obrona wynosiła {(float)battle.EnemyPokemon.Stat.Defence}");
                 return damage;
             }
@@ -41,7 +45,11 @@ namespace Pokemon
                 {
                     ChangeTempStats(isPlayerAttack, attack, battle);
                 }
-                damage = Convert.ToInt32((((2 * battle.EnemyPokemon.Level / 5) + 2) * attack.Power * ((float)battle.EnemyPokemon.Stat.Attack / (float)battle.Pokemon.Stat.Defence)) / 50);
+                if (attack.Power.HasValue)
+                {
+                    damage = Convert.ToInt32((((2 * battle.EnemyPokemon.Level / 5) + 2) * attack.Power * ((float)battle.EnemyPokemon.Stat.Attack / (float)battle.Pokemon.Stat.Defence)) / 50);
+                }
+
                 return damage;
             }
         }
@@ -84,35 +92,35 @@ namespace Pokemon
                 switch (statType)
                 {
                     case (int)PokemonEnum.Stat.Attack:
-                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] < 6 || battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] > -6)
+                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] < 6 && battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] > -6)
                         {
                             battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] += stageValue;
                             battle.EnemyPokemon.Stat.Attack = Convert.ToInt32(battle.EnemyPokemonStartStats.Attack * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Attack]));
                         }
                         break;
                     case (int)PokemonEnum.Stat.Defence:
-                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] < 6 || battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] > -6)
+                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] < 6 && battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] > -6)
                         {
                             battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] += stageValue;
                             battle.EnemyPokemon.Stat.Defence = Convert.ToInt32(battle.EnemyPokemonStartStats.Defence * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Defence]));
                         }
                         break;
                     case (int)PokemonEnum.Stat.SpecialAttack:
-                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] < 6 || battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] > -6)
+                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] < 6 && battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] > -6)
                         {
                             battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] += stageValue;
                             battle.EnemyPokemon.Stat.SpecialAttack = Convert.ToInt32(battle.EnemyPokemonStartStats.SpecialAttack * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack]));
                         }
                         break;
                     case (int)PokemonEnum.Stat.SpecialDefence:
-                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] < 6 || battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] > -6)
+                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] < 6 && battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] > -6)
                         {
                             battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] += stageValue;
                             battle.EnemyPokemon.Stat.SpecialDefence = Convert.ToInt32(battle.EnemyPokemonStartStats.SpecialDefence * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence]));
                         }
                         break;
                     case (int)PokemonEnum.Stat.Speed:
-                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] < 6 || battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] > -6)
+                        if (battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] < 6 && battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] > -6)
                         {
                             battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] += stageValue;
                             battle.EnemyPokemon.Stat.Speed = Convert.ToInt32(battle.EnemyPokemonStartStats.Speed * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[(int)PokemonEnum.Stat.Speed]));
@@ -127,35 +135,39 @@ namespace Pokemon
                 switch (statType)
                 {
                     case (int)PokemonEnum.Stat.Attack:
-                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] < 6 || battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] > -6)
+                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] < 6 && battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] > -6)
                         {
                             battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Attack] += stageValue;
                             battle.Pokemon.Stat.Attack = Convert.ToInt32(battle.PokemonStartStats.Attack * StageHelper.StageToMultipler(battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Attack]));
                         }
                         break;
                     case (int)PokemonEnum.Stat.Defence:
-                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] < 6 || battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] > -6)
+                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] < 6 && battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] > -6)
                         {
                             battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Defence] += stageValue;
                             battle.Pokemon.Stat.Defence = Convert.ToInt32(battle.PokemonStartStats.Defence * StageHelper.StageToMultipler(battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Defence]));
                         }
+                        else
+                        {
+                            BattleLog.AppendText($"{battle.Pokemon.Name} defence cannot go any higher than {(float)battle.Pokemon.Stat.Defence}");
+                        }
                         break;
                     case (int)PokemonEnum.Stat.SpecialAttack:
-                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] < 6 || battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] > -6)
+                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] < 6 && battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] > -6)
                         {
                             battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack] += stageValue;
                             battle.Pokemon.Stat.SpecialAttack = Convert.ToInt32(battle.PokemonStartStats.SpecialAttack * StageHelper.StageToMultipler(battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialAttack]));
                         }
                         break;
                     case (int)PokemonEnum.Stat.SpecialDefence:
-                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] < 6 || battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] > -6)
+                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] < 6 && battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] > -6)
                         {
                             battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence] += stageValue;
                             battle.Pokemon.Stat.SpecialDefence = Convert.ToInt32(battle.PokemonStartStats.SpecialDefence * StageHelper.StageToMultipler(battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.SpecialDefence]));
                         }
                         break;
                     case (int)PokemonEnum.Stat.Speed:
-                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] < 6 || battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] > -6)
+                        if (battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] < 6 && battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] > -6)
                         {
                             battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Speed] += stageValue;
                             battle.Pokemon.Stat.Speed = Convert.ToInt32(battle.PokemonStartStats.Speed * StageHelper.StageToMultipler(battle.Pokemon.statModifierStages[(int)PokemonEnum.Stat.Speed]));

@@ -21,8 +21,14 @@ namespace Pokemon
                     case 2:
                         return Properties.Resources._002_ivysaur_back;
 
+                    case 4:
+                        return Properties.Resources._004_charmander_back;
+
                     case 13:
                         return Properties.Resources._013_weedle_back;
+
+                    case 14:
+                        return Properties.Resources._014_kakuna_back;
 
                     case 74:
                         return Properties.Resources._074_geodude_back;
@@ -40,10 +46,16 @@ namespace Pokemon
                         return Properties.Resources._001_bulbasaur_front;
 
                     case 2:
-                        //return Properties.Resources._002;
-                        break;
+                    //return Properties.Resources._002;
+
+                    case 4:
+                        return Properties.Resources._004_charmander_front;
+
                     case 13:
                         return Properties.Resources._013_weedle_front;
+
+                    case 14:
+                        return Properties.Resources._014_kakuna_front;
 
                     case 74:
                         return Properties.Resources._074_geodude_front;
@@ -53,7 +65,6 @@ namespace Pokemon
                         return null;
                 }
             }
-            return null;
         }
 
 

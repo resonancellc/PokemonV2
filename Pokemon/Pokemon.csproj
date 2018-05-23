@@ -135,6 +135,17 @@
   <ItemGroup>
     <None Include="Resources\074_geodude_front.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\004_charmander_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\004_charmander_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\014_kakuna_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\014_kakuna_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -93,6 +93,26 @@ namespace Pokemon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _004_charmander_back {
+            get {
+                object obj = ResourceManager.GetObject("_004_charmander_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _004_charmander_front {
+            get {
+                object obj = ResourceManager.GetObject("_004_charmander_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _013_weedle_back {
             get {
                 object obj = ResourceManager.GetObject("_013_weedle_back", resourceCulture);
@@ -106,6 +126,26 @@ namespace Pokemon.Properties {
         internal static System.Drawing.Bitmap _013_weedle_front {
             get {
                 object obj = ResourceManager.GetObject("_013_weedle_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _014_kakuna_back {
+            get {
+                object obj = ResourceManager.GetObject("_014_kakuna_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _014_kakuna_front {
+            get {
+                object obj = ResourceManager.GetObject("_014_kakuna_front", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
