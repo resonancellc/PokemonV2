@@ -20,9 +20,9 @@ namespace Pokemon
         {
             Attack = 0,
             Defence = 1,
-            SpecialAttack,
-            SpecialDefence,
-            Speed
+            SpecialAttack = 2,
+            SpecialDefence = 3,
+            Speed = 4
         }
 
         
