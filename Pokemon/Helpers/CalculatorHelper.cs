@@ -19,6 +19,8 @@ namespace Pokemon
             stat.SpecialDefence = (((10 + pokemonStat.SpecialDefence + rand.Next(0, 20)) * 2) * level) / 100 + 5;
             stat.Speed = (((10 + pokemonStat.Speed + rand.Next(0, 20)) * 2) * level) / 100 + 5;
             stat.Health = ((10 + pokemonStat.Health + rand.Next(0, 20) + 50) * level) / 50 + 10;
+            stat.PrimaryTypeID = pokemonStat.PrimaryTypeID;
+            stat.SecondaryTypeID = pokemonStat.SecondaryTypeID;
             return stat;
         }
 
@@ -33,7 +35,12 @@ namespace Pokemon
                 }
                 if (attack.Power.HasValue)
                 {
-                    damage = Convert.ToInt32((((2 * battle.Pokemon.Level / 5) + 2) * attack.Power * ((float)battle.Pokemon.Stat.Attack / (float)battle.EnemyPokemon.Stat.Defence)) / 50);
+                    int baseDamage = (2 * battle.Pokemon.Level / 5) + 2;                   
+                    float attackDefenceRatio = (float)battle.Pokemon.Stat.Attack / (float)battle.EnemyPokemon.Stat.Defence;
+                    float multipler = ((float)AttackEffectivenessHelper.GetMultipler((int)attack.TypeID, battle.EnemyPokemon.Stat.PrimaryTypeID)) * ((float)(battle.EnemyPokemon.Stat.SecondaryTypeID.HasValue ? AttackEffectivenessHelper.GetMultipler((int)attack.TypeID, (int)battle.EnemyPokemon.Stat.SecondaryTypeID) : 1d));
+
+                    damage = Convert.ToInt32(baseDamage * attack.Power * multipler / 50);
+                        
                 }
 
                 BattleLog.AppendText($"Zaatakowano {battle.EnemyPokemon.Name} za {damage} - jego obrona wynosiła {(float)battle.EnemyPokemon.Stat.Defence}");

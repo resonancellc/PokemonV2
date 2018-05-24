@@ -39,8 +39,8 @@ namespace Pokemon
         private void Begin()
         {
              
-            Pokemon pokemon = PokemonGenerator.GetPokemon(4,25);
-            Pokemon enemyPokemon = PokemonGenerator.GetPokemon(74, 10);
+            Pokemon pokemon = PokemonGenerator.GetPokemon(4,16);
+            Pokemon enemyPokemon = PokemonGenerator.GetPokemon(1, 10);
 
             playerPkmnImage.Image = IdToImage(true, pokemon.ID);
             enemyPkmnImage.Image = IdToImage(false, enemyPokemon.ID);

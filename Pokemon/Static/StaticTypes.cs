@@ -44,7 +44,9 @@ namespace Pokemon
                     Defence = (int)values[4],
                     SpecialAttack = (int)values[5],
                     SpecialDefence = (int)values[6],
-                    Speed = (int)values[7]
+                    Speed = (int)values[7],
+                    PrimaryTypeID = (int)values[8],
+                    SecondaryTypeID = values[9] != DBNull.Value ? (int?)values[9] : null
                 };
                 pokemonStatList.Add(pokemonStat);
             }
@@ -61,7 +63,8 @@ namespace Pokemon
                     Name = (string)values[1],
                     Power = values[2] != DBNull.Value ? (int?)values[2] : null,
                     Accuracy = values[3] != DBNull.Value ? (int?)values[3] : null,
-                    BoostStats = values[4] != DBNull.Value ? (string)values[4] : string.Empty
+                    BoostStats = values[4] != DBNull.Value ? (string)values[4] : string.Empty,
+                    TypeID = values[5] != DBNull.Value ? (int?)values[5] : null
                 };
                 attackList.Add(attack);
             }

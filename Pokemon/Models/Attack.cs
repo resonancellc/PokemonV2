@@ -18,7 +18,7 @@ namespace Pokemon
         public string BoostStats { get; set; }
         public float PoisonChance { get; set; }
 
-        public PokemonEnum.Type type;
+        public int? TypeID { get; set; }
     }
 
     

@@ -15,8 +15,11 @@ namespace Pokemon
         public int HPMax { get; set; }
         public int HPCurrent { get; set; }
         public Stat Stat { get; set; }
-    
-        public PokemonEnum.Type type;
+
+        public int PrimaryTypeID { get; set; }
+        public int? SecondaryTypeID { get; set; }
+
+
         public Attack[] attackPool = new Attack[4];
         public int[] statModifierStages = { 0,0,0,0,0 }; 
  
@@ -29,6 +32,10 @@ namespace Pokemon
 
             this.HPMax = pokemonStat.Health;
             this.HPCurrent = this.HPMax;
+
+            this.PrimaryTypeID = pokemonStat.PrimaryTypeID;
+            this.SecondaryTypeID = pokemonStat.SecondaryTypeID;
+
             SetPokemonAttackPool();
         }
 

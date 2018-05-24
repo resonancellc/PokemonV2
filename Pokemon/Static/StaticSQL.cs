@@ -49,7 +49,7 @@ namespace Pokemon
 
         public static DataTable GetPokemonStatList()
         {
-            return ExecuteSQLQuery(@"SELECT Pokemon.ID, Pokemon.Name, BaseStats.Health, BaseStats.Attack,BaseStats.Defence,BaseStats.SpecialAttack,BaseStats.SpecialDefence,BaseStats.Speed 
+            return ExecuteSQLQuery(@"SELECT Pokemon.ID, Pokemon.Name, BaseStats.Health, BaseStats.Attack,BaseStats.Defence,BaseStats.SpecialAttack,BaseStats.SpecialDefence,BaseStats.Speed ,BaseStats.PrimaryTypeID,BaseStats.SecondaryTypeID
                                      FROM Pokemon 
                                      INNER JOIN BaseStats ON Pokemon.ID = BaseStats.ID 
                                      ORDER BY Pokemon.ID ASC");
@@ -57,7 +57,7 @@ namespace Pokemon
 
         public static DataTable GetPokemonAttackList()
         {
-            return ExecuteSQLQuery(@"SELECT ID,[Name],[Power],Accuracy,BoostStats
+            return ExecuteSQLQuery(@"SELECT ID,[Name],[Power],Accuracy,BoostStats,TypeID
                                      FROM Attack");
         }
 

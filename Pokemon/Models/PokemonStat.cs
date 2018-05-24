@@ -15,6 +15,8 @@ namespace Pokemon
         public int SpecialDefence { get; set; }
         public int Speed { get; set; }
         public int Health { get; set; }
+        public int PrimaryTypeID { get; set; }
+        public int? SecondaryTypeID { get; set; }
 
         public Stat()
         {
@@ -35,6 +37,7 @@ namespace Pokemon
     {
         public string Name { get; set; }
         public int ID { get; set; }
+        
     }
 
 

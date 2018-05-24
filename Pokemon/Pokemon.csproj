@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AttackEffectivenessHelper.cs" />
     <Compile Include="Helpers\StageHelper.cs" />
     <Compile Include="Models\Attack.cs" />
     <Compile Include="Battle.cs" />
