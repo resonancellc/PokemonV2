@@ -40,14 +40,10 @@ namespace Pokemon
                     ID = (int)values[0],
                     Name = (string)values[1],
                     Health = (int)values[2],
-                    Attack = (int)values[3],
-                    Defence = (int)values[4],
-                    SpecialAttack = (int)values[5],
-                    SpecialDefence = (int)values[6],
-                    Speed = (int)values[7],
                     PrimaryTypeID = (int)values[8],
                     SecondaryTypeID = values[9] != DBNull.Value ? (int?)values[9] : null
                 };
+                pokemonStat.SetStatsArray((int)values[3], (int)values[4], (int)values[5], (int)values[6], (int)values[7]);
                 pokemonStatList.Add(pokemonStat);
             }
         }

@@ -19,7 +19,6 @@ namespace Pokemon
         public int PrimaryTypeID { get; set; }
         public int? SecondaryTypeID { get; set; }
 
-
         public Attack[] attackPool = new Attack[4];
         public int[] statModifierStages = { 0,0,0,0,0 }; 
  

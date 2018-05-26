@@ -42,8 +42,8 @@ namespace Pokemon
             Pokemon pokemon = PokemonGenerator.GetPokemon(4,16);
             Pokemon enemyPokemon = PokemonGenerator.GetPokemon(1, 10);
 
-            playerPkmnImage.Image = IdToImage(true, pokemon.ID);
-            enemyPkmnImage.Image = IdToImage(false, enemyPokemon.ID);
+            playerPkmnImage.Image = ImageHelper.GetImageById(true, pokemon.ID);
+            enemyPkmnImage.Image = ImageHelper.GetImageById(false, enemyPokemon.ID);
 
             battle = new Battle(pokemon, enemyPokemon);
 
@@ -105,10 +105,7 @@ namespace Pokemon
 
         #endregion
 
-        private Bitmap IdToImage(bool isPlayer, int id)
-        {
-            return ImageHelper.GetImageById(isPlayer, id);
-        }
+
 
         private void UpdateBattleInterface(Pokemon pokemon, Pokemon enemyPokemon)
         {
@@ -165,26 +162,20 @@ namespace Pokemon
             string attackName = ((Button)sender).Text;
             Attack attack = StaticTypes.attackList.Where(x => x.Name == attackName).First();
 
-
-
             damage = battle.Attack(true, attack);
             BattleLog.AppendText($"Your {battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
             tbLog.Text = BattleLog.Log;
 
             UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
-
-
-
             
             if (battle.EnemyPokemon.CheckIfPokemonAlive())
             {
                 attack = null;
+
                 while (attack == null)
                 {
                     attack = battle.EnemyPokemon.attackPool[rand.Next(0, battle.EnemyPokemon.attackPool.Length)];
                 }
-
-                
 
                 damage = battle.Attack(false, attack);
                 BattleLog.AppendText($"Enemy {battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");

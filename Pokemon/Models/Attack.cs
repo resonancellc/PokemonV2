@@ -16,7 +16,6 @@ namespace Pokemon
         public int? Accuracy { get; set; }
 
         public string BoostStats { get; set; }
-        public float PoisonChance { get; set; }
 
         public int? TypeID { get; set; }
     }
