@@ -39,8 +39,8 @@ namespace Pokemon
         private void Begin()
         {
              
-            Pokemon pokemon = PokemonGenerator.GetPokemon(4,16);
-            Pokemon enemyPokemon = PokemonGenerator.GetPokemon(1, 10);
+            Pokemon pokemon = PokemonGenerator.GetPokemon(4,5);
+            Pokemon enemyPokemon = PokemonGenerator.GetPokemon(7, 5);
 
             playerPkmnImage.Image = ImageHelper.GetImageById(true, pokemon.ID);
             enemyPkmnImage.Image = ImageHelper.GetImageById(false, enemyPokemon.ID);
@@ -155,20 +155,12 @@ namespace Pokemon
         private void attackButton_Click(object sender, EventArgs e)
         {
             int damage;
+            Random rand = new Random();
+            Attack attack = null;
             BattleLog.ClearText();
             tbLog.Text = BattleLog.Log;
 
-            Random rand = new Random();
-            string attackName = ((Button)sender).Text;
-            Attack attack = StaticTypes.attackList.Where(x => x.Name == attackName).First();
-
-            damage = battle.Attack(true, attack);
-            BattleLog.AppendText($"Your {battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
-            tbLog.Text = BattleLog.Log;
-
-            UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
-            
-            if (battle.EnemyPokemon.CheckIfPokemonAlive())
+            if (battle.EnemyPokemon.Stat.Stats[4] > battle.Pokemon.Stat.Stats[4]) // enemy pokemon is faster
             {
                 attack = null;
 
@@ -177,17 +169,83 @@ namespace Pokemon
                     attack = battle.EnemyPokemon.attackPool[rand.Next(0, battle.EnemyPokemon.attackPool.Length)];
                 }
 
-                damage = battle.Attack(false, attack);
-                BattleLog.AppendText($"Enemy {battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");
-                tbLog.Text = BattleLog.Log;
-            }
+                if (rand.Next(0,100) < attack.Accuracy)
+                {
+                    damage = battle.Attack(false, attack);
+                    BattleLog.AppendText($"Enemy {battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");
+                    tbLog.Text = BattleLog.Log;          
+                }
+                else
+                {
+                    BattleLog.AppendText($"{battle.EnemyPokemon.Name} missed!");
+                    tbLog.Text = BattleLog.Log;
+                }
 
-            if (!battle.Pokemon.CheckIfPokemonAlive())
+                if (battle.Pokemon.CheckIfPokemonAlive())
+                {
+                    attack = StaticTypes.attackList.Where(x => x.Name == ((Button)sender).Text).First();
+                    if (rand.Next(0, 100) < attack.Accuracy)
+                    {
+                        damage = battle.Attack(true, attack);
+                        BattleLog.AppendText($"Your {battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
+                        tbLog.Text = BattleLog.Log;
+                    }
+                    else
+                    {
+                        BattleLog.AppendText($"{battle.Pokemon.Name} missed!");
+                        tbLog.Text = BattleLog.Log;
+                    }
+                }
+                else
+                {
+                    tbLog.Text = $"{battle.Pokemon.Name} has fainted!";
+                    BlockUI();
+                }
+
+            }
+            else
             {
-                tbLog.Text = $"{battle.Pokemon.Name} has fainted!";
-                BlockUI();
+                attack = StaticTypes.attackList.Where(x => x.Name == ((Button)sender).Text).First();
+                if (rand.Next(0, 100) < attack.Accuracy)
+                {
+                    damage = battle.Attack(true, attack);
+                    BattleLog.AppendText($"Your {battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
+                    tbLog.Text = BattleLog.Log;
+                }
+                else
+                {
+                    BattleLog.AppendText($"{battle.Pokemon.Name} missed!");
+                    tbLog.Text = BattleLog.Log;
+                }
+
+                if (battle.EnemyPokemon.CheckIfPokemonAlive())
+                {
+                    attack = null;
+
+                    while (attack == null)
+                    {
+                        attack = battle.EnemyPokemon.attackPool[rand.Next(0, battle.EnemyPokemon.attackPool.Length)];
+                    }
+                    if (rand.Next(0, 100) < attack.Accuracy)
+                    {
+                        damage = battle.Attack(false, attack);
+                        BattleLog.AppendText($"Enemy {battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");
+                        tbLog.Text = BattleLog.Log;
+                    }
+                    else
+                    {
+                        BattleLog.AppendText($"{battle.EnemyPokemon.Name} missed!");
+                        tbLog.Text = BattleLog.Log;
+                    }
+                    
+                }
+                else
+                {
+                    tbLog.Text = $"{battle.EnemyPokemon.Name} has fainted!";
+                }
             }
 
+            
             UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
         }
 

@@ -24,6 +24,12 @@ namespace Pokemon
                     case 4:
                         return Properties.Resources._004_charmander_back;
 
+                    case 7:
+                        return Properties.Resources._007_squirtle_back;
+
+                    case 8:
+                        return Properties.Resources._008_wartortle_back;
+
                     case 13:
                         return Properties.Resources._013_weedle_back;
 
@@ -50,6 +56,12 @@ namespace Pokemon
 
                     case 4:
                         return Properties.Resources._004_charmander_front;
+
+                    case 7:
+                        return Properties.Resources._007_squirtle_front;
+
+                    case 8:
+                        return Properties.Resources._008_wartortle_front;
 
                     case 13:
                         return Properties.Resources._013_weedle_front;

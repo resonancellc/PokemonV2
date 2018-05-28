@@ -113,6 +113,46 @@ namespace Pokemon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _007_squirtle_back {
+            get {
+                object obj = ResourceManager.GetObject("_007_squirtle_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _007_squirtle_front {
+            get {
+                object obj = ResourceManager.GetObject("_007_squirtle_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _008_wartortle_back {
+            get {
+                object obj = ResourceManager.GetObject("_008_wartortle_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _008_wartortle_front {
+            get {
+                object obj = ResourceManager.GetObject("_008_wartortle_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _013_weedle_back {
             get {
                 object obj = ResourceManager.GetObject("_013_weedle_back", resourceCulture);

@@ -148,5 +148,17 @@
   <ItemGroup>
     <None Include="Resources\014_kakuna_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\007_squirtle_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\007_squirtle_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\008_wartortle_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\008_wartortle_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
