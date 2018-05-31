@@ -61,6 +61,11 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="PlayerEquipment.cs" />
     <Compile Include="Models\Pokemon.cs" />
+    <Compile Include="Player\PlayerItems.cs" />
+    <Compile Include="PokemonParty\EnemyPokemonParty.cs" />
+    <Compile Include="PokemonParty\PlayerPokemonParty.cs" />
+    <Compile Include="PokemonParty\IPokemonParty.cs" />
+    <Compile Include="PokemonParty\PokemonParty.cs" />
     <Compile Include="Static\PokemonEnum.cs" />
     <Compile Include="Generators\PokemonGenerator.cs" />
     <Compile Include="Models\PokemonStat.cs" />

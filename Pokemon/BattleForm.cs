@@ -14,8 +14,10 @@ namespace Pokemon
     public partial class BattleForm : Form
     {
         Button[] attackButtons = new Button[4];
-
+        PlayerPokemonParty playerParty = new PlayerPokemonParty();
+        EnemyPokemonParty enemyParty = new EnemyPokemonParty();
         Battle battle;
+
         public BattleForm()
         {
             InitializeComponent();
@@ -38,9 +40,17 @@ namespace Pokemon
 
         private void Begin()
         {
-             
+            
+
+            
+            
+
             Pokemon pokemon = PokemonGenerator.GetPokemon(4,5);
+            Pokemon pokemon2 = PokemonGenerator.GetPokemon(1, 5);
+            playerParty.AddToParty(pokemon);
+            playerParty.AddToParty(pokemon2);
             Pokemon enemyPokemon = PokemonGenerator.GetPokemon(7, 5);
+            enemyParty.AddToParty(enemyPokemon);
 
             playerPkmnImage.Image = ImageHelper.GetImageById(true, pokemon.ID);
             enemyPkmnImage.Image = ImageHelper.GetImageById(false, enemyPokemon.ID);
