@@ -25,6 +25,11 @@ namespace Pokemon
             this.EnemyPokemonStartStats = new Stat(enemyPokemon.Stat);
         }
 
+        public void SetPokemon(Pokemon pokemon)
+        {
+            this.Pokemon = pokemon;
+        }
+
 
         public int Attack(bool isPlayerAttack, Attack attack)
         {

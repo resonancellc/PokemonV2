@@ -18,3 +18,5 @@ D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.csproj.GenerateResource.Cache
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.csproj.CoreCompileInputs.cache
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.exe
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.pdb
+D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.PokemonPartyForm.resources
+D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.PokemonPanel.resources

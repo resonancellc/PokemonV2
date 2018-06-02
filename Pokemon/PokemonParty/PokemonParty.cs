@@ -6,51 +6,119 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public abstract class PokemonParty : IPokemonParty
+    public static class PokemonParty
     {
-        public Pokemon[] playerPokemons = new Pokemon[6];
+        public static Pokemon[] playerPokemons = new Pokemon[6];
+        public static Pokemon[] enemyPokemons = new Pokemon[6];
 
-        public virtual void AddToParty(Pokemon pokemon)
+        public static void AddToParty(Pokemon pokemon, bool isPlayerParty)
         {
-            if (playerPokemons.Where(x => x == null).Any())
+            if (isPlayerParty)
             {
-                for (int i = 0; i < playerPokemons.Length; i++)
+                if (playerPokemons.Where(x => x == null).Any())
                 {
-                    if (playerPokemons[i] == null)
+                    for (int i = 0; i < playerPokemons.Length; i++)
                     {
-                        playerPokemons[i] = pokemon;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                // partys full
-            }
-        }
-
-        public virtual void AddManyToParty(Pokemon[] pokemons)
-        {
-            if (playerPokemons.Where(x => x == null).Count() >= pokemons.Length) // if we have enough place for newcoming pokemons
-            {
-                int j = 0;
-                for (int i = 0; i < playerPokemons.Length; i++)
-                {
-                    if (playerPokemons[i] == null)
-                    {
-                        playerPokemons[i] = pokemons[j];
-                        j++;
-                        if (pokemons[j + 1] == null)
+                        if (playerPokemons[i] == null)
                         {
+                            playerPokemons[i] = pokemon;
                             break;
                         }
                     }
                 }
+                else
+                {
+                    // partys full
+                } 
             }
             else
             {
-                // partys full
+                if (enemyPokemons.Where(x => x == null).Any())
+                {
+                    for (int i = 0; i < enemyPokemons.Length; i++)
+                    {
+                        if (enemyPokemons[i] == null)
+                        {
+                            enemyPokemons[i] = pokemon;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    // partys full
+                }
             }
+        }
+
+        public static void AddManyToParty(Pokemon[] pokemons, bool isPlayerParty)
+        {
+            if (isPlayerParty)
+            {
+                if (playerPokemons.Where(x => x == null).Count() >= pokemons.Length) // if we have enough place for newcoming pokemons
+                {
+                    int j = 0;
+                    for (int i = 0; i < playerPokemons.Length; i++)
+                    {
+                        if (playerPokemons[i] == null)
+                        {
+                            playerPokemons[i] = pokemons[j];
+                            j++;
+                            if (j == pokemons.Length)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // partys full
+                } 
+            }
+            else
+            {
+                if (enemyPokemons.Where(x => x == null).Count() >= pokemons.Length) // if we have enough place for newcoming pokemons
+                {
+                    int j = 0;
+                    for (int i = 0; i < enemyPokemons.Length; i++)
+                    {
+                        if (enemyPokemons[i] == null)
+                        {
+                            enemyPokemons[i] = pokemons[j];
+                            j++;
+                            if (j == pokemons.Length)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // partys full
+                }
+            }
+        }
+
+        public static Pokemon GetPokemon(int index, bool fromPlayersParty)
+        {
+            if (fromPlayersParty)
+            {
+                if (playerPokemons[index] != null)
+                {
+                    return playerPokemons[index];
+                } 
+            }
+            else
+            {
+                if (enemyPokemons[index] != null)
+                {
+                    return enemyPokemons[index];
+                }
+            }
+
+            return null;
         }
     }
 }

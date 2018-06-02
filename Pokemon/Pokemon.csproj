@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\PokemonPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PokemonPanel.Designer.cs">
+      <DependentUpon>PokemonPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\AttackEffectivenessHelper.cs" />
     <Compile Include="Helpers\StageHelper.cs" />
     <Compile Include="Models\Attack.cs" />
@@ -62,9 +68,12 @@
     <Compile Include="PlayerEquipment.cs" />
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="Player\PlayerItems.cs" />
-    <Compile Include="PokemonParty\EnemyPokemonParty.cs" />
-    <Compile Include="PokemonParty\PlayerPokemonParty.cs" />
-    <Compile Include="PokemonParty\IPokemonParty.cs" />
+    <Compile Include="PokemonPartyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PokemonPartyForm.Designer.cs">
+      <DependentUpon>PokemonPartyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PokemonParty\PokemonParty.cs" />
     <Compile Include="Static\PokemonEnum.cs" />
     <Compile Include="Generators\PokemonGenerator.cs" />
@@ -75,6 +84,12 @@
     <Compile Include="Static\StaticTypes.cs" />
     <EmbeddedResource Include="BattleForm.resx">
       <DependentUpon>BattleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PokemonPanel.resx">
+      <DependentUpon>PokemonPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PokemonPartyForm.resx">
+      <DependentUpon>PokemonPartyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

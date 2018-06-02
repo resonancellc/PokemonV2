@@ -14,8 +14,6 @@ namespace Pokemon
     public partial class BattleForm : Form
     {
         Button[] attackButtons = new Button[4];
-        PlayerPokemonParty playerParty = new PlayerPokemonParty();
-        EnemyPokemonParty enemyParty = new EnemyPokemonParty();
         Battle battle;
 
         public BattleForm()
@@ -35,29 +33,22 @@ namespace Pokemon
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Pokemon[] pokemons = { PokemonGenerator.GetPokemon(4, 14), PokemonGenerator.GetPokemon(74, 12) };
+            PokemonParty.AddManyToParty(pokemons, true);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(7, 5), false);
+
             Begin();
         }
 
         private void Begin()
         {
-            
-
-            
-            
-
-            Pokemon pokemon = PokemonGenerator.GetPokemon(4,5);
-            Pokemon pokemon2 = PokemonGenerator.GetPokemon(1, 5);
-            playerParty.AddToParty(pokemon);
-            playerParty.AddToParty(pokemon2);
-            Pokemon enemyPokemon = PokemonGenerator.GetPokemon(7, 5);
-            enemyParty.AddToParty(enemyPokemon);
-
-            playerPkmnImage.Image = ImageHelper.GetImageById(true, pokemon.ID);
-            enemyPkmnImage.Image = ImageHelper.GetImageById(false, enemyPokemon.ID);
+            Pokemon pokemon = PokemonParty.GetPokemon(0, true);
+            Pokemon enemyPokemon = PokemonParty.GetPokemon(0, false);
 
             battle = new Battle(pokemon, enemyPokemon);
-
+            
             SetAttackButtons(pokemon);
+            SetPokemonImages(pokemon.ID, enemyPokemon.ID);
             SetPkmnHealthBars(pokemon, enemyPokemon);
             SetPkmnLabels(pokemon, enemyPokemon);
 
@@ -106,7 +97,17 @@ namespace Pokemon
         }
         private void SwitchPokemon()
         {
-            tbLog.Text = "You don't have any other pokemon!";
+            PokemonPartyForm pokemonPartyForm = new PokemonPartyForm();
+            pokemonPartyForm.Show();
+            pokemonPartyForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+
+
+
+            //int index = 1;
+            //Pokemon pokemon = playerParty.GetPokemon(index);
+            //SetAttackButtons(pokemon);
+            //battle.SetPokemon(pokemon);
+            //RedrawUI();
         }
         private void UseItem()
         {
@@ -115,7 +116,19 @@ namespace Pokemon
 
         #endregion
 
+        private void RedrawUI()
+        {
+            SetPokemonImages(battle.Pokemon.ID, battle.EnemyPokemon.ID);
+            UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
+            SetPkmnHealthBars(battle.Pokemon, battle.EnemyPokemon);
+            SetPkmnLabels(battle.Pokemon, battle.EnemyPokemon);
+        }
 
+        private void SetPokemonImages(int playerPokemonID, int enemyPokemonID)
+        {
+            playerPkmnImage.Image = ImageHelper.GetImageById(true, playerPokemonID);
+            enemyPkmnImage.Image = ImageHelper.GetImageById(false, enemyPokemonID);
+        }
 
         private void UpdateBattleInterface(Pokemon pokemon, Pokemon enemyPokemon)
         {
