@@ -36,7 +36,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 370);
             this.Name = "PokemonPartyForm";
-            this.Text = "PokemonPartyForm";
+            this.Text = "PkmnParty";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PokemonPartyForm_FormClosing);
             this.ResumeLayout(false);
 
         }

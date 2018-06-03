@@ -34,10 +34,8 @@ namespace Pokemon
         public int Attack(bool isPlayerAttack, Attack attack)
         {
             int damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
-            if (attack.Power.HasValue  && damage < 1)
-            {
-                damage = 1;
-            }
+            if (attack.Power.HasValue  && damage < 1) damage = 1; // 1 is minimum damage can be dealt
+
             if (isPlayerAttack) EnemyPokemon.Hurt(damage);
             else Pokemon.Hurt(damage);
 

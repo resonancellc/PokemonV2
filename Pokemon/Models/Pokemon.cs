@@ -59,7 +59,13 @@ namespace Pokemon
 
             for (int i = 0; i < attackList.Count; i++)
             {
-                attackPool[i] = attackList[i];
+                int offset = 0;
+                if (attackList.Count > 4)
+                {
+                    offset = attackList.Count - 4;
+                }
+                if (i >= 4) break;
+                attackPool[i] = attackList[i+offset];
             }
         }
 

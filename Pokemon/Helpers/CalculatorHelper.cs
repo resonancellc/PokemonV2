@@ -33,7 +33,7 @@ namespace Pokemon
             int damage = 0;
             if (isPlayerAttack)
             {
-                if (attack.BoostStats != string.Empty && attack.BoostStats != null)
+                if (attack.BoostStats != string.Empty)
                 {
                     ChangeTempStats(isPlayerAttack, attack, battle);
                 }
