@@ -60,11 +60,12 @@ namespace Pokemon
             for (int i = 0; i < attackList.Count; i++)
             {
                 int offset = 0;
-                if (attackList.Count > 4)
-                {
-                    offset = attackList.Count - 4;
-                }
-                if (i >= 4) break;
+
+                if (attackList.Count > 4) offset = attackList.Count - 4; // przesunięcie atakow
+
+#warning moze przeniesc to do parametrow for'a?
+                if (i >= 4) break; 
+
                 attackPool[i] = attackList[i+offset];
             }
         }

@@ -180,5 +180,26 @@
   <ItemGroup>
     <None Include="Resources\008_wartortle_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\003_venusaur_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\003_venusaur_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\002_ivysaur_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\006_charizard_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\006_charizard_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\005_charmeleon_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\005_charmeleon_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

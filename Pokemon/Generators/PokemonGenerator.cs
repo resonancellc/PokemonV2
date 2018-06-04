@@ -11,8 +11,16 @@ namespace Pokemon
         public static Pokemon GetPokemon(int level)
         {
             Random rand = new Random();
-            var IDs = StaticSQL.GetAvailablePokemonIDs().Rows;
-            int id = Convert.ToInt32(IDs[rand.Next(IDs.Count)].ItemArray[0]);
+            //var IDs = StaticSQL.GetAvailablePokemonIDs().Rows;
+
+
+            List<int> IDs = new List<int>();
+            foreach (Item pokemon in StaticTypes.pokemonList)
+            {
+                IDs.Add(pokemon.ID);
+            }
+
+            int id = IDs[rand.Next(IDs.Count)];
 
 
             return new Pokemon(id, level, CalculatorHelper.CalculateStats(level, StaticTypes.GetPokeStatsByID(id)));

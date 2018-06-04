@@ -93,6 +93,36 @@ namespace Pokemon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _002_ivysaur_front {
+            get {
+                object obj = ResourceManager.GetObject("_002_ivysaur_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _003_venusaur_back {
+            get {
+                object obj = ResourceManager.GetObject("_003_venusaur_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _003_venusaur_front {
+            get {
+                object obj = ResourceManager.GetObject("_003_venusaur_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _004_charmander_back {
             get {
                 object obj = ResourceManager.GetObject("_004_charmander_back", resourceCulture);
@@ -106,6 +136,46 @@ namespace Pokemon.Properties {
         internal static System.Drawing.Bitmap _004_charmander_front {
             get {
                 object obj = ResourceManager.GetObject("_004_charmander_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _005_charmeleon_back {
+            get {
+                object obj = ResourceManager.GetObject("_005_charmeleon_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _005_charmeleon_front {
+            get {
+                object obj = ResourceManager.GetObject("_005_charmeleon_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _006_charizard_back {
+            get {
+                object obj = ResourceManager.GetObject("_006_charizard_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _006_charizard_front {
+            get {
+                object obj = ResourceManager.GetObject("_006_charizard_front", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

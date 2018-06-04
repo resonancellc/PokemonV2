@@ -34,7 +34,16 @@ namespace Pokemon
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Pokemon[] pokemons = { PokemonGenerator.GetPokemon(4, 25), PokemonGenerator.GetPokemon(74, 12) };
+            Pokemon[] pokemons = new Pokemon[6];
+            for (int i = 0; i < 6; i++)
+            {
+                Pokemon poke = PokemonGenerator.GetPokemon(50);
+                pokemons[i] = poke;
+            }
+
+
+            //Pokemon[] pokemons = { PokemonGenerator.GetPokemon(4, 25), PokemonGenerator.GetPokemon(74, 12) };
+
             PokemonParty.AddManyToParty(pokemons, true);
             PokemonParty.AddToParty(PokemonGenerator.GetPokemon(7, 5), false);
 
