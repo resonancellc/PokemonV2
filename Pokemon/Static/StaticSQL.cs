@@ -57,7 +57,7 @@ namespace Pokemon
 
         public static DataTable GetPokemonAttackList()
         {
-            return ExecuteSQLQuery(@"SELECT ID,[Name],[Power],Accuracy,BoostStats,TypeID
+            return ExecuteSQLQuery(@"SELECT ID,[Name],[Power],Accuracy,BoostStats,TypeID, IsSpecial, AdditionalEffect
                                      FROM Attack");
         }
 

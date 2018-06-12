@@ -37,7 +37,7 @@ namespace Pokemon
             Pokemon[] pokemons = new Pokemon[6];
             for (int i = 0; i < 3; i++)
             {
-                Pokemon poke = PokemonGenerator.GetPokemon(50);
+                Pokemon poke = PokemonGenerator.GetPokemon(12);
                 pokemons[i] = poke;
             }
 
@@ -45,7 +45,7 @@ namespace Pokemon
             //Pokemon[] pokemons = { PokemonGenerator.GetPokemon(4, 25), PokemonGenerator.GetPokemon(74, 12) };
 
             PokemonParty.AddManyToParty(pokemons, true);
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(7, 5), false);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(7, 10), false);
 
             CreateBattle();
         }
@@ -204,7 +204,7 @@ namespace Pokemon
         private void PrintBattleInfo(string battleInfo)
         {
             BattleLog.AppendText(battleInfo);
-            tbLog.Text = battleInfo;
+            tbLog.Text += Environment.NewLine + battleInfo;
         }
 
         private void PrintBattleInfoDetailed(string battleInfo)
@@ -214,17 +214,22 @@ namespace Pokemon
 
         private void attackButton_Click(object sender, EventArgs e)
         {
+            tbLog.Text = "";
             if (battle.EnemyPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] > battle.Pokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed]) // enemy pokemon is faster
             {
                 EnemyPokemonAttack();
+                UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
                 if (battle.Pokemon.CheckIfPokemonAlive()) PlayerPokemonAttack((Button)sender);
             }
             else
             {
                 PlayerPokemonAttack((Button)sender);
+                UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
+
                 if (battle.EnemyPokemon.CheckIfPokemonAlive()) EnemyPokemonAttack();
             }
             UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
+            
         }
 
         private void EnemyPokemonAttack()
@@ -260,12 +265,14 @@ namespace Pokemon
             if (rand.Next(0, 100) < attack.Accuracy)
             {
                 damage = battle.Attack(true, attack);
-                PrintBattleInfo($"Your {battle.Pokemon.Name} used {attack.Name}!");
+                PrintBattleInfo($"Your {battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
             }
             else
             {
                 PrintBattleInfo($"{battle.Pokemon.Name} missed!");
             }
         }
+
+
     }
 }

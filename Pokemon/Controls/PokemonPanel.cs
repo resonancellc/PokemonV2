@@ -58,7 +58,6 @@ namespace Pokemon
             parentForm = (PokemonPartyForm)this.Parent;
             this.BackColor = Color.FromArgb(255, 200, 200);
             parentForm.PokemonPicked(Pokemon);
-            //MessageBox.Show($"{Index} pokemon has been picked");
         }
 
         private void MakePanelSelected(bool isSelected)

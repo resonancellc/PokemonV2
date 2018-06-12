@@ -36,6 +36,15 @@ namespace Pokemon
             Speed = 4
         }
 
+        public enum Condition
+        {
+            None = 0,
+            Burn = 1,
+            Freeze = 2,
+            Paralysis = 3,
+            Poison = 4,
+            Sleep = 5 
+        }
         
     }
 }

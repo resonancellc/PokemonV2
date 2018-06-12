@@ -60,7 +60,9 @@ namespace Pokemon
                     Power = values[2] != DBNull.Value ? (int?)values[2] : null,
                     Accuracy = values[3] != DBNull.Value ? (int?)values[3] : null,
                     BoostStats = values[4] != DBNull.Value ? (string)values[4] : string.Empty,
-                    TypeID = values[5] != DBNull.Value ? (int?)values[5] : null
+                    TypeID = values[5] != DBNull.Value ? (int?)values[5] : null,
+                    IsSpecial = values[6] != DBNull.Value ? (bool)values[6] : false,
+                    AdditionalEffect = values[7] != DBNull.Value ? (string)values[7] : string.Empty
                 };
                 attackList.Add(attack);
             }
