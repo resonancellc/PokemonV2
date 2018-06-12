@@ -207,5 +207,23 @@
   <ItemGroup>
     <None Include="Resources\009_blastoise_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\010_caterpie_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\010_caterpie_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\011_metapod_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\011_metapod_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\012_butterfree_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\012_butterfree_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

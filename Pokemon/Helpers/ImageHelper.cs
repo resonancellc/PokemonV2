@@ -24,6 +24,9 @@ namespace Pokemon
                     case 7: return Properties.Resources._007_squirtle_back;
                     case 8: return Properties.Resources._008_wartortle_back;
                     case 9: return Properties.Resources._009_blastoise_back;
+                    case 10: return Properties.Resources._010_caterpie_back;
+                    case 11: return Properties.Resources._011_metapod_back;
+                    case 12: return Properties.Resources._012_butterfree_back;
                     case 13: return Properties.Resources._013_weedle_back;
                     case 14: return Properties.Resources._014_kakuna_back;
                     case 74: return Properties.Resources._074_geodude_back;
@@ -45,6 +48,9 @@ namespace Pokemon
                     case 7: return Properties.Resources._007_squirtle_front;
                     case 8: return Properties.Resources._008_wartortle_front;
                     case 9: return Properties.Resources._009_blastoise_front;
+                    case 10: return Properties.Resources._010_caterpie_front;
+                    case 11: return Properties.Resources._011_metapod_front;
+                    case 12: return Properties.Resources._012_butterfree_front;
                     case 13: return Properties.Resources._013_weedle_front;
                     case 14: return Properties.Resources._014_kakuna_front;
                     case 74: return Properties.Resources._074_geodude_front;

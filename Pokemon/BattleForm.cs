@@ -35,7 +35,7 @@ namespace Pokemon
         private void MainForm_Load(object sender, EventArgs e)
         {
             Pokemon[] pokemons = new Pokemon[6];
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Pokemon poke = PokemonGenerator.GetPokemon(50);
                 pokemons[i] = poke;
