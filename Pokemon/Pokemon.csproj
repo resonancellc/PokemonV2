@@ -225,5 +225,11 @@
   <ItemGroup>
     <None Include="Resources\012_butterfree_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\015_beedrill_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\015_beedrill_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -343,6 +343,26 @@ namespace Pokemon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _015_beedrill_back {
+            get {
+                object obj = ResourceManager.GetObject("_015_beedrill_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _015_beedrill_front {
+            get {
+                object obj = ResourceManager.GetObject("_015_beedrill_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _074_geodude_back {
             get {
                 object obj = ResourceManager.GetObject("_074_geodude_back", resourceCulture);
