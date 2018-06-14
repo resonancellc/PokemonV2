@@ -233,7 +233,8 @@
             // playerPkmnImage
             // 
             this.playerPkmnImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.playerPkmnImage.Location = new System.Drawing.Point(11, 146);
+            this.playerPkmnImage.Image = global::Pokemon.Properties.Resources._013_weedle_back;
+            this.playerPkmnImage.Location = new System.Drawing.Point(51, 172);
             this.playerPkmnImage.Name = "playerPkmnImage";
             this.playerPkmnImage.Size = new System.Drawing.Size(120, 120);
             this.playerPkmnImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -255,7 +256,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(445, 451);
             this.Controls.Add(this.enemyPkmnImage);
-            this.Controls.Add(this.playerPkmnImage);
             this.Controls.Add(this.tbLog);
             this.Controls.Add(this.lblEnemyPkmnHealth);
             this.Controls.Add(this.lblEnemyPkmnName);
@@ -266,6 +266,7 @@
             this.Controls.Add(this.barPlayerPkmnHealth);
             this.Controls.Add(this.panelAttackPool);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.playerPkmnImage);
             this.Name = "BattleForm";
             this.Text = "Battle";
             this.Load += new System.EventHandler(this.MainForm_Load);

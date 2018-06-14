@@ -51,7 +51,10 @@ namespace Pokemon
                     Name = (string)values[1],
                     Power = StaticTypes.attackList.Where(x=>x.Name == (string)values[1]).FirstOrDefault().Power,
                     Accuracy = StaticTypes.attackList.Where(x => x.Name == (string)values[1]).FirstOrDefault().Accuracy,
-                    BoostStats = StaticTypes.attackList.Where(x => x.Name == (string)values[1]).FirstOrDefault().BoostStats
+                    BoostStats = StaticTypes.attackList.Where(x => x.Name == (string)values[1]).FirstOrDefault().BoostStats,
+                    TypeID = StaticTypes.attackList.Where(x => x.Name == (string)values[1]).FirstOrDefault().TypeID,
+                    IsSpecial = StaticTypes.attackList.Where(x => x.Name == (string)values[1]).FirstOrDefault().IsSpecial,
+                    AdditionalEffect = StaticTypes.attackList.Where(x => x.Name == (string)values[1]).FirstOrDefault().AdditionalEffect
                 };
 
                 if (attack.Level > this.Level) continue;

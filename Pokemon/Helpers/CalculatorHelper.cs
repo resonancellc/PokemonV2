@@ -60,6 +60,14 @@ namespace Pokemon
                 if (attack.Power.HasValue)
                 {
                     damage = Convert.ToInt32((((2 * battle.EnemyPokemon.Level / 5) + 2) * attack.Power * ((float)battle.EnemyPokemon.Stat.Stats[0] / (float)battle.Pokemon.Stat.Stats[1])) / 50);
+
+                    int baseDamage = (2 * battle.EnemyPokemon.Level / 5) + 2;
+                    float attackDefenceRatio = (float)battle.EnemyPokemon.Stat.Stats[0] / (float)battle.Pokemon.Stat.Stats[1];
+                    float multipler = ((float)AttackEffectivenessHelper.GetMultipler((int)attack.TypeID, battle.Pokemon.Stat.PrimaryTypeID))
+                                    * ((float)(battle.Pokemon.Stat.SecondaryTypeID.HasValue ? AttackEffectivenessHelper.GetMultipler((int)attack.TypeID, (int)battle.Pokemon.Stat.SecondaryTypeID) : 1d));
+
+                    damage = Convert.ToInt32(baseDamage * attack.Power * attackDefenceRatio * multipler / 50);
+
                 }
 
                 return damage;
