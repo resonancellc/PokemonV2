@@ -62,7 +62,7 @@ namespace Pokemon
                     BoostStats = values[4] != DBNull.Value ? (string)values[4] : string.Empty,
                     TypeID = values[5] != DBNull.Value ? (int?)values[5] : null,
                     IsSpecial = values[6] != DBNull.Value ? (bool)values[6] : false,
-                    AdditionalEffect = values[7] != DBNull.Value ? (string)values[7] : string.Empty
+                    AdditionalEffect = values[7] != DBNull.Value ? (string)values[7].ToString().Trim(' ') : string.Empty
                 };
                 attackList.Add(attack);
             }

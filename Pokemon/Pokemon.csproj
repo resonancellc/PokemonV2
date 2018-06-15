@@ -52,6 +52,7 @@
       <DependentUpon>PokemonPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AttackEffectivenessHelper.cs" />
+    <Compile Include="Helpers\BattleHelper.cs" />
     <Compile Include="Helpers\StageHelper.cs" />
     <Compile Include="Models\Attack.cs" />
     <Compile Include="Battle.cs" />

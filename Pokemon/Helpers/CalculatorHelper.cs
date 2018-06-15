@@ -59,8 +59,6 @@ namespace Pokemon
                 }
                 if (attack.Power.HasValue)
                 {
-                    damage = Convert.ToInt32((((2 * battle.EnemyPokemon.Level / 5) + 2) * attack.Power * ((float)battle.EnemyPokemon.Stat.Stats[0] / (float)battle.Pokemon.Stat.Stats[1])) / 50);
-
                     int baseDamage = (2 * battle.EnemyPokemon.Level / 5) + 2;
                     float attackDefenceRatio = (float)battle.EnemyPokemon.Stat.Stats[0] / (float)battle.Pokemon.Stat.Stats[1];
                     float multipler = ((float)AttackEffectivenessHelper.GetMultipler((int)attack.TypeID, battle.Pokemon.Stat.PrimaryTypeID))
@@ -82,24 +80,17 @@ namespace Pokemon
                 if (attributes[0] == "enemy")
                 {
                     if (isPlayerAttack) // gracz na przeciwnika
-                    {
                         ChangeTempStats(true, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
-                    }
-                    else // przeciwnik na gracza
-                    {
+                    else
                         ChangeTempStats(false, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
-                    }
                 }
                 else // używane na siebie
                 {
                     if (isPlayerAttack) // gracz na siebie
-                    {
                         ChangeTempStats(true, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
-                    }
                     else // przeciwnik na siebie
-                    {
                         ChangeTempStats(false, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
-                    }
+                    
                 }
             }
         }

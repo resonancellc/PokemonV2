@@ -34,18 +34,8 @@ namespace Pokemon
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Pokemon[] pokemons = new Pokemon[6];
-            for (int i = 0; i < 3; i++)
-            {
-                Pokemon poke = PokemonGenerator.GetPokemon(12);
-                pokemons[i] = poke;
-            }
-
-
-            //Pokemon[] pokemons = { PokemonGenerator.GetPokemon(4, 25), PokemonGenerator.GetPokemon(74, 12) };
-
-            PokemonParty.AddManyToParty(pokemons, true);
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(7, 10), false);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(16, 12), true);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(16, 13), false);
 
             CreateBattle();
         }
@@ -121,7 +111,7 @@ namespace Pokemon
                 Pokemon pokemon = pokemonPartyForm.Pokemon;
                 this.battle.Pokemon = pokemon;
                 SetAttackButtons(pokemon);
-                EnemyPokemonAttack();
+                //EnemyPokemonAttack();
                 RedrawUI();
             }
         }
@@ -214,64 +204,71 @@ namespace Pokemon
 
         private void attackButton_Click(object sender, EventArgs e)
         {
+            BeginAttackPhase(sender);
+        }
+
+        private void BeginAttackPhase(object sender)
+        {
             tbLog.Text = "";
-            if (battle.EnemyPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] > battle.Pokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed]) // enemy pokemon is faster
+
+            Attack playerAttack = GeneratePlayerPokemonAttack(sender);
+            Attack enemyAttack = GenerateEnemyPokemonAttack();
+
+            if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))
             {
-                EnemyPokemonAttack();
+                PlayerPokemonAttack(playerAttack);
                 UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
-                if (battle.Pokemon.CheckIfPokemonAlive()) PlayerPokemonAttack((Button)sender);
+                if (battle.EnemyPokemon.CheckIfPokemonAlive()) EnemyPokemonAttack(enemyAttack);
             }
             else
             {
-                PlayerPokemonAttack((Button)sender);
+                EnemyPokemonAttack(enemyAttack);
                 UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
-
-                if (battle.EnemyPokemon.CheckIfPokemonAlive()) EnemyPokemonAttack();
+                if (battle.Pokemon.CheckIfPokemonAlive()) PlayerPokemonAttack(playerAttack);
             }
-            UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
-            
-        }
 
-        private void EnemyPokemonAttack()
+            UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
+
+        }
+        private Attack GeneratePlayerPokemonAttack(object sender)
         {
-            int damage;
+            Attack attack = null;
+            return attack = StaticTypes.attackList.Where(x => x.Name == ((Button)sender).Text).First();
+        }
+        private Attack GenerateEnemyPokemonAttack()
+        {
             Attack attack = null;
             Random rand = new Random();
-
             while (attack == null)
             {
                 attack = battle.EnemyPokemon.attackPool[rand.Next(0, battle.EnemyPokemon.attackPool.Length)];
             }
-
-            // Checking if not miss
-            if (rand.Next(0, 100) < attack.Accuracy)
-            {
-                damage = battle.Attack(false, attack);
-                PrintBattleInfo($"Enemy {battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");
-            }
-            else
-            {
-                PrintBattleInfo($"{battle.EnemyPokemon.Name} missed!");
-            }
+            return attack;
         }
 
-        private void PlayerPokemonAttack(Button sender)
+        private void PlayerPokemonAttack(Attack attack)
         {
-            int damage;
-            Attack attack = null;
-            Random rand = new Random();
-
-            attack = StaticTypes.attackList.Where(x => x.Name == ((Button)sender).Text).First();
-            if (rand.Next(0, 100) < attack.Accuracy)
+            if (!BattleHelper.IsMiss(attack))
             {
-                damage = battle.Attack(true, attack);
+                int damage = battle.Attack(true, attack);
                 PrintBattleInfo($"Your {battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
             }
-            else
-            {
-                PrintBattleInfo($"{battle.Pokemon.Name} missed!");
-            }
+            else PrintBattleInfo($"{battle.Pokemon.Name} missed!");
         }
+
+        private void EnemyPokemonAttack(Attack attack)
+        {
+            // Checking if not miss
+            if (!BattleHelper.IsMiss(attack))
+            {
+                int damage = battle.Attack(false, attack);
+                PrintBattleInfo($"Enemy {battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");
+            }
+            else PrintBattleInfo($"{battle.EnemyPokemon.Name} missed!");
+
+        }
+
+
 
 
     }
