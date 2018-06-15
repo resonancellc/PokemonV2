@@ -54,10 +54,6 @@ namespace Pokemon
             int damage = 0;
             if (isPlayerAttack)
             {
-                if (attack.BoostStats != string.Empty)
-                {
-                    ChangeTempStats(isPlayerAttack, attack, battle);
-                }
                 if (attack.Power.HasValue)
                 {
                     int baseDamage = CalculateBaseDamage(battle.Pokemon.Level);
@@ -71,11 +67,7 @@ namespace Pokemon
                 return damage;
             }
             else
-            {
-                if (attack.BoostStats != string.Empty && attack.BoostStats != null)
-                {
-                    ChangeTempStats(isPlayerAttack, attack, battle);
-                }
+            {            
                 if (attack.Power.HasValue)
                 {
                     int baseDamage = CalculateBaseDamage(battle.EnemyPokemon.Level);
@@ -87,57 +79,6 @@ namespace Pokemon
 
                 return damage;
             }
-        }
-
-        private static void ChangeTempStats(bool isPlayerAttack, Attack attack, Battle battle)
-        {
-            string[] attributes = attack.BoostStats.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
-            if (attributes.Length > 0)
-            {
-                if (attributes[0] == "enemy")
-                {
-                    if (isPlayerAttack) // gracz na przeciwnika
-                        ChangeTempStats(true, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
-                    else
-                        ChangeTempStats(false, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
-                }
-                else // używane na siebie
-                {
-                    if (isPlayerAttack) // gracz na siebie
-                        ChangeTempStats(true, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
-                    else // przeciwnik na siebie
-                        ChangeTempStats(false, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
-                    
-                }
-            }
-        }
-
-        private static void ChangeTempStats(bool isEnemyTarget, int statType, int stageValue, Battle battle)
-        {
-            if (!isEnemyTarget)
-            {
-                if (battle.Pokemon.statModifierStages[statType] < 6 && battle.Pokemon.statModifierStages[statType] > -6)
-                {
-                    battle.Pokemon.statModifierStages[statType] += stageValue;
-                    battle.Pokemon.Stat.Stats[statType] = Convert.ToInt32(battle.PokemonStartStats.Stats[statType] * StageHelper.StageToMultipler(battle.Pokemon.statModifierStages[statType]));
-                }
-                else
-                {
-                    BattleLog.AppendText($"{battle.Pokemon.Name} 'statName here' cannot go any higher than {(float)battle.Pokemon.Stat.Stats[statType]}");
-                } 
-            }
-            else
-            {
-                if (battle.EnemyPokemon.statModifierStages[statType] < 6 && battle.EnemyPokemon.statModifierStages[statType] > -6)
-                {
-                    battle.EnemyPokemon.statModifierStages[statType] += stageValue;
-                    battle.EnemyPokemon.Stat.Stats[statType] = Convert.ToInt32(battle.EnemyPokemonStartStats.Stats[statType] * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[statType]));
-                }
-                else
-                {
-                    BattleLog.AppendText($"{battle.EnemyPokemon.Name} 'statName here' cannot go any higher than {(float)battle.EnemyPokemon.Stat.Stats[statType]}");
-                }
-            }
-        }
+        }     
     }
 }

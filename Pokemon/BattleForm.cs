@@ -34,8 +34,8 @@ namespace Pokemon
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(4, 9), true);
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(16, 13), false);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(5, 33), true);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(2, 33), false);
 
             CreateBattle();
         }
@@ -251,6 +251,12 @@ namespace Pokemon
             if (!BattleHelper.IsMiss(attack))
             {
                 int damage = battle.Attack(true, attack);
+                
+
+
+                if (attack.BoostStats != string.Empty)
+                    BattleHelper.ChangeTempStats(true, attack, battle);
+
                 PrintBattleInfo($"Your {battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
             }
             else PrintBattleInfo($"{battle.Pokemon.Name} missed!");
@@ -262,6 +268,10 @@ namespace Pokemon
             if (!BattleHelper.IsMiss(attack))
             {
                 int damage = battle.Attack(false, attack);
+
+                if (attack.BoostStats != string.Empty)
+                    BattleHelper.ChangeTempStats(false, attack, battle);
+
                 PrintBattleInfo($"Enemy {battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");
             }
             else PrintBattleInfo($"{battle.EnemyPokemon.Name} missed!");
