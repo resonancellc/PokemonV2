@@ -28,6 +28,27 @@ namespace Pokemon
             return stat;
         }
 
+        private static int CalculateBaseDamage(int level)
+        {
+            return (2 * level / 5) + 2;
+        }
+        private static float CalculateAttackDefenceRatio(int[] attackerStats, int[] targetStats, bool isSpecial)
+        {
+            if (!isSpecial)
+                return (float)attackerStats[(int)PokemonEnum.Stat.Attack] / (float)targetStats[(int)PokemonEnum.Stat.Defence];
+            else
+                return (float)attackerStats[(int)PokemonEnum.Stat.SpecialAttack] / (float)targetStats[(int)PokemonEnum.Stat.SpecialDefence];
+        }
+        private static float CalculateMultipler(int targetPrimaryType, int? attackType, int? targetSecondaryType = null)
+        {
+            return ((float)AttackEffectivenessHelper.GetMultipler((int)attackType, targetPrimaryType))
+                                                * ((float)(targetSecondaryType.HasValue ? AttackEffectivenessHelper.GetMultipler((int)attackType, (int)targetSecondaryType) : 1d));
+        }
+        private static int CalculateOverallDamage(int baseDamage, int attackPower, float attackDefenceRatio, float multipler)
+        {
+            return Convert.ToInt32(baseDamage * attackPower * attackDefenceRatio * multipler / 50);
+        }
+
         public static int CalculateAttackPower(bool isPlayerAttack, Attack attack, Battle battle)
         {
             int damage = 0;
@@ -39,13 +60,11 @@ namespace Pokemon
                 }
                 if (attack.Power.HasValue)
                 {
-                    int baseDamage = (2 * battle.Pokemon.Level / 5) + 2;                   
-                    float attackDefenceRatio = (float)battle.Pokemon.Stat.Stats[0] / (float)battle.EnemyPokemon.Stat.Stats[1];
-                    float multipler = ((float)AttackEffectivenessHelper.GetMultipler((int)attack.TypeID, battle.EnemyPokemon.Stat.PrimaryTypeID)) 
-                                    * ((float)(battle.EnemyPokemon.Stat.SecondaryTypeID.HasValue ? AttackEffectivenessHelper.GetMultipler((int)attack.TypeID, (int)battle.EnemyPokemon.Stat.SecondaryTypeID) : 1d));
+                    int baseDamage = CalculateBaseDamage(battle.Pokemon.Level);
+                    float attackDefenceRatio = CalculateAttackDefenceRatio(battle.Pokemon.Stat.Stats, battle.EnemyPokemon.Stat.Stats, attack.IsSpecial);
+                    float multipler = CalculateMultipler(battle.EnemyPokemon.PrimaryTypeID, attack.TypeID, battle.EnemyPokemon.SecondaryTypeID);
 
-                    damage = Convert.ToInt32(baseDamage * attack.Power * attackDefenceRatio * multipler / 50);
-                        
+                    damage = CalculateOverallDamage(baseDamage, (int)attack.Power, attackDefenceRatio, multipler);                      
                 }
 
                 BattleLog.AppendText($"Zaatakowano {battle.EnemyPokemon.Name} za {damage} - jego obrona wynosiła {(float)battle.EnemyPokemon.Stat.Stats[1]}");
@@ -59,13 +78,11 @@ namespace Pokemon
                 }
                 if (attack.Power.HasValue)
                 {
-                    int baseDamage = (2 * battle.EnemyPokemon.Level / 5) + 2;
-                    float attackDefenceRatio = (float)battle.EnemyPokemon.Stat.Stats[0] / (float)battle.Pokemon.Stat.Stats[1];
-                    float multipler = ((float)AttackEffectivenessHelper.GetMultipler((int)attack.TypeID, battle.Pokemon.Stat.PrimaryTypeID))
-                                    * ((float)(battle.Pokemon.Stat.SecondaryTypeID.HasValue ? AttackEffectivenessHelper.GetMultipler((int)attack.TypeID, (int)battle.Pokemon.Stat.SecondaryTypeID) : 1d));
+                    int baseDamage = CalculateBaseDamage(battle.EnemyPokemon.Level);
+                    float attackDefenceRatio = CalculateAttackDefenceRatio(battle.EnemyPokemon.Stat.Stats, battle.Pokemon.Stat.Stats, attack.IsSpecial);
+                    float multipler = CalculateMultipler(battle.Pokemon.PrimaryTypeID, attack.TypeID, battle.Pokemon.SecondaryTypeID);
 
-                    damage = Convert.ToInt32(baseDamage * attack.Power * attackDefenceRatio * multipler / 50);
-
+                    damage = CalculateOverallDamage(baseDamage, (int)attack.Power, attackDefenceRatio, multipler);
                 }
 
                 return damage;

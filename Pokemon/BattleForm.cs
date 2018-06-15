@@ -34,7 +34,7 @@ namespace Pokemon
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(16, 12), true);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(4, 9), true);
             PokemonParty.AddToParty(PokemonGenerator.GetPokemon(16, 13), false);
 
             CreateBattle();

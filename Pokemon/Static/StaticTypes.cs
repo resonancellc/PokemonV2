@@ -59,7 +59,7 @@ namespace Pokemon
                     Name = (string)values[1],
                     Power = values[2] != DBNull.Value ? (int?)values[2] : null,
                     Accuracy = values[3] != DBNull.Value ? (int?)values[3] : null,
-                    BoostStats = values[4] != DBNull.Value ? (string)values[4] : string.Empty,
+                    BoostStats = values[4] != DBNull.Value ? (string)values[4].ToString().Trim(' ') : string.Empty,
                     TypeID = values[5] != DBNull.Value ? (int?)values[5] : null,
                     IsSpecial = values[6] != DBNull.Value ? (bool)values[6] : false,
                     AdditionalEffect = values[7] != DBNull.Value ? (string)values[7].ToString().Trim(' ') : string.Empty
