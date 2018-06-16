@@ -47,6 +47,8 @@
             this.lblEnemyPkmnHealth = new System.Windows.Forms.Label();
             this.playerPkmnImage = new System.Windows.Forms.PictureBox();
             this.enemyPkmnImage = new System.Windows.Forms.PictureBox();
+            this.lblPlayerPkmnLevel = new System.Windows.Forms.Label();
+            this.lblEnemyPkmnLevel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelAttackPool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.playerPkmnImage)).BeginInit();
@@ -250,6 +252,26 @@
             this.enemyPkmnImage.TabIndex = 9;
             this.enemyPkmnImage.TabStop = false;
             // 
+            // lblPlayerPkmnLevel
+            // 
+            this.lblPlayerPkmnLevel.AutoSize = true;
+            this.lblPlayerPkmnLevel.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerPkmnLevel.Location = new System.Drawing.Point(320, 221);
+            this.lblPlayerPkmnLevel.Name = "lblPlayerPkmnLevel";
+            this.lblPlayerPkmnLevel.Size = new System.Drawing.Size(39, 15);
+            this.lblPlayerPkmnLevel.TabIndex = 7;
+            this.lblPlayerPkmnLevel.Text = "L100";
+            // 
+            // lblEnemyPkmnLevel
+            // 
+            this.lblEnemyPkmnLevel.AutoSize = true;
+            this.lblEnemyPkmnLevel.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEnemyPkmnLevel.Location = new System.Drawing.Point(103, 9);
+            this.lblEnemyPkmnLevel.Name = "lblEnemyPkmnLevel";
+            this.lblEnemyPkmnLevel.Size = new System.Drawing.Size(39, 15);
+            this.lblEnemyPkmnLevel.TabIndex = 7;
+            this.lblEnemyPkmnLevel.Text = "L100";
+            // 
             // BattleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -260,6 +282,8 @@
             this.Controls.Add(this.lblEnemyPkmnHealth);
             this.Controls.Add(this.lblEnemyPkmnName);
             this.Controls.Add(this.lblPlayerPkmnHealth);
+            this.Controls.Add(this.lblEnemyPkmnLevel);
+            this.Controls.Add(this.lblPlayerPkmnLevel);
             this.Controls.Add(this.lblPlayerPkmnName);
             this.Controls.Add(this.barEnemyPkmnHealth);
             this.Controls.Add(this.progressBar2);
@@ -299,5 +323,7 @@
         private System.Windows.Forms.Button btnAttack2;
         private System.Windows.Forms.Button btnAttack4;
         private System.Windows.Forms.Button btnAttack3;
+        private System.Windows.Forms.Label lblPlayerPkmnLevel;
+        private System.Windows.Forms.Label lblEnemyPkmnLevel;
     }
 }

@@ -37,6 +37,14 @@ namespace Pokemon
             if (attack.Power.HasValue  && damage < 1) damage = 1; // 1 is minimum damage can be dealt
             if (BattleHelper.IsCritical(attack)) damage *= 2;
 
+            if (attack.AdditionalEffect != String.Empty)
+            {
+                if (BattleHelper.IsConditionChange(attack, isPlayerAttack ? this.EnemyPokemon : this.Pokemon))
+                {
+
+                }
+            }
+
             if (isPlayerAttack) EnemyPokemon.Hurt(damage);
             else Pokemon.Hurt(damage);
 

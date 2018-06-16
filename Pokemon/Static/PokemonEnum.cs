@@ -39,11 +39,11 @@ namespace Pokemon
         public enum Condition
         {
             None = 0,
-            Burn = 1,
-            Freeze = 2,
-            Paralysis = 3,
-            Poison = 4,
-            Sleep = 5 
+            BRN = 1,
+            FRZ = 2,
+            PAR = 3,
+            PSN = 4,
+            SLP = 5 
         }
         
     }

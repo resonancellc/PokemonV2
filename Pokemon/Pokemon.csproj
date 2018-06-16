@@ -238,5 +238,11 @@
   <ItemGroup>
     <None Include="Resources\016_pidgey_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\017_pidgeotto_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\017_pidgeotto_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

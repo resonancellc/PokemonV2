@@ -42,14 +42,80 @@ namespace Pokemon
 
         public static bool IsCritical(Attack attack)
         {
-            Random rand = new Random();
-            int chance = rand.Next(0, 255);
+            if (attack.AdditionalEffect == "highCrit")
+                return CalculatorHelper.ChanceCalculator(21, 255);
+            else
+                return CalculatorHelper.ChanceCalculator(1, 255);
+        }
 
-            if (attack.AdditionalEffect == "highCrit") chance -= 20;
+        public static bool IsConditionChange(Attack attack, Pokemon targetPokemon)
+        {
+            if (targetPokemon.Condition == 0)
+            {
+                string[] attributes = attack.AdditionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
 
-            if (chance <= 1) return true;
-
+                if (attributes.Contains("burn"))
+                {
+                    targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] = targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] / 2;
+                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.BRN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                }
+                if (attributes.Contains("freeze"))
+                {
+                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.FRZ, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                }
+                if (attributes.Contains("paralysis"))
+                {
+                    targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] = Convert.ToInt32((float)targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] / 1.5f);
+                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PAR, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                }
+                if (attributes.Contains("poison"))
+                {
+                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PSN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                }
+                if (attributes.Contains("sleep"))
+                {
+                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.SLP, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                }
+            }
             return false;
+        }
+
+        public static bool ConditionChange(Pokemon targetPokemon, int newCondition, int effectChance)
+        {
+            if (CalculatorHelper.ChanceCalculator(effectChance))
+            {
+                targetPokemon.Condition = newCondition;
+                return true;
+            }
+            return false;            
+        }
+
+        public static bool ApplyConditionEffect(Pokemon pokemon)
+        {
+            switch (pokemon.Condition)
+            {
+                case 0:
+                    return true;
+                case (int)PokemonEnum.Condition.BRN:
+                    pokemon.Hurt(pokemon.HPMax / 16);
+                    return pokemon.CheckIfPokemonAlive();
+                case (int)PokemonEnum.Condition.FRZ:
+                    return false;
+                case (int)PokemonEnum.Condition.PAR:
+                    return CalculatorHelper.ChanceCalculator(25);
+                case (int)PokemonEnum.Condition.PSN:
+                    pokemon.Hurt(pokemon.HPMax / 16);
+                    return pokemon.CheckIfPokemonAlive();
+                case (int)PokemonEnum.Condition.SLP:
+                    if (CalculatorHelper.ChanceCalculator(25))
+                    {
+                        pokemon.Condition = 0;
+                        return true;
+                    }
+                    return false;                 
+                default:
+                    return true;
+            }
         }
 
         public static void ChangeTempStats(bool isPlayerAttack, Attack attack, Battle battle)

@@ -80,5 +80,16 @@ namespace Pokemon
                 return damage;
             }
         }     
+
+        public static bool ChanceCalculator(int chance, int maxRange = 100)
+        {
+            Random rand = new Random();
+            int chanceScore = rand.Next(0, maxRange);
+            if (chanceScore <= chance)
+            {
+                return true; // success
+            }
+            return false;
+        }
     }
 }

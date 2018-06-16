@@ -34,8 +34,8 @@ namespace Pokemon
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(5, 33), true);
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(2, 33), false);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(12, 20), true);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(7, 10), false);
 
             CreateBattle();
         }
@@ -149,8 +149,9 @@ namespace Pokemon
         {
             SetPkmnHealthBars(pokemon, enemyPokemon);
             SetPkmnLabels(pokemon, enemyPokemon);
+            //SetPkmnCondition(pokemon, enemyPokemon);
         }
-
+        //string shadeName = ((Shade) 1).ToString();  
         private void SetPkmnHealthBars(Pokemon pokemon, Pokemon enemyPokemon)
         {
             if (pokemon.CheckIfPokemonAlive())
@@ -176,14 +177,16 @@ namespace Pokemon
 
         private void SetPkmnLabels(Pokemon pokemon, Pokemon enemyPokemon)
         {
+            lblPlayerPkmnLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : ((PokemonEnum.Condition)pokemon.Condition).ToString();
             lblPlayerPkmnHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
-            lblPlayerPkmnName.Text = $"{pokemon.Name} L{pokemon.Level.ToString()}";
+            lblPlayerPkmnName.Text = pokemon.Name;
             if (!pokemon.CheckIfPokemonAlive())
             {
                 lblPlayerPkmnHealth.Text = $"0/{pokemon.HPMax}";
             }
+            lblEnemyPkmnLevel.Text = enemyPokemon.Condition == 0 ? "L" + enemyPokemon.Level.ToString() : ((PokemonEnum.Condition)enemyPokemon.Condition).ToString();
             lblEnemyPkmnHealth.Text = $"{enemyPokemon.HPCurrent}/{enemyPokemon.HPMax}";
-            lblEnemyPkmnName.Text = $"{enemyPokemon.Name} L{enemyPokemon.Level.ToString()}";
+            lblEnemyPkmnName.Text = enemyPokemon.Name;
             if (!enemyPokemon.CheckIfPokemonAlive())
             {
                 lblEnemyPkmnHealth.Text = $"0/{enemyPokemon.HPMax}";
@@ -248,6 +251,11 @@ namespace Pokemon
 
         private void PlayerPokemonAttack(Attack attack)
         {
+            if (battle.Pokemon.Condition != 0)
+            {
+                BattleHelper.ApplyConditionEffect(battle.Pokemon);
+            }
+            
             if (!BattleHelper.IsMiss(attack))
             {
                 int damage = battle.Attack(true, attack);
@@ -264,6 +272,10 @@ namespace Pokemon
 
         private void EnemyPokemonAttack(Attack attack)
         {
+            if (battle.EnemyPokemon.Condition != 0)
+            {
+                BattleHelper.ApplyConditionEffect(battle.EnemyPokemon);
+            }
             // Checking if not miss
             if (!BattleHelper.IsMiss(attack))
             {
