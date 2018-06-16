@@ -30,14 +30,7 @@ namespace Pokemon
 
         public static bool IsMiss(Attack attack)
         {
-            Random rand = new Random();
-            int accuracy = rand.Next(0, 100);
-
-            if (accuracy > attack.Accuracy)
-            {
-                return true;
-            }
-            return false;
+            return !CalculatorHelper.ChanceCalculator(attack.Accuracy.Value);
         }
 
         public static bool IsCritical(Attack attack)
@@ -56,26 +49,51 @@ namespace Pokemon
 
                 if (attributes.Contains("burn"))
                 {
-                    targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] = targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] / 2;
-                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.BRN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                    if(ConditionChange(targetPokemon, (int)PokemonEnum.Condition.BRN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                    {
+                        BattleLog.AppendText($"{targetPokemon.Name} is now burning");
+                        targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] = targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] / 2;
+                        return true;
+                    }
                 }
                 if (attributes.Contains("freeze"))
                 {
-                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.FRZ, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                    if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.FRZ, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                    {
+                        BattleLog.AppendText($"{targetPokemon.Name} is now frozen");
+                        return true;
+                    }
                 }
                 if (attributes.Contains("paralysis"))
                 {
-                    targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] = Convert.ToInt32((float)targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] / 1.5f);
-                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PAR, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                    if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PAR, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                    {
+                        BattleLog.AppendText($"{targetPokemon.Name} is now paralyzed");
+                        targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] = Convert.ToInt32((float)targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] / 1.5f);
+                        return true;
+                    }
                 }
                 if (attributes.Contains("poison"))
                 {
-                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PSN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                    if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PSN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                    {
+                        BattleLog.AppendText($"{targetPokemon.Name} is now poisoned");
+                        return true;
+                    }
                 }
                 if (attributes.Contains("sleep"))
                 {
-                    return ConditionChange(targetPokemon, (int)PokemonEnum.Condition.SLP, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100);
+                    if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.SLP, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                    {
+                        BattleLog.AppendText($"{targetPokemon.Name} is now sleeping");
+                        return true;
+                    }
                 }
+            }
+            else
+            {
+                BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                return false;
             }
             return false;
         }
@@ -92,26 +110,41 @@ namespace Pokemon
 
         public static bool ApplyConditionEffect(Pokemon pokemon)
         {
+            int damage;
             switch (pokemon.Condition)
             {
                 case 0:
                     return true;
+
                 case (int)PokemonEnum.Condition.BRN:
-                    pokemon.Hurt(pokemon.HPMax / 16);
+                    damage = pokemon.HPMax / 16;
+                    pokemon.Hurt(damage);
+                    BattleLog.AppendText($"{pokemon.Name} is burning (Damage: {damage})");
                     return pokemon.CheckIfPokemonAlive();
+
                 case (int)PokemonEnum.Condition.FRZ:
+                    BattleLog.AppendText($"{pokemon.Name} is frozen");
                     return false;
+
                 case (int)PokemonEnum.Condition.PAR:
-                    return CalculatorHelper.ChanceCalculator(25);
+                    if (CalculatorHelper.ChanceCalculator(50)) return true;
+                    BattleLog.AppendText($"{pokemon.Name} is unable to move");
+                    return false;
+
                 case (int)PokemonEnum.Condition.PSN:
-                    pokemon.Hurt(pokemon.HPMax / 16);
+                    damage = pokemon.HPMax / 16;
+                    pokemon.Hurt(damage);
+                    BattleLog.AppendText($"{pokemon.Name} is hurt by poison (Damage: {damage})");
                     return pokemon.CheckIfPokemonAlive();
+
                 case (int)PokemonEnum.Condition.SLP:
-                    if (CalculatorHelper.ChanceCalculator(25))
+                    if (CalculatorHelper.ChanceCalculator(50))
                     {
+                        BattleLog.AppendText($"{pokemon.Name} woke up");
                         pokemon.Condition = 0;
                         return true;
                     }
+                    BattleLog.AppendText($"{pokemon.Name} is still sleeping");
                     return false;                 
                 default:
                     return true;
@@ -142,16 +175,19 @@ namespace Pokemon
 
         private static void ChangePokemonStats(bool isPlayerTarget, int statType, Battle battle, int stageValue)
         {
+            int previousValue = 0;
             if (isPlayerTarget)
             {
                 if (battle.Pokemon.statModifierStages[statType] < 6 && battle.Pokemon.statModifierStages[statType] > -6)
                 {
                     battle.Pokemon.statModifierStages[statType] += stageValue;
+                    previousValue = battle.Pokemon.Stat.Stats[statType];
                     battle.Pokemon.Stat.Stats[statType] = Convert.ToInt32(battle.PokemonStartStats.Stats[statType] * StageHelper.StageToMultipler(battle.Pokemon.statModifierStages[statType]));
+                    BattleLog.AppendText($"{battle.Pokemon.Name} {((PokemonEnum.Stat)statType).ToString()} changed from {previousValue} to {battle.Pokemon.Stat.Stats[statType]}");
                 }
                 else
                 {
-                    BattleLog.AppendText($"{battle.Pokemon.Name} 'statName here' cannot go any higher than {(float)battle.Pokemon.Stat.Stats[statType]}");
+                    BattleLog.AppendText($"{battle.Pokemon.Name} {((PokemonEnum.Stat)statType).ToString()} cannot go any higher than {(float)battle.Pokemon.Stat.Stats[statType]}");
                 } 
             }
             else
@@ -159,11 +195,13 @@ namespace Pokemon
                 if (battle.EnemyPokemon.statModifierStages[statType] < 6 && battle.EnemyPokemon.statModifierStages[statType] > -6)
                 {
                     battle.EnemyPokemon.statModifierStages[statType] += stageValue;
+                    previousValue = battle.Pokemon.Stat.Stats[statType];
                     battle.EnemyPokemon.Stat.Stats[statType] = Convert.ToInt32(battle.EnemyPokemonStartStats.Stats[statType] * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[statType]));
+                    BattleLog.AppendText($"{battle.EnemyPokemon.Name} {((PokemonEnum.Stat)statType).ToString()} changed from {previousValue} to {battle.EnemyPokemon.Stat.Stats[statType]}");
                 }
                 else
                 {
-                    BattleLog.AppendText($"{battle.EnemyPokemon.Name} 'statName here' cannot go any higher than {(float)battle.EnemyPokemon.Stat.Stats[statType]}");
+                    BattleLog.AppendText($"{battle.EnemyPokemon.Name} {((PokemonEnum.Stat)statType).ToString()} cannot go any higher than {(float)battle.EnemyPokemon.Stat.Stats[statType]}");
                 }
             }
         }

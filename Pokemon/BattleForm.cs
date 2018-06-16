@@ -34,8 +34,8 @@ namespace Pokemon
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(12, 20), true);
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(7, 10), false);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(4, 15), true);
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(12, 20), false);
 
             CreateBattle();
         }
@@ -162,6 +162,8 @@ namespace Pokemon
             else
             {
                 barPlayerPkmnHealth.Value = 0;
+                BattleLog.AppendText($"{pokemon.Name} has fainted!");
+                BlockUI();
             }
             if (enemyPokemon.CheckIfPokemonAlive())
             {
@@ -171,6 +173,8 @@ namespace Pokemon
             else
             {
                 barEnemyPkmnHealth.Value = 0;
+                BattleLog.AppendText($"{enemyPokemon.Name} has fainted!");
+                BlockUI();
             }
 
         }
@@ -212,7 +216,8 @@ namespace Pokemon
 
         private void BeginAttackPhase(object sender)
         {
-            tbLog.Text = "";
+            BattleLog.ClearText();
+            
 
             Attack playerAttack = GeneratePlayerPokemonAttack(sender);
             Attack enemyAttack = GenerateEnemyPokemonAttack();
@@ -231,7 +236,7 @@ namespace Pokemon
             }
 
             UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
-
+            tbLog.Text = BattleLog.Log;
         }
         private Attack GeneratePlayerPokemonAttack(object sender)
         {
@@ -251,47 +256,46 @@ namespace Pokemon
 
         private void PlayerPokemonAttack(Attack attack)
         {
-            if (battle.Pokemon.Condition != 0)
+
+            if (BattleHelper.ApplyConditionEffect(battle.Pokemon))
             {
-                BattleHelper.ApplyConditionEffect(battle.Pokemon);
+                if (!BattleHelper.IsMiss(attack))
+                {
+                    BattleLog.AppendText($"{battle.Pokemon.Name} used {attack.Name}");
+                    int damage = battle.Attack(true, attack);
+
+
+
+                    if (attack.BoostStats != string.Empty)
+                        BattleHelper.ChangeTempStats(true, attack, battle);
+
+                }
+                else BattleLog.AppendText($"{battle.Pokemon.Name} missed!");
             }
-            
-            if (!BattleHelper.IsMiss(attack))
-            {
-                int damage = battle.Attack(true, attack);
-                
-
-
-                if (attack.BoostStats != string.Empty)
-                    BattleHelper.ChangeTempStats(true, attack, battle);
-
-                PrintBattleInfo($"Your {battle.Pokemon.Name} used {attack.Name}! (Dmg: {damage})");
-            }
-            else PrintBattleInfo($"{battle.Pokemon.Name} missed!");
         }
 
         private void EnemyPokemonAttack(Attack attack)
         {
-            if (battle.EnemyPokemon.Condition != 0)
+            if (BattleHelper.ApplyConditionEffect(battle.EnemyPokemon))
             {
-                BattleHelper.ApplyConditionEffect(battle.EnemyPokemon);
+                // Checking if not miss
+                if (!BattleHelper.IsMiss(attack))
+                {
+                    BattleLog.AppendText($"{battle.EnemyPokemon.Name} used {attack.Name}");
+                    int damage = battle.Attack(false, attack);
+
+                    if (attack.BoostStats != string.Empty)
+                        BattleHelper.ChangeTempStats(false, attack, battle);
+
+                }
+                else BattleLog.AppendText($"{battle.EnemyPokemon.Name} missed!");
             }
-            // Checking if not miss
-            if (!BattleHelper.IsMiss(attack))
-            {
-                int damage = battle.Attack(false, attack);
-
-                if (attack.BoostStats != string.Empty)
-                    BattleHelper.ChangeTempStats(false, attack, battle);
-
-                PrintBattleInfo($"Enemy {battle.EnemyPokemon.Name} used {attack.Name}! (Dmg: {damage})");
-            }
-            else PrintBattleInfo($"{battle.EnemyPokemon.Name} missed!");
-
         }
 
-
-
-
+        private void tbLog_TextChanged(object sender, EventArgs e)
+        {
+            tbLog.SelectionStart = tbLog.Text.Length;
+            tbLog.ScrollToCaret();
+        }
     }
 }

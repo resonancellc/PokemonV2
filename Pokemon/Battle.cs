@@ -35,7 +35,11 @@ namespace Pokemon
         {
             int damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
             if (attack.Power.HasValue  && damage < 1) damage = 1; // 1 is minimum damage can be dealt
-            if (BattleHelper.IsCritical(attack)) damage *= 2;
+            if (BattleHelper.IsCritical(attack))
+            {
+                damage *= 2;
+                BattleLog.AppendText("Critical hit!");
+            }
 
             if (attack.AdditionalEffect != String.Empty)
             {

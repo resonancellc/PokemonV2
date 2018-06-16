@@ -60,7 +60,7 @@
             this.panel1.Controls.Add(this.btnRun);
             this.panel1.Controls.Add(this.btnSwitchPkmn);
             this.panel1.Controls.Add(this.btnItem);
-            this.panel1.Location = new System.Drawing.Point(230, 276);
+            this.panel1.Location = new System.Drawing.Point(442, 271);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 80);
             this.panel1.TabIndex = 5;
@@ -79,7 +79,7 @@
             // btnSwitchPkmn
             // 
             this.btnSwitchPkmn.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSwitchPkmn.Location = new System.Drawing.Point(101, 4);
+            this.btnSwitchPkmn.Location = new System.Drawing.Point(101, 3);
             this.btnSwitchPkmn.Name = "btnSwitchPkmn";
             this.btnSwitchPkmn.Size = new System.Drawing.Size(96, 36);
             this.btnSwitchPkmn.TabIndex = 0;
@@ -160,7 +160,7 @@
             // barPlayerPkmnHealth
             // 
             this.barPlayerPkmnHealth.ForeColor = System.Drawing.Color.IndianRed;
-            this.barPlayerPkmnHealth.Location = new System.Drawing.Point(228, 239);
+            this.barPlayerPkmnHealth.Location = new System.Drawing.Point(440, 234);
             this.barPlayerPkmnHealth.Name = "barPlayerPkmnHealth";
             this.barPlayerPkmnHealth.Size = new System.Drawing.Size(200, 14);
             this.barPlayerPkmnHealth.TabIndex = 6;
@@ -169,7 +169,7 @@
             // 
             this.lblPlayerPkmnName.AutoSize = true;
             this.lblPlayerPkmnName.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlayerPkmnName.Location = new System.Drawing.Point(225, 221);
+            this.lblPlayerPkmnName.Location = new System.Drawing.Point(437, 216);
             this.lblPlayerPkmnName.Name = "lblPlayerPkmnName";
             this.lblPlayerPkmnName.Size = new System.Drawing.Size(71, 15);
             this.lblPlayerPkmnName.TabIndex = 7;
@@ -179,7 +179,7 @@
             // 
             this.lblPlayerPkmnHealth.AutoSize = true;
             this.lblPlayerPkmnHealth.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlayerPkmnHealth.Location = new System.Drawing.Point(365, 221);
+            this.lblPlayerPkmnHealth.Location = new System.Drawing.Point(577, 216);
             this.lblPlayerPkmnHealth.Name = "lblPlayerPkmnHealth";
             this.lblPlayerPkmnHealth.Size = new System.Drawing.Size(63, 15);
             this.lblPlayerPkmnHealth.TabIndex = 7;
@@ -188,7 +188,7 @@
             // progressBar2
             // 
             this.progressBar2.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.progressBar2.Location = new System.Drawing.Point(228, 259);
+            this.progressBar2.Location = new System.Drawing.Point(440, 254);
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(200, 7);
             this.progressBar2.TabIndex = 6;
@@ -200,9 +200,10 @@
             this.tbLog.Location = new System.Drawing.Point(11, 362);
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
-            this.tbLog.Size = new System.Drawing.Size(419, 78);
+            this.tbLog.Size = new System.Drawing.Size(634, 132);
             this.tbLog.TabIndex = 8;
             this.tbLog.Text = "";
+            this.tbLog.TextChanged += new System.EventHandler(this.tbLog_TextChanged);
             // 
             // barEnemyPkmnHealth
             // 
@@ -245,7 +246,7 @@
             // 
             // enemyPkmnImage
             // 
-            this.enemyPkmnImage.Location = new System.Drawing.Point(328, 12);
+            this.enemyPkmnImage.Location = new System.Drawing.Point(545, 12);
             this.enemyPkmnImage.Name = "enemyPkmnImage";
             this.enemyPkmnImage.Size = new System.Drawing.Size(100, 100);
             this.enemyPkmnImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -256,7 +257,7 @@
             // 
             this.lblPlayerPkmnLevel.AutoSize = true;
             this.lblPlayerPkmnLevel.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlayerPkmnLevel.Location = new System.Drawing.Point(320, 221);
+            this.lblPlayerPkmnLevel.Location = new System.Drawing.Point(532, 216);
             this.lblPlayerPkmnLevel.Name = "lblPlayerPkmnLevel";
             this.lblPlayerPkmnLevel.Size = new System.Drawing.Size(39, 15);
             this.lblPlayerPkmnLevel.TabIndex = 7;
@@ -276,7 +277,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 451);
+            this.ClientSize = new System.Drawing.Size(657, 506);
             this.Controls.Add(this.enemyPkmnImage);
             this.Controls.Add(this.tbLog);
             this.Controls.Add(this.lblEnemyPkmnHealth);

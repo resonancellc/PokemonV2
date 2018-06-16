@@ -86,7 +86,8 @@ namespace Pokemon
         /// <returns></returns>
         public bool CheckIfPokemonAlive()
         {
-            return HPCurrent <= 0 ? false : true;
+            if (HPCurrent > 0) return true;  
+            return false;
         }
     }
 }

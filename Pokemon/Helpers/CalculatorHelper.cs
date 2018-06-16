@@ -59,11 +59,11 @@ namespace Pokemon
                     int baseDamage = CalculateBaseDamage(battle.Pokemon.Level);
                     float attackDefenceRatio = CalculateAttackDefenceRatio(battle.Pokemon.Stat.Stats, battle.EnemyPokemon.Stat.Stats, attack.IsSpecial);
                     float multipler = CalculateMultipler(battle.EnemyPokemon.PrimaryTypeID, attack.TypeID, battle.EnemyPokemon.SecondaryTypeID);
-
+                    if (multipler > 1) BattleLog.AppendText("It's super effective!");
+                    else if (multipler < 1) BattleLog.AppendText("It's not very effective!");
                     damage = CalculateOverallDamage(baseDamage, (int)attack.Power, attackDefenceRatio, multipler);                      
                 }
 
-                BattleLog.AppendText($"Zaatakowano {battle.EnemyPokemon.Name} za {damage} - jego obrona wynosiła {(float)battle.EnemyPokemon.Stat.Stats[1]}");
                 return damage;
             }
             else
@@ -73,7 +73,8 @@ namespace Pokemon
                     int baseDamage = CalculateBaseDamage(battle.EnemyPokemon.Level);
                     float attackDefenceRatio = CalculateAttackDefenceRatio(battle.EnemyPokemon.Stat.Stats, battle.Pokemon.Stat.Stats, attack.IsSpecial);
                     float multipler = CalculateMultipler(battle.Pokemon.PrimaryTypeID, attack.TypeID, battle.Pokemon.SecondaryTypeID);
-
+                    if (multipler > 1) BattleLog.AppendText("It's super effective!");
+                    else if (multipler < 1) BattleLog.AppendText("It's not very effective!");
                     damage = CalculateOverallDamage(baseDamage, (int)attack.Power, attackDefenceRatio, multipler);
                 }
 
