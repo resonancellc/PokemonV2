@@ -32,6 +32,7 @@ namespace Pokemon
                     case 15: return Properties.Resources._015_beedrill_back;
                     case 16: return Properties.Resources._016_pidgey_back;
                     case 17: return Properties.Resources._017_pidgeotto_back;
+                    case 18: return Properties.Resources._018_pidgeot_back;
                     case 74: return Properties.Resources._074_geodude_back;
 
                     default:
@@ -59,6 +60,7 @@ namespace Pokemon
                     case 15: return Properties.Resources._015_beedrill_front;
                     case 16: return Properties.Resources._016_pidgey_front;
                     case 17: return Properties.Resources._017_pidgeotto_front;
+                    case 18: return Properties.Resources._018_pidgeot_front;
                     case 74: return Properties.Resources._074_geodude_front;
 
                     default:

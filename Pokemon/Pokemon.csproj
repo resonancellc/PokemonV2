@@ -244,5 +244,11 @@
   <ItemGroup>
     <None Include="Resources\017_pidgeotto_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\018_pidgeot_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\018_pidgeot_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
