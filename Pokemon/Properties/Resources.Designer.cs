@@ -463,6 +463,26 @@ namespace Pokemon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _021_spearow_back {
+            get {
+                object obj = ResourceManager.GetObject("_021_spearow_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _021_spearow_front {
+            get {
+                object obj = ResourceManager.GetObject("_021_spearow_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _074_geodude_back {
             get {
                 object obj = ResourceManager.GetObject("_074_geodude_back", resourceCulture);

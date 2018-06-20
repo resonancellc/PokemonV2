@@ -262,5 +262,11 @@
   <ItemGroup>
     <None Include="Resources\020_raticate_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\021_spearow_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\021_spearow_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

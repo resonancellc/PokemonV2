@@ -35,6 +35,7 @@ namespace Pokemon
                     case 18: return Properties.Resources._018_pidgeot_back;
                     case 19: return Properties.Resources._019_rattata_back;
                     case 20: return Properties.Resources._020_raticate_back;
+                    case 21: return Properties.Resources._021_spearow_back;
                     case 74: return Properties.Resources._074_geodude_back;
 
                     default:
@@ -65,6 +66,7 @@ namespace Pokemon
                     case 18: return Properties.Resources._018_pidgeot_front;
                     case 19: return Properties.Resources._019_rattata_front;
                     case 20: return Properties.Resources._020_raticate_front;
+                    case 21: return Properties.Resources._021_spearow_front;
                     case 74: return Properties.Resources._074_geodude_front;
 
                     default:
