@@ -483,6 +483,26 @@ namespace Pokemon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _037_vulpix_back {
+            get {
+                object obj = ResourceManager.GetObject("_037_vulpix_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _037_vulpix_front {
+            get {
+                object obj = ResourceManager.GetObject("_037_vulpix_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _074_geodude_back {
             get {
                 object obj = ResourceManager.GetObject("_074_geodude_back", resourceCulture);
@@ -496,6 +516,26 @@ namespace Pokemon.Properties {
         internal static System.Drawing.Bitmap _074_geodude_front {
             get {
                 object obj = ResourceManager.GetObject("_074_geodude_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _081_magnemite_back {
+            get {
+                object obj = ResourceManager.GetObject("_081_magnemite_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _081_magnemite_front {
+            get {
+                object obj = ResourceManager.GetObject("_081_magnemite_front", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

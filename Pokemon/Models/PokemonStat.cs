@@ -13,6 +13,7 @@ namespace Pokemon
         public int Health { get; set; }
         public int PrimaryTypeID { get; set; }
         public int? SecondaryTypeID { get; set; }
+        public int MinimalLevel { get; set; }
 
         public Stat()
         {
@@ -34,6 +35,7 @@ namespace Pokemon
         public string Name { get; set; }
         public int ID { get; set; }
         
+
         public void SetStatsArray(int attack, int defence, int specialAttack, int specialDefence, int speed)
         {
             this.Stats[0] = attack;

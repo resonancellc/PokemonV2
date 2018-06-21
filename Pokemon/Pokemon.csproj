@@ -277,5 +277,17 @@
   <ItemGroup>
     <None Include="Resources\021_spearow_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\037_vulpix_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\037_vulpix_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\081_magnemite_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\081_magnemite_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

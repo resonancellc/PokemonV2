@@ -63,7 +63,7 @@ namespace Pokemon
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (pokemonList[0].ID > 0)
+            if (pokemonList[0] != null)
             {
                 if (ValidateLevel())
                 {
@@ -75,6 +75,10 @@ namespace Pokemon
                 {
                     MessageBox.Show("Something went wrong");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Team not selected");
             }
         }
 

@@ -41,7 +41,8 @@ namespace Pokemon
                     Name = (string)values[1],
                     Health = (int)values[2],
                     PrimaryTypeID = (int)values[8],
-                    SecondaryTypeID = values[9] != DBNull.Value ? (int?)values[9] : null
+                    SecondaryTypeID = values[9] != DBNull.Value ? (int?)values[9] : null,
+                    MinimalLevel = values[10] != DBNull.Value ? (int)values[10] : 1
                 };
                 pokemonStat.SetStatsArray((int)values[3], (int)values[4], (int)values[5], (int)values[6], (int)values[7]);
                 pokemonStatList.Add(pokemonStat);

@@ -10,13 +10,19 @@ namespace Pokemon
     {
         public static Pokemon GetPokemon(int level)
         {
+            int id = 0;
             List<int> IDs = new List<int>();
             foreach (Item pokemon in StaticTypes.pokemonList)
             {
                 IDs.Add(pokemon.ID);
             }
+            id = IDs[CalculatorHelper.RandomNumber(1, IDs.Count)];
 
-            int id = IDs[CalculatorHelper.RandomNumber(1,IDs.Count)];
+            while (level < StaticTypes.GetPokeStatsByID(id).MinimalLevel)
+            {
+                id = IDs[CalculatorHelper.RandomNumber(1, IDs.Count)];
+            }
+
 
 
             return new Pokemon(id, level, CalculatorHelper.CalculateStats(level, StaticTypes.GetPokeStatsByID(id)));

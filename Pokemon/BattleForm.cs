@@ -30,8 +30,7 @@ namespace Pokemon
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(12, 20), false);
-
+            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
             CreateBattle();
         }
 

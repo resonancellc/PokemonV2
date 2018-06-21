@@ -35,7 +35,7 @@ namespace Pokemon
             this.lblLevel.Text = pokemon.Level.ToString() + "lvl";
             this.lblHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
             this.barPkmnHealth.Maximum = pokemon.HPMax;
-            this.barPkmnHealth.Value = pokemon.HPCurrent;
+            this.barPkmnHealth.Value =  pokemon.HPCurrent > 0 ? pokemon.HPCurrent : 0;
 
             this.Selected = false;
         }
