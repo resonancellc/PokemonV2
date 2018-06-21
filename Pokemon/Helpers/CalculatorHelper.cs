@@ -8,6 +8,20 @@ namespace Pokemon
 {
     public static class CalculatorHelper
     {
+        private static readonly Random random = new Random();
+        private static readonly object syncLock = new object();
+        //CalculatorHelper.RandomNumber()
+        public static int RandomNumber(int min, int max)
+        {
+            lock (syncLock)
+            { // synchronize
+                return random.Next(min, max);
+            }
+        }
+
+
+
+
         /// <summary>
         /// Calculating stats of new generated pokemon basing on his base stats (lvl 10 pokemon with 40 base attack gives pokemon with 15-19 attack)
         /// </summary>
@@ -16,13 +30,12 @@ namespace Pokemon
         /// <returns></returns>
         public static Stat CalculateStats(int level, Stat pokemonStat)
         {
-            Random rand = new Random();
             Stat stat = new Stat();
             for (int i = 0; i < 5; i++)
             {
-                stat.Stats[i] = (((10 + pokemonStat.Stats[i] + rand.Next(0, 20)) * 2) * level) / 100 + 5;
+                stat.Stats[i] = (((10 + pokemonStat.Stats[i] + CalculatorHelper.RandomNumber(0,20)) * 2) * level) / 100 + 5;
             }
-            stat.Health = ((10 + pokemonStat.Health + rand.Next(0, 20) + 50) * level) / 50 + 10;
+            stat.Health = ((10 + pokemonStat.Health + CalculatorHelper.RandomNumber(0, 20) + 50) * level) / 50 + 10;
             stat.PrimaryTypeID = pokemonStat.PrimaryTypeID;
             stat.SecondaryTypeID = pokemonStat.SecondaryTypeID;
             return stat;
@@ -82,10 +95,11 @@ namespace Pokemon
             }
         }     
 
+
+
         public static bool ChanceCalculator(int chance, int maxRange = 100)
         {
-            Random rand = new Random();
-            int chanceScore = rand.Next(0, maxRange);
+            int chanceScore = CalculatorHelper.RandomNumber(0, maxRange);
             if (chanceScore <= chance)
             {
                 return true; // success

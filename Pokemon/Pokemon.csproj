@@ -76,6 +76,12 @@
       <DependentUpon>PokemonPartyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PokemonParty\PokemonParty.cs" />
+    <Compile Include="StartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartForm.Designer.cs">
+      <DependentUpon>StartForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Static\PokemonEnum.cs" />
     <Compile Include="Generators\PokemonGenerator.cs" />
     <Compile Include="Models\PokemonStat.cs" />
@@ -102,6 +108,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="StartForm.resx">
+      <DependentUpon>StartForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

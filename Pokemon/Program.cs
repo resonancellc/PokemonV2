@@ -16,7 +16,13 @@ namespace Pokemon
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BattleForm());
+
+            StaticSQL.SetConnectionString("Server=DESKTOP-6CLE20J\\SQLEXPRESS;Database=Pokemon;Trusted_Connection=true;");
+            StaticTypes.FillPokemonList();
+            StaticTypes.FillPokemonStatsList();
+            StaticTypes.FillAttackList();
+
+            Application.Run(new StartForm());
         }
     }
 }

@@ -17,24 +17,19 @@ namespace Pokemon
         Battle battle;
         PokemonPartyForm pokemonPartyForm = null;
 
-        public BattleForm()
+        public BattleForm(Pokemon[] pokemonList)
         {
             InitializeComponent();
             attackButtons[0] = btnAttack1;
             attackButtons[1] = btnAttack2;
             attackButtons[2] = btnAttack3;
             attackButtons[3] = btnAttack4;
-
-            StaticSQL.SetConnectionString("Server=DESKTOP-6CLE20J\\SQLEXPRESS;Database=Pokemon;Trusted_Connection=true;");
-
-            StaticTypes.FillPokemonList();
-            StaticTypes.FillPokemonStatsList();
-            StaticTypes.FillAttackList();
+            PokemonParty.AddManyToParty(pokemonList, true);
         }
+
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(4, 15), true);
             PokemonParty.AddToParty(PokemonGenerator.GetPokemon(12, 20), false);
 
             CreateBattle();
@@ -246,10 +241,9 @@ namespace Pokemon
         private Attack GenerateEnemyPokemonAttack()
         {
             Attack attack = null;
-            Random rand = new Random();
             while (attack == null)
             {
-                attack = battle.EnemyPokemon.attackPool[rand.Next(0, battle.EnemyPokemon.attackPool.Length)];
+                attack = battle.EnemyPokemon.attackPool[CalculatorHelper.RandomNumber(0, battle.EnemyPokemon.attackPool.Length)];
             }
             return attack;
         }
