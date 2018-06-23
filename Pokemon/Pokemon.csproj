@@ -295,5 +295,11 @@
   <ItemGroup>
     <None Include="Resources\069_bellsprout_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\147_dratini_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\147_dratini_front.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
