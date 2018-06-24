@@ -119,7 +119,7 @@
             this.btnAttack2.TabIndex = 0;
             this.btnAttack2.Text = "---";
             this.btnAttack2.UseVisualStyleBackColor = true;
-            this.btnAttack2.Click += new System.EventHandler(this.attackButton_Click);
+            this.btnAttack2.Click += new System.EventHandler(this.btnAttack_Click);
             // 
             // btnAttack4
             // 
@@ -131,7 +131,7 @@
             this.btnAttack4.TabIndex = 0;
             this.btnAttack4.Text = "---";
             this.btnAttack4.UseVisualStyleBackColor = true;
-            this.btnAttack4.Click += new System.EventHandler(this.attackButton_Click);
+            this.btnAttack4.Click += new System.EventHandler(this.btnAttack_Click);
             // 
             // btnAttack3
             // 
@@ -143,7 +143,7 @@
             this.btnAttack3.TabIndex = 0;
             this.btnAttack3.Text = "---";
             this.btnAttack3.UseVisualStyleBackColor = true;
-            this.btnAttack3.Click += new System.EventHandler(this.attackButton_Click);
+            this.btnAttack3.Click += new System.EventHandler(this.btnAttack_Click);
             // 
             // btnAttack1
             // 
@@ -155,7 +155,7 @@
             this.btnAttack1.TabIndex = 0;
             this.btnAttack1.Text = "---";
             this.btnAttack1.UseVisualStyleBackColor = true;
-            this.btnAttack1.Click += new System.EventHandler(this.attackButton_Click);
+            this.btnAttack1.Click += new System.EventHandler(this.btnAttack_Click);
             // 
             // barPlayerPkmnHealth
             // 

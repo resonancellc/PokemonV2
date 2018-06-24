@@ -166,7 +166,7 @@
             this.tbLevel.Name = "tbLevel";
             this.tbLevel.Size = new System.Drawing.Size(100, 20);
             this.tbLevel.TabIndex = 3;
-            this.tbLevel.Text = "Level";
+            this.tbLevel.Text = "50";
             this.tbLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbLevel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbLevel_KeyPress);
             this.tbLevel.Validated += new System.EventHandler(this.tbLevel_Validated);

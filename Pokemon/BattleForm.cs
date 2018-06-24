@@ -47,7 +47,21 @@ namespace Pokemon
 
             tbLog.Text = $"Wild {enemyPokemon.Name} appears!";
         }
+        private void GenerateNewPokemon()
+        {
+            AfterWinForm afterWinForm = new AfterWinForm();
+            //afterWinForm.Show();
+            this.Hide();
 
+            if (afterWinForm.ShowDialog() == DialogResult.OK)
+            {
+                PokemonParty.HealAll();
+                PokemonParty.enemyPokemons[0] = null;
+                PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
+                afterWinForm.Dispose();
+                CreateBattle();
+            }
+        }
         private void SetAttackButtons(Pokemon pokemon)
         {
             foreach (Button attackButton in attackButtons)
@@ -71,7 +85,10 @@ namespace Pokemon
         }
 
         #region events
-
+        private void btnAttack_Click(object sender, EventArgs e)
+        {
+            BeginAttackPhase(sender);
+        }
         private void btnRun_Click(object sender, EventArgs e)
         {
             RunFromBattle();
@@ -84,7 +101,11 @@ namespace Pokemon
         {
             UseItem();
         }
-
+        private void tbLog_TextChanged(object sender, EventArgs e)
+        {
+            tbLog.SelectionStart = tbLog.Text.Length;
+            tbLog.ScrollToCaret();
+        }
         #endregion
 
         #region BattleActionButtons
@@ -124,11 +145,9 @@ namespace Pokemon
                 item.Enabled = false;
             }
         }
-
         private void RedrawUI()
         {
             SetPokemonImages(battle.Pokemon.ID, battle.EnemyPokemon.ID);
-            UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
             SetPkmnHealthBars(battle.Pokemon, battle.EnemyPokemon);
             SetPkmnLabels(battle.Pokemon, battle.EnemyPokemon);
         }
@@ -138,14 +157,6 @@ namespace Pokemon
             playerPkmnImage.Image = ImageHelper.GetImageById(true, playerPokemonID);
             enemyPkmnImage.Image = ImageHelper.GetImageById(false, enemyPokemonID);
         }
-
-        private void UpdateBattleInterface(Pokemon pokemon, Pokemon enemyPokemon)
-        {
-            SetPkmnHealthBars(pokemon, enemyPokemon);
-            SetPkmnLabels(pokemon, enemyPokemon);
-            //SetPkmnCondition(pokemon, enemyPokemon);
-        }
-        //string shadeName = ((Shade) 1).ToString();  
         private void SetPkmnHealthBars(Pokemon pokemon, Pokemon enemyPokemon)
         {
             if (pokemon.CheckIfPokemonAlive())
@@ -174,23 +185,6 @@ namespace Pokemon
             }
 
         }
-
-        private void GenerateNewPokemon()
-        {
-            AfterWinForm afterWinForm = new AfterWinForm();
-            //afterWinForm.Show();
-            this.Hide();
-
-            if (afterWinForm.ShowDialog() == DialogResult.OK)
-            {
-                PokemonParty.HealAll();
-                PokemonParty.enemyPokemons[0] = null;
-                PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
-                afterWinForm.Dispose();
-                CreateBattle();
-            }
-        }
-
         private void SetPkmnLabels(Pokemon pokemon, Pokemon enemyPokemon)
         {
             lblPlayerPkmnLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : ((PokemonEnum.Condition)pokemon.Condition).ToString();
@@ -208,86 +202,41 @@ namespace Pokemon
                 lblEnemyPkmnHealth.Text = $"0/{enemyPokemon.HPMax}";
             }
         }
-        #endregion
-
         private void PrintBattleInfo(string battleInfo)
         {
             BattleLog.AppendText(battleInfo);
             tbLog.Text += Environment.NewLine + battleInfo;
         }
 
-        private void PrintBattleInfoDetailed(string battleInfo)
-        {
-            BattleLog.AppendText(battleInfo);
-        }
-
-        private void attackButton_Click(object sender, EventArgs e)
-        {
-            BeginAttackPhase(sender);
-        }
+        #endregion
 
         private void BeginAttackPhase(object sender)
         {
             BattleLog.ClearText();
             
-            Attack playerAttack = GeneratePokemonAttack(true, sender);
-            Attack enemyAttack = GeneratePokemonAttack(false);
+            Attack playerAttack = battle.GeneratePokemonAttack(true, sender);
+            Attack enemyAttack = battle.GeneratePokemonAttack(false);
 
             if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))
             {
-                PokemonAttack(playerAttack, battle.Pokemon, true);
-                UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
+                battle.PokemonAttack(playerAttack, battle.Pokemon, true);
 #warning na tą chwilę wygenerowaliśmy już nowego pokemona - bug
-                if (battle.EnemyPokemon.CheckIfPokemonAlive()) PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                if (battle.EnemyPokemon.CheckIfPokemonAlive()) battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
             }
             else
             {
-                PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-                UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
-                if (battle.Pokemon.CheckIfPokemonAlive()) PokemonAttack(playerAttack, battle.Pokemon, true);
+                battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                if (battle.Pokemon.CheckIfPokemonAlive()) battle.PokemonAttack(playerAttack, battle.Pokemon, true);
             }
 
-            UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
+            RedrawUI();
             tbLog.Text = BattleLog.Log;
         }
 
-        private Attack GeneratePokemonAttack(bool isPlayerAttack, object sender = null)
-        {
-            Attack attack = null;
-            if (!isPlayerAttack)
-            {
-                while (attack == null)
-                {
-                    attack = battle.EnemyPokemon.attackPool[CalculatorHelper.RandomNumber(0, battle.EnemyPokemon.attackPool.Length)];
-                }
-            }
-            else return attack = StaticTypes.attackList.Where(x => x.Name == ((Button)sender).Text).First();
 
-            return attack;
-        }
 
-        private void PokemonAttack(Attack attack, Pokemon attackingPokemon, bool isPlayerAttack)
-        {
-            if (BattleHelper.ApplyConditionEffect(attackingPokemon))
-            {
-                // Checking if not miss
-                if (!BattleHelper.IsMiss(attack))
-                {
-                    BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
-                    int damage = battle.Attack(isPlayerAttack, attack);
+        
 
-                    if (attack.BoostStats != string.Empty)
-                        BattleHelper.ChangeTempStats(isPlayerAttack, attack, battle);
-
-                }
-                else BattleLog.AppendText($"{attackingPokemon.Name} missed!");
-            }
-        }
-
-        private void tbLog_TextChanged(object sender, EventArgs e)
-        {
-            tbLog.SelectionStart = tbLog.Text.Length;
-            tbLog.ScrollToCaret();
-        }
+        
     }
 }

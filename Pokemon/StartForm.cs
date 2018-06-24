@@ -19,6 +19,7 @@ namespace Pokemon
         {
             InitializeComponent();
             LoadPicturesToList();
+            StartRandomizing(1);
         }
 
         private void btnRandomize_Click(object sender, EventArgs e)
