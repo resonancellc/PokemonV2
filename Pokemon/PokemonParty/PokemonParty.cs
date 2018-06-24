@@ -120,5 +120,15 @@ namespace Pokemon
 
             return null;
         }
+
+        public static void HealAll()
+        {
+            foreach (Pokemon pokemon in playerPokemons)
+            {
+                if (pokemon == null) break;
+                pokemon.HPCurrent = pokemon.HPMax;
+                pokemon.Condition = (int)PokemonEnum.Condition.None;
+            }
+        }
     }
 }

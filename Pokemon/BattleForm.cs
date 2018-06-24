@@ -27,7 +27,6 @@ namespace Pokemon
             PokemonParty.AddManyToParty(pokemonList, true);
         }
 
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
@@ -43,6 +42,7 @@ namespace Pokemon
 
             SetAttackButtons(pokemon);
 
+            this.Show();
             RedrawUI();
 
             tbLog.Text = $"Wild {enemyPokemon.Name} appears!";
@@ -158,6 +158,7 @@ namespace Pokemon
                 barPlayerPkmnHealth.Value = 0;
                 BattleLog.AppendText($"{pokemon.Name} has fainted!");
                 BlockUI();
+                
             }
             if (enemyPokemon.CheckIfPokemonAlive())
             {
@@ -169,8 +170,25 @@ namespace Pokemon
                 barEnemyPkmnHealth.Value = 0;
                 BattleLog.AppendText($"{enemyPokemon.Name} has fainted!");
                 BlockUI();
+                GenerateNewPokemon();
             }
 
+        }
+
+        private void GenerateNewPokemon()
+        {
+            AfterWinForm afterWinForm = new AfterWinForm();
+            //afterWinForm.Show();
+            this.Hide();
+
+            if (afterWinForm.ShowDialog() == DialogResult.OK)
+            {
+                PokemonParty.HealAll();
+                PokemonParty.enemyPokemons[0] = null;
+                PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
+                afterWinForm.Dispose();
+                CreateBattle();
+            }
         }
 
         private void SetPkmnLabels(Pokemon pokemon, Pokemon enemyPokemon)
@@ -212,76 +230,57 @@ namespace Pokemon
         {
             BattleLog.ClearText();
             
-
-            Attack playerAttack = GeneratePlayerPokemonAttack(sender);
-            Attack enemyAttack = GenerateEnemyPokemonAttack();
+            Attack playerAttack = GeneratePokemonAttack(true, sender);
+            Attack enemyAttack = GeneratePokemonAttack(false);
 
             if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))
             {
-                PlayerPokemonAttack(playerAttack);
+                PokemonAttack(playerAttack, battle.Pokemon, true);
                 UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
-                if (battle.EnemyPokemon.CheckIfPokemonAlive()) EnemyPokemonAttack(enemyAttack);
+#warning na tą chwilę wygenerowaliśmy już nowego pokemona - bug
+                if (battle.EnemyPokemon.CheckIfPokemonAlive()) PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
             }
             else
             {
-                EnemyPokemonAttack(enemyAttack);
+                PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
                 UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
-                if (battle.Pokemon.CheckIfPokemonAlive()) PlayerPokemonAttack(playerAttack);
+                if (battle.Pokemon.CheckIfPokemonAlive()) PokemonAttack(playerAttack, battle.Pokemon, true);
             }
 
             UpdateBattleInterface(battle.Pokemon, battle.EnemyPokemon);
             tbLog.Text = BattleLog.Log;
         }
-        private Attack GeneratePlayerPokemonAttack(object sender)
+
+        private Attack GeneratePokemonAttack(bool isPlayerAttack, object sender = null)
         {
             Attack attack = null;
-            return attack = StaticTypes.attackList.Where(x => x.Name == ((Button)sender).Text).First();
-        }
-        private Attack GenerateEnemyPokemonAttack()
-        {
-            Attack attack = null;
-            while (attack == null)
+            if (!isPlayerAttack)
             {
-                attack = battle.EnemyPokemon.attackPool[CalculatorHelper.RandomNumber(0, battle.EnemyPokemon.attackPool.Length)];
+                while (attack == null)
+                {
+                    attack = battle.EnemyPokemon.attackPool[CalculatorHelper.RandomNumber(0, battle.EnemyPokemon.attackPool.Length)];
+                }
             }
+            else return attack = StaticTypes.attackList.Where(x => x.Name == ((Button)sender).Text).First();
+
             return attack;
         }
 
-        private void PlayerPokemonAttack(Attack attack)
+        private void PokemonAttack(Attack attack, Pokemon attackingPokemon, bool isPlayerAttack)
         {
-
-            if (BattleHelper.ApplyConditionEffect(battle.Pokemon))
-            {
-                if (!BattleHelper.IsMiss(attack))
-                {
-                    BattleLog.AppendText($"{battle.Pokemon.Name} used {attack.Name}");
-                    int damage = battle.Attack(true, attack);
-
-
-
-                    if (attack.BoostStats != string.Empty)
-                        BattleHelper.ChangeTempStats(true, attack, battle);
-
-                }
-                else BattleLog.AppendText($"{battle.Pokemon.Name} missed!");
-            }
-        }
-
-        private void EnemyPokemonAttack(Attack attack)
-        {
-            if (BattleHelper.ApplyConditionEffect(battle.EnemyPokemon))
+            if (BattleHelper.ApplyConditionEffect(attackingPokemon))
             {
                 // Checking if not miss
                 if (!BattleHelper.IsMiss(attack))
                 {
-                    BattleLog.AppendText($"{battle.EnemyPokemon.Name} used {attack.Name}");
-                    int damage = battle.Attack(false, attack);
+                    BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
+                    int damage = battle.Attack(isPlayerAttack, attack);
 
                     if (attack.BoostStats != string.Empty)
-                        BattleHelper.ChangeTempStats(false, attack, battle);
+                        BattleHelper.ChangeTempStats(isPlayerAttack, attack, battle);
 
                 }
-                else BattleLog.AppendText($"{battle.EnemyPokemon.Name} missed!");
+                else BattleLog.AppendText($"{attackingPokemon.Name} missed!");
             }
         }
 

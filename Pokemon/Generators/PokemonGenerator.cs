@@ -10,6 +10,7 @@ namespace Pokemon
     {
         public static Pokemon GetPokemon(int level)
         {
+#warning Przeniesc listę IDków pokemonów do stałej - załaduj na starcie i nigdy więcej
             int id = 0;
             List<int> IDs = new List<int>();
             foreach (Item pokemon in StaticTypes.pokemonList)
