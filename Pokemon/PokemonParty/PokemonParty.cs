@@ -10,6 +10,8 @@ namespace Pokemon
     {
         public static Pokemon[] playerPokemons = new Pokemon[6];
         public static Pokemon[] enemyPokemons = new Pokemon[6];
+        public static int ActivePokemonIndex { get; set; }
+
 
         public static void AddToParty(Pokemon pokemon, bool isPlayerParty)
         {
@@ -107,6 +109,7 @@ namespace Pokemon
             {
                 if (playerPokemons[index] != null)
                 {
+                    ActivePokemonIndex = index;
                     return playerPokemons[index];
                 } 
             }
@@ -119,6 +122,27 @@ namespace Pokemon
             }
 
             return null;
+        }
+
+        public static void ClearEnemyParty()
+        {
+            for (int i = 0; i < enemyPokemons.Length; i++)
+            {
+                enemyPokemons[i] = null;
+            }
+        }
+
+        public static bool CheckIfAnyPokemonAlive(bool isPlayerParty)
+        {
+            if (isPlayerParty) return playerPokemons.Where(p => p != null).Any(p => p.HPCurrent > 0);
+            else return enemyPokemons.Where(p => p != null).Any(p => p.HPCurrent > 0);
+        }
+
+        public static Pokemon GetFirstPokemonAlive(bool isPlayerParty)
+        {
+            if (isPlayerParty) return playerPokemons.Where(p => p.HPCurrent > 0).First();
+            else return enemyPokemons.Where(p => p.HPCurrent > 0).First();
+
         }
 
         public static void HealAll()

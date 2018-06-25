@@ -14,7 +14,7 @@ namespace Pokemon
     {
         List<PictureBox> pictures = new List<PictureBox>();
         Pokemon[] pokemonList = new Pokemon[6];
-
+        int teamSize = 1;
         public StartForm()
         {
             InitializeComponent();
@@ -31,6 +31,7 @@ namespace Pokemon
 
         private void StartRandomizing(int pokeNumber)
         {
+            teamSize = pokeNumber;
             if (ValidateLevel())
             {
                 foreach (PictureBox pictureBox in pictures)
@@ -68,7 +69,7 @@ namespace Pokemon
             {
                 if (ValidateLevel())
                 {
-                    BattleForm battleForm = new BattleForm(pokemonList);
+                    BattleForm battleForm = new BattleForm(pokemonList, teamSize);
                     battleForm.Show();
                     this.Hide();
                 }

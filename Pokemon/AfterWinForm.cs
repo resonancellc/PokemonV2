@@ -17,6 +17,13 @@ namespace Pokemon
             InitializeComponent();
         }
 
+        public AfterWinForm(int winnings)
+        {
+            InitializeComponent();
+            this.rbWinnings.Text = $"You've earned {winnings} coins";
+            this.rbWinnings.AppendText($"{Environment.NewLine} Current money: {PlayerEquipment.Money}");
+        }
+
         private void btnQuit_Click(object sender, EventArgs e)
         {
             Application.Exit();

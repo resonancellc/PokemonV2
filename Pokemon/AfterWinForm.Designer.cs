@@ -31,7 +31,7 @@
             this.btnContinue = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rbWinnings = new System.Windows.Forms.RichTextBox();
             this.btnGoToShop = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -65,13 +65,13 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "You won this fight, but battle goes on!";
             // 
-            // richTextBox1
+            // rbWinnings
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(13, 28);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(450, 96);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
+            this.rbWinnings.Location = new System.Drawing.Point(13, 28);
+            this.rbWinnings.Name = "rbWinnings";
+            this.rbWinnings.Size = new System.Drawing.Size(450, 96);
+            this.rbWinnings.TabIndex = 3;
+            this.rbWinnings.Text = "";
             // 
             // btnGoToShop
             // 
@@ -88,7 +88,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 261);
             this.Controls.Add(this.btnGoToShop);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rbWinnings);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.btnContinue);
@@ -105,7 +105,7 @@
         private System.Windows.Forms.Button btnContinue;
         private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rbWinnings;
         private System.Windows.Forms.Button btnGoToShop;
     }
 }

@@ -33,5 +33,15 @@ namespace Pokemon
         {     
             return new Pokemon(id, level, CalculatorHelper.CalculateStats(level, StaticTypes.GetPokeStatsByID(id)));
         }
+
+        public static Pokemon[] GenerateMany(int count, int level)
+        {
+            Pokemon[] pokeList = new Pokemon[6];
+            for (int i = 0; i < count; i++)
+            {
+                pokeList[i] = GetPokemon(level);
+            }
+            return pokeList;
+        }
     }
 }

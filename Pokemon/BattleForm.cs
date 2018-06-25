@@ -17,7 +17,7 @@ namespace Pokemon
         Battle battle;
         PokemonPartyForm pokemonPartyForm = null;
 
-        public BattleForm(Pokemon[] pokemonList)
+        public BattleForm(Pokemon[] pokemonList, int teamSize)
         {
             InitializeComponent();
             attackButtons[0] = btnAttack1;
@@ -25,43 +25,54 @@ namespace Pokemon
             attackButtons[2] = btnAttack3;
             attackButtons[3] = btnAttack4;
             PokemonParty.AddManyToParty(pokemonList, true);
+
+
+            PokemonParty.AddManyToParty(PokemonGenerator.GenerateMany(teamSize - 1, pokemonList.First().Level), false);
+                
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
-            CreateBattle();
+            CreateBattle(PokemonParty.GetFirstPokemonAlive(true), PokemonParty.GetFirstPokemonAlive(false));
         }
 
-        private void CreateBattle()
+        private void CreateBattle(Pokemon playerPokemon, Pokemon enemyPokemon)
         {
-            Pokemon pokemon = PokemonParty.GetPokemon(0, true);
-            Pokemon enemyPokemon = PokemonParty.GetPokemon(0, false);
+            battle = new Battle(playerPokemon, enemyPokemon);
 
-            battle = new Battle(pokemon, enemyPokemon);
-
-            SetAttackButtons(pokemon);
+            SetAttackButtons(playerPokemon);
 
             this.Show();
             RedrawUI();
 
             tbLog.Text = $"Wild {enemyPokemon.Name} appears!";
         }
-        private void GenerateNewPokemon()
+
+        private void BattleResult(bool isWin)
         {
-            AfterWinForm afterWinForm = new AfterWinForm();
+            if (isWin)
+            {
+                BattleWon();
+            }
+        }
+        private void BattleWon()
+        {
+            
+            AfterWinForm afterWinForm = new AfterWinForm(CalculatorHelper.CalculateWinnings());
             //afterWinForm.Show();
             this.Hide();
 
             if (afterWinForm.ShowDialog() == DialogResult.OK)
             {
                 PokemonParty.HealAll();
-                PokemonParty.enemyPokemons[0] = null;
+                PokemonParty.ClearEnemyParty();
                 PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
                 afterWinForm.Dispose();
-                CreateBattle();
+                CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
             }
         }
+
         private void SetAttackButtons(Pokemon pokemon)
         {
             foreach (Button attackButton in attackButtons)
@@ -181,7 +192,15 @@ namespace Pokemon
                 barEnemyPkmnHealth.Value = 0;
                 BattleLog.AppendText($"{enemyPokemon.Name} has fainted!");
                 BlockUI();
-                GenerateNewPokemon();
+                if (!PokemonParty.CheckIfAnyPokemonAlive(false))
+                {
+                    BattleResult(true);
+                }
+                else
+                {
+                    CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
+                }
+                
             }
 
         }

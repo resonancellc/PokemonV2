@@ -8,8 +8,11 @@ namespace Pokemon
 {
     public static class PlayerEquipment
     {
+        public static int Money { get; set; }
 
-
-
+        static PlayerEquipment()
+        {
+            Money = 0;
+        }
     }
 }
