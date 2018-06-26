@@ -16,6 +16,7 @@ namespace Pokemon
         public int HPCurrent { get; set; }
         public Stat Stat { get; set; }
         public int Condition { get; set; }
+        public bool IsFlinched { get; set; }
 
         public int PrimaryTypeID { get; set; }
         public int? SecondaryTypeID { get; set; }

@@ -41,20 +41,29 @@ namespace Pokemon
 
         public void PokemonAttack(Attack attack, Pokemon attackingPokemon, bool isPlayerAttack)
         {
-            if (BattleHelper.ApplyConditionEffect(attackingPokemon))
+            if (!attackingPokemon.IsFlinched)
             {
-                // Checking if not miss
-                if (BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
-                else
+                if (BattleHelper.ApplyConditionEffect(attackingPokemon)) // change name for something like // IsImmobilizedByCondition() ?
                 {
-                    BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
-                    Attack(isPlayerAttack, attack);
+                    // Checking if not miss
+                    if (BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
+                    else
+                    {
+                        BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
+                        Attack(isPlayerAttack, attack);
 
-                    if (attack.BoostStats != string.Empty)
-                        BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
+                        if (attack.BoostStats != string.Empty)
+                            BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
 
+                    }
                 }
             }
+            else
+            {
+                attackingPokemon.IsFlinched = false;
+                BattleLog.AppendText($"{attackingPokemon.Name} is flinched");
+            }
+
         }
 
         public void Attack(bool isPlayerAttack, Attack attack)
@@ -69,10 +78,8 @@ namespace Pokemon
 
             if (attack.AdditionalEffect != String.Empty)
             {
-                if (BattleHelper.IsConditionChange(attack, isPlayerAttack ? this.EnemyPokemon : this.Pokemon))
-                {
-
-                }
+                BattleHelper.IsConditionChange(attack, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
+                BattleHelper.IsFlinch(attack, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
             }
 
             if (isPlayerAttack) EnemyPokemon.Hurt(damage);

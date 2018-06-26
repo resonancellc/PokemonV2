@@ -98,6 +98,21 @@ namespace Pokemon
             return false;
         }
 
+        public static bool IsFlinch(Attack attack, Pokemon targetPokemon)
+        {
+            string[] attributes = attack.AdditionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
+
+            if (attributes.Contains("flinch"))
+            {
+                if (attributes.Length > 2) 
+                {
+                    targetPokemon.IsFlinched = CalculatorHelper.ChanceCalculator(Convert.ToInt32(attributes[2]), 100);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static bool ConditionChange(Pokemon targetPokemon, int newCondition, int effectChance)
         {
             if (CalculatorHelper.ChanceCalculator(effectChance))
