@@ -46,7 +46,7 @@ namespace Pokemon
                 if (BattleHelper.ApplyConditionEffect(attackingPokemon)) // change name for something like // IsImmobilizedByCondition() ?
                 {
                     // Checking if not miss
-                    if (BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
+                    if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
                     else
                     {
                         BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
@@ -68,18 +68,22 @@ namespace Pokemon
 
         public void Attack(bool isPlayerAttack, Attack attack)
         {
-            int damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
-            if (attack.Power.HasValue  && damage < 1) damage = 1;
-            if (BattleHelper.IsCritical(attack))
+            int damage = AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect);
+            if (damage == 0)
             {
-                damage *= 2;
-                BattleLog.AppendText("Critical hit!");
+                damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
+                if (attack.Power.HasValue && damage < 1) damage = 1;
+                if (attack.Power.HasValue && BattleHelper.IsCritical(attack))
+                {
+                    damage *= 2;
+                    BattleLog.AppendText("Critical hit!");
+                }
             }
 
             if (attack.AdditionalEffect != String.Empty)
             {
                 BattleHelper.IsConditionChange(attack, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
-                BattleHelper.IsFlinch(attack, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
+                AdditionalEffectHelper.IsFlinch(attack.AdditionalEffect, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
             }
 
             if (isPlayerAttack) EnemyPokemon.Hurt(damage);

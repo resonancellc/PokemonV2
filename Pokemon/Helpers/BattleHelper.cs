@@ -41,6 +41,8 @@ namespace Pokemon
                 return CalculatorHelper.ChanceCalculator(1, 255);
         }
 
+
+
         public static bool IsConditionChange(Attack attack, Pokemon targetPokemon)
         {
             if (targetPokemon.Condition == 0)
@@ -94,21 +96,6 @@ namespace Pokemon
             {
                 BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
                 return false;
-            }
-            return false;
-        }
-
-        public static bool IsFlinch(Attack attack, Pokemon targetPokemon)
-        {
-            string[] attributes = attack.AdditionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
-
-            if (attributes.Contains("flinch"))
-            {
-                if (attributes.Length > 2) 
-                {
-                    targetPokemon.IsFlinched = CalculatorHelper.ChanceCalculator(Convert.ToInt32(attributes[2]), 100);
-                    return true;
-                }
             }
             return false;
         }
@@ -178,13 +165,10 @@ namespace Pokemon
 
         public static void ChangeTempStats(bool isPlayerAttack, bool isEnemyTarget, int statType, int stageValue, Battle battle)
         {
-            if (!isPlayerAttack && isEnemyTarget) // przeciwnik na gracza
+            if (!isPlayerAttack && isEnemyTarget || isPlayerAttack && !isEnemyTarget) // 
                 ChangePokemonStats(true, statType, battle, stageValue);
-            else if (isPlayerAttack && !isEnemyTarget) // gracz na siebie
-                ChangePokemonStats(true, statType, battle, stageValue);
-            else if (isPlayerAttack && isEnemyTarget) // gracz na przeciwnika
-                ChangePokemonStats(false, statType, battle, stageValue);
-            else if (!isPlayerAttack && !isEnemyTarget) // przeciwnik na gracza
+
+            else if (isPlayerAttack && isEnemyTarget || !isPlayerAttack && !isEnemyTarget) // 
                 ChangePokemonStats(false, statType, battle, stageValue);
         }
 

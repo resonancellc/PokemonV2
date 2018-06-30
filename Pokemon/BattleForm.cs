@@ -98,6 +98,7 @@ namespace Pokemon
         #region events
         private void btnAttack_Click(object sender, EventArgs e)
         {
+            tbLog.Text = "";
             BeginAttackPhase(sender);
         }
         private void btnRun_Click(object sender, EventArgs e)
