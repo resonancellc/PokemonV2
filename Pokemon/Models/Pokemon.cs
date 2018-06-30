@@ -15,6 +15,7 @@ namespace Pokemon
         public int HPMax { get; set; }
         public int HPCurrent { get; set; }
         public Stat Stat { get; set; }
+        public Stat StartStats { get; set; }
         public int Condition { get; set; }
         public bool IsFlinched { get; set; }
 
@@ -30,6 +31,7 @@ namespace Pokemon
             this.Name = StaticTypes.GetPokemonNameByID(id);
             this.Level = level;
             this.Stat = pokemonStat;
+            this.StartStats = pokemonStat;
 
             this.HPMax = pokemonStat.Health;
             this.HPCurrent = this.HPMax;

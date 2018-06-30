@@ -15,6 +15,22 @@ namespace Pokemon
         public static List<Item> pokemonList = new List<Item>();
         public static List<PokemonStat> pokemonStatList = new List<PokemonStat>();
         public static List<Attack> attackList = new List<Attack>();
+        public static List<EquipmentItem> equipmentItemList = new List<EquipmentItem>();
+
+        public static void FillItemList()
+        {
+            foreach (DataRow row in StaticSQL.GetItemList().Rows)
+            {
+                var values = row.ItemArray;
+                EquipmentItem item = new EquipmentItem()
+                {
+                    ID = (int)values[0],
+                    Name = (string)values[1],
+                    Cost = (int)values[1]
+                };
+                equipmentItemList.Add(item);
+            }
+        }
 
         public static void FillPokemonList()
         {

@@ -144,7 +144,18 @@ namespace Pokemon
         }
         private void UseItem()
         {
-            tbLog.Text = "You don't have any items!";
+            if (ItemHelper.UseItem(battle.Pokemon, 1))
+            {
+                BattleLog.ClearText();
+                BattleLog.AppendText($"You used potion on {battle.Pokemon.Name}");
+                //BattleLog.AppendText($"You used {StaticTypes.equipmentItemList[0].Name} on {battle.Pokemon.Name}");
+                Attack enemyAttack = battle.GeneratePokemonAttack(false);
+                battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                RedrawUI();
+                tbLog.Text = BattleLog.Log;
+            }
+            else tbLog.Text = "It's not the time to use this item";
+
         }
 
         #endregion

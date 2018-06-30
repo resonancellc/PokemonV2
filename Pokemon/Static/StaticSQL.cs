@@ -37,30 +37,6 @@ namespace Pokemon
             }
         }
 
-        public static DataTable GetAvailablePokemonIDs()
-        {
-            return ExecuteSQLQuery("SELECT ID FROM Pokemon");
-        }
-
-        public static DataTable GetPokemonList()
-        {
-            return ExecuteSQLQuery("SELECT ID, Name FROM Pokemon");
-        }
-
-        public static DataTable GetPokemonStatList()
-        {
-            return ExecuteSQLQuery(@"SELECT Pokemon.ID, Pokemon.Name, BaseStats.Health, BaseStats.Attack,BaseStats.Defence,BaseStats.SpecialAttack,BaseStats.SpecialDefence,BaseStats.Speed ,BaseStats.PrimaryTypeID,BaseStats.SecondaryTypeID, BaseStats.MinimalLevel
-                                     FROM Pokemon 
-                                     INNER JOIN BaseStats ON Pokemon.ID = BaseStats.ID 
-                                     ORDER BY Pokemon.ID ASC");
-        }
-
-        public static DataTable GetPokemonAttackList()
-        {
-            return ExecuteSQLQuery(@"SELECT ID,[Name],[Power],Accuracy,BoostStats,TypeID, IsSpecial, AdditionalEffect
-                                     FROM Attack");
-        }
-
         public static DataTable GetPokemonAttackPool(int pokemonID)
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
@@ -89,5 +65,36 @@ namespace Pokemon
                 }
             }
         }
+
+        public static DataTable GetAvailablePokemonIDs()
+        {
+            return ExecuteSQLQuery("SELECT ID FROM Pokemon");
+        }
+
+        public static DataTable GetPokemonList()
+        {
+            return ExecuteSQLQuery("SELECT ID, Name FROM Pokemon");
+        }
+
+        public static DataTable GetItemList()
+        {
+            return ExecuteSQLQuery("SELECT ID, Name, Cost FROM Item");
+        }
+
+        public static DataTable GetPokemonStatList()
+        {
+            return ExecuteSQLQuery(@"SELECT Pokemon.ID, Pokemon.Name, BaseStats.Health, BaseStats.Attack,BaseStats.Defence,BaseStats.SpecialAttack,BaseStats.SpecialDefence,BaseStats.Speed ,BaseStats.PrimaryTypeID,BaseStats.SecondaryTypeID, BaseStats.MinimalLevel
+                                     FROM Pokemon 
+                                     INNER JOIN BaseStats ON Pokemon.ID = BaseStats.ID 
+                                     ORDER BY Pokemon.ID ASC");
+        }
+
+        public static DataTable GetPokemonAttackList()
+        {
+            return ExecuteSQLQuery(@"SELECT ID,[Name],[Power],Accuracy,BoostStats,TypeID, IsSpecial, AdditionalEffect
+                                     FROM Attack");
+        }
+
+
     }
 }

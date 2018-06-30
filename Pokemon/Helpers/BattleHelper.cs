@@ -172,6 +172,18 @@ namespace Pokemon
                 ChangePokemonStats(false, statType, battle, stageValue);
         }
 
+        public static bool ChangeTempPokemonStats(Pokemon pokemon, int statType, int stageValue)
+        {
+            if (pokemon.statModifierStages[statType] <= 6 - stageValue)
+            {
+                int previousValue = pokemon.Stat.Stats[statType];
+                pokemon.Stat.Stats[statType] = Convert.ToInt32(pokemon.StartStats.Stats[statType] * StageHelper.StageToMultipler(pokemon.statModifierStages[statType]));
+                BattleLog.AppendText($"{pokemon.Name} {((PokemonEnum.Stat)statType).ToString()} changed from {previousValue} to {pokemon.Stat.Stats[statType]}");
+            }
+            return false;
+
+        }
+
         private static void ChangePokemonStats(bool isPlayerTarget, int statType, Battle battle, int stageValue)
         {
             int previousValue = 0;
@@ -181,7 +193,7 @@ namespace Pokemon
                 {
                     battle.Pokemon.statModifierStages[statType] += stageValue;
                     previousValue = battle.Pokemon.Stat.Stats[statType];
-                    battle.Pokemon.Stat.Stats[statType] = Convert.ToInt32(battle.PokemonStartStats.Stats[statType] * StageHelper.StageToMultipler(battle.Pokemon.statModifierStages[statType]));
+                    battle.Pokemon.Stat.Stats[statType] = Convert.ToInt32(battle.Pokemon.StartStats.Stats[statType] * StageHelper.StageToMultipler(battle.Pokemon.statModifierStages[statType]));
                     BattleLog.AppendText($"{battle.Pokemon.Name} {((PokemonEnum.Stat)statType).ToString()} changed from {previousValue} to {battle.Pokemon.Stat.Stats[statType]}");
                 }
                 else
@@ -195,7 +207,7 @@ namespace Pokemon
                 {
                     battle.EnemyPokemon.statModifierStages[statType] += stageValue;
                     previousValue = battle.Pokemon.Stat.Stats[statType];
-                    battle.EnemyPokemon.Stat.Stats[statType] = Convert.ToInt32(battle.EnemyPokemonStartStats.Stats[statType] * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[statType]));
+                    battle.EnemyPokemon.Stat.Stats[statType] = Convert.ToInt32(battle.EnemyPokemon.StartStats.Stats[statType] * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[statType]));
                     BattleLog.AppendText($"{battle.EnemyPokemon.Name} {((PokemonEnum.Stat)statType).ToString()} changed from {previousValue} to {battle.EnemyPokemon.Stat.Stats[statType]}");
                 }
                 else
