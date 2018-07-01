@@ -53,54 +53,33 @@ namespace Pokemon
             }
         }
 
-        public static void AddManyToParty(Pokemon[] pokemons, bool isPlayerParty)
+        public static void InsertIntoParty(Pokemon[] pokemonParty, Pokemon[] newPokemons)
         {
-            if (isPlayerParty)
+            if (pokemonParty.Where(x => x == null).Count() >= newPokemons.Where(x => x == null).Count()) // if we have enough place for newcoming pokemons
             {
-                if (playerPokemons.Where(x => x == null).Count() >= pokemons.Length) // if we have enough place for newcoming pokemons
+                int j = 0;
+                for (int i = 0; i < pokemonParty.Length; i++)
                 {
-                    int j = 0;
-                    for (int i = 0; i < playerPokemons.Length; i++)
+                    if (pokemonParty[i] == null)
                     {
-                        if (playerPokemons[i] == null)
-                        {
-                            playerPokemons[i] = pokemons[j];
-                            j++;
-                            if (j == pokemons.Length)
-                            {
-                                break;
-                            }
-                        }
+                        pokemonParty[i] = newPokemons[j];
+                        j++;
+
+                        if (j == newPokemons.Length) break;
                     }
                 }
-                else
-                {
-                    // partys full
-                } 
             }
             else
             {
-                if (enemyPokemons.Where(x => x == null).Count() >= pokemons.Length) // if we have enough place for newcoming pokemons
-                {
-                    int j = 0;
-                    for (int i = 0; i < enemyPokemons.Length; i++)
-                    {
-                        if (enemyPokemons[i] == null)
-                        {
-                            enemyPokemons[i] = pokemons[j];
-                            j++;
-                            if (j == pokemons.Length)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    // partys full
-                }
+                // partys full
             }
+        }
+
+        public static void AddManyToParty(Pokemon[] pokemons, bool isPlayerParty)
+        {
+            if (isPlayerParty)
+                InsertIntoParty(playerPokemons, pokemons);
+            else InsertIntoParty(enemyPokemons, pokemons);
         }
 
         public static Pokemon GetPokemon(int index, bool fromPlayersParty)
