@@ -13,6 +13,7 @@ namespace Pokemon
             switch (itemId)
             {
                 case 1: //potion
+                    if (pokemon.HPCurrent <= 0) return false;
                     if (pokemon.HPCurrent == pokemon.HPMax) return false;
 
                     if (pokemon.HPCurrent + 20 > pokemon.HPMax)

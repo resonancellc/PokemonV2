@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class Item
+    public class IdNameItem
     {
         public int ID { get; set; }
         public string Name { get; set; }

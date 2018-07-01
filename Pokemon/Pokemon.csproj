@@ -80,7 +80,7 @@
       <DependentUpon>BattleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\EquipmentItem.cs" />
-    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\IdNameItem.cs" />
     <Compile Include="Models\PlayerEquipment.cs" />
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="PlayerEquipmentForm.cs">

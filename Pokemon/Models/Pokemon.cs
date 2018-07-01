@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class Pokemon
+    public class Pokemon : IdNameItem
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
         public int Level { get; set; }
         public int HPMax { get; set; }
         public int HPCurrent { get; set; }

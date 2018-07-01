@@ -12,7 +12,7 @@ namespace Pokemon
 {
     public class StaticTypes
     {
-        public static List<Item> pokemonList = new List<Item>();
+        public static List<IdNameItem> pokemonList = new List<IdNameItem>();
         public static List<PokemonStat> pokemonStatList = new List<PokemonStat>();
         public static List<Attack> attackList = new List<Attack>();
         public static List<EquipmentItem> equipmentItemList = new List<EquipmentItem>();
@@ -38,7 +38,7 @@ namespace Pokemon
             foreach (DataRow row in StaticSQL.GetPokemonList().Rows)
             {
                 var values = row.ItemArray;
-                Item pokemon = new Item()
+                IdNameItem pokemon = new IdNameItem()
                 {
                     ID = (int)values[0],
                     Name = (string)values[1]

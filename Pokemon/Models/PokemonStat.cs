@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class Stat
+    public class Stat : IdNameItem
     {
         public int[] Stats = new int[5];
         public int Health { get; set; }
@@ -32,10 +32,6 @@ namespace Pokemon
 
     public class PokemonStat : Stat
     {
-        public string Name { get; set; }
-        public int ID { get; set; }
-        
-
         public void SetStatsArray(int attack, int defence, int specialAttack, int specialDefence, int speed)
         {
             this.Stats[0] = attack;
