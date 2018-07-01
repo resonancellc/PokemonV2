@@ -66,6 +66,5 @@ namespace Pokemon
             if (isSelected) this.BackColor = Color.FromArgb(255, 200, 200);
             else this.BackColor = Color.FromArgb(150, 200, 200);
         }
-
     }
 }

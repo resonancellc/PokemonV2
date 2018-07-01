@@ -45,57 +45,54 @@ namespace Pokemon
 
         public static bool IsConditionChange(Attack attack, Pokemon targetPokemon)
         {
-            if (targetPokemon.Condition == 0)
-            {
-                string[] attributes = attack.AdditionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
+            string[] attributes = attack.AdditionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
 
-                if (attributes.Contains("burn"))
+            if (attributes.Contains("burn"))
+            {
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.BRN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
                 {
-                    if(ConditionChange(targetPokemon, (int)PokemonEnum.Condition.BRN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-                    {
-                        BattleLog.AppendText($"{targetPokemon.Name} is now burning");
-                        targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] = targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] / 2;
-                        return true;
-                    }
-                }
-                if (attributes.Contains("freeze"))
-                {
-                    if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.FRZ, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-                    {
-                        BattleLog.AppendText($"{targetPokemon.Name} is now frozen");
-                        return true;
-                    }
-                }
-                if (attributes.Contains("paralysis"))
-                {
-                    if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PAR, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-                    {
-                        BattleLog.AppendText($"{targetPokemon.Name} is now paralyzed");
-                        targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] = Convert.ToInt32((float)targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] / 1.5f);
-                        return true;
-                    }
-                }
-                if (attributes.Contains("poison"))
-                {
-                    if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PSN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-                    {
-                        BattleLog.AppendText($"{targetPokemon.Name} is now poisoned");
-                        return true;
-                    }
-                }
-                if (attributes.Contains("sleep"))
-                {
-                    if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.SLP, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-                    {
-                        BattleLog.AppendText($"{targetPokemon.Name} is now sleeping");
-                        return true;
-                    }
+                    BattleLog.AppendText($"{targetPokemon.Name} is now burning");
+                    targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] = targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] / 2;
+                    return true;
                 }
             }
-            else
+            if (attributes.Contains("freeze"))
             {
-                BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-                return false;
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.FRZ, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                {
+                    BattleLog.AppendText($"{targetPokemon.Name} is now frozen");
+                    return true;
+                }
+            }
+            if (attributes.Contains("paralysis"))
+            {
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PAR, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                {
+                    BattleLog.AppendText($"{targetPokemon.Name} is now paralyzed");
+                    targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] = Convert.ToInt32((float)targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] / 1.5f);
+                    return true;
+                }
+            }
+            if (attributes.Contains("poison"))
+            {
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PSN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                {
+                    BattleLog.AppendText($"{targetPokemon.Name} is now poisoned");
+                    return true;
+                }
+            }
+            if (attributes.Contains("sleep"))
+            {
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.SLP, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                {
+                    BattleLog.AppendText($"{targetPokemon.Name} is now sleeping");
+                    return true;
+                }
             }
             return false;
         }
@@ -206,7 +203,7 @@ namespace Pokemon
                 if (battle.EnemyPokemon.statModifierStages[statType] < 6 && battle.EnemyPokemon.statModifierStages[statType] > -6)
                 {
                     battle.EnemyPokemon.statModifierStages[statType] += stageValue;
-                    previousValue = battle.Pokemon.Stat.Stats[statType];
+                    previousValue = battle.EnemyPokemon.Stat.Stats[statType];
                     battle.EnemyPokemon.Stat.Stats[statType] = Convert.ToInt32(battle.EnemyPokemon.StartStats.Stats[statType] * StageHelper.StageToMultipler(battle.EnemyPokemon.statModifierStages[statType]));
                     BattleLog.AppendText($"{battle.EnemyPokemon.Name} {((PokemonEnum.Stat)statType).ToString()} changed from {previousValue} to {battle.EnemyPokemon.Stat.Stats[statType]}");
                 }

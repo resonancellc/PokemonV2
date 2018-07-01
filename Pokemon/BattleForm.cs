@@ -45,7 +45,6 @@ namespace Pokemon
 
             this.Show();
             RedrawUI();
-
             tbLog.Text = $"Wild {enemyPokemon.Name} appears!";
         }
 
@@ -243,6 +242,7 @@ namespace Pokemon
 
         private void BeginAttackPhase(object sender)
         {
+            bool battleEnded = false;
             BattleLog.ClearText();
             
             Attack playerAttack = battle.GeneratePokemonAttack(true, sender);
@@ -251,17 +251,22 @@ namespace Pokemon
             if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))
             {
                 battle.PokemonAttack(playerAttack, battle.Pokemon, true);
-#warning na tą chwilę wygenerowaliśmy już nowego pokemona - bug
-                if (battle.EnemyPokemon.CheckIfPokemonAlive()) battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                if (battle.EnemyPokemon.CheckIfPokemonAlive())
+                    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                else
+                    battleEnded = true;
             }
             else
             {
                 battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-                if (battle.Pokemon.CheckIfPokemonAlive()) battle.PokemonAttack(playerAttack, battle.Pokemon, true);
+                if (battle.Pokemon.CheckIfPokemonAlive())
+                    battle.PokemonAttack(playerAttack, battle.Pokemon, true);
+                else
+                    battleEnded = true;
             }
-
             RedrawUI();
-            tbLog.Text = BattleLog.Log;
+            if (!battleEnded) tbLog.Text = BattleLog.Log;
+
         }
 
 

@@ -82,5 +82,18 @@ namespace Pokemon
                 }
             }
         }
+
+        public static Bitmap GetItemImageById(int id)
+        {
+            switch (id)
+            {
+                case 1: return Properties.Resources.item_potion;
+                case 2: return Properties.Resources.item_fullHeal;
+                case 3: return Properties.Resources.item_superPotion;
+                case 4: return Properties.Resources.item_xAttack;
+                default:
+                    return null;
+            }
+        }
     }
 }

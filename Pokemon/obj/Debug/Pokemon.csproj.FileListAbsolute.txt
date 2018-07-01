@@ -22,3 +22,6 @@ D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.PokemonPartyForm.resources
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.PokemonPanel.resources
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.StartForm.resources
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.AfterWinForm.resources
+D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.PlayerEquipmentForm.resources
+D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.ShopForm.resources
+D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.ItemShopPanel.resources

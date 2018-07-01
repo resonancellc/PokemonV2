@@ -28,5 +28,14 @@ namespace Pokemon
         {
             Application.Exit();
         }
+
+        private void btnGoToShop_Click(object sender, EventArgs e)
+        {
+            ShopForm shopForm = new ShopForm();
+
+            shopForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+            shopForm.BringToFront();
+            shopForm.Show();
+        }
     }
 }

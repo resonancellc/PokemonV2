@@ -78,7 +78,7 @@ namespace Pokemon
 
         public static DataTable GetItemList()
         {
-            return ExecuteSQLQuery("SELECT ID, Name, Cost FROM Item");
+            return ExecuteSQLQuery("SELECT ID, Name, Cost, Description FROM Items");
         }
 
         public static DataTable GetPokemonStatList()

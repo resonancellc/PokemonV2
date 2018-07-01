@@ -64,11 +64,11 @@ namespace Pokemon
         public void Attack(bool isPlayerAttack, Attack attack)
         {
             int damage = AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect);
-            if (damage == 0)
+            if (damage == 0 && attack.Power.HasValue)
             {
                 damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
-                if (attack.Power.HasValue && damage < 1) damage = 1;
-                if (attack.Power.HasValue && BattleHelper.IsCritical(attack))
+                if (damage < 1) damage = 1;
+                if (BattleHelper.IsCritical(attack))
                 {
                     damage *= 2;
                     BattleLog.AppendText("Critical hit!");
@@ -81,8 +81,12 @@ namespace Pokemon
                 AdditionalEffectHelper.IsFlinch(attack.AdditionalEffect, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
             }
 
-            if (isPlayerAttack) EnemyPokemon.Hurt(damage);
-            else Pokemon.Hurt(damage);
+            if (damage != 0)
+            {
+                if (isPlayerAttack) EnemyPokemon.Hurt(damage);
+                else Pokemon.Hurt(damage);
+            }
+
         }
 
 

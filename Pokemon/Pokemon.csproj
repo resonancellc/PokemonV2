@@ -51,6 +51,12 @@
     <Compile Include="AfterWinForm.Designer.cs">
       <DependentUpon>AfterWinForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ItemShopPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ItemShopPanel.Designer.cs">
+      <DependentUpon>ItemShopPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PokemonPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -63,7 +69,7 @@
     <Compile Include="Helpers\ItemHelper.cs" />
     <Compile Include="Helpers\StageHelper.cs" />
     <Compile Include="Models\Attack.cs" />
-    <Compile Include="Battle.cs" />
+    <Compile Include="Models\Battle.cs" />
     <Compile Include="Helpers\CalculatorHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Log.cs" />
@@ -75,8 +81,14 @@
     </Compile>
     <Compile Include="Models\EquipmentItem.cs" />
     <Compile Include="Models\Item.cs" />
-    <Compile Include="PlayerEquipment.cs" />
+    <Compile Include="Models\PlayerEquipment.cs" />
     <Compile Include="Models\Pokemon.cs" />
+    <Compile Include="PlayerEquipmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayerEquipmentForm.Designer.cs">
+      <DependentUpon>PlayerEquipmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Player\PlayerItems.cs" />
     <Compile Include="PokemonPartyForm.cs">
       <SubType>Form</SubType>
@@ -85,6 +97,12 @@
       <DependentUpon>PokemonPartyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PokemonParty\PokemonParty.cs" />
+    <Compile Include="ShopForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShopForm.Designer.cs">
+      <DependentUpon>ShopForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StartForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,8 +122,14 @@
     <EmbeddedResource Include="BattleForm.resx">
       <DependentUpon>BattleForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ItemShopPanel.resx">
+      <DependentUpon>ItemShopPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\PokemonPanel.resx">
       <DependentUpon>PokemonPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayerEquipmentForm.resx">
+      <DependentUpon>PlayerEquipmentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PokemonPartyForm.resx">
       <DependentUpon>PokemonPartyForm.cs</DependentUpon>
@@ -120,6 +144,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ShopForm.resx">
+      <DependentUpon>ShopForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -312,6 +339,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\147_dratini_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\item_superPotion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\item_fullHeal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\item_potion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\item_xAttack.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

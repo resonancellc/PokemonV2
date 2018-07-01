@@ -26,7 +26,8 @@ namespace Pokemon
                 {
                     ID = (int)values[0],
                     Name = (string)values[1],
-                    Cost = (int)values[1]
+                    Cost = (int)values[2],
+                    Description = (string)values[3]
                 };
                 equipmentItemList.Add(item);
             }

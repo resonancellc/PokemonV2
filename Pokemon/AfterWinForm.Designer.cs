@@ -81,6 +81,7 @@
             this.btnGoToShop.TabIndex = 4;
             this.btnGoToShop.Text = "Shop";
             this.btnGoToShop.UseVisualStyleBackColor = true;
+            this.btnGoToShop.Click += new System.EventHandler(this.btnGoToShop_Click);
             // 
             // AfterWinForm
             // 

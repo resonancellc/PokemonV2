@@ -21,6 +21,7 @@ namespace Pokemon
             StaticTypes.FillPokemonList();
             StaticTypes.FillPokemonStatsList();
             StaticTypes.FillAttackList();
+            StaticTypes.FillItemList();
 
             Application.Run(new StartForm());
         }

@@ -37,7 +37,7 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(3, 0);
+            this.lblName.Location = new System.Drawing.Point(38, 0);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(61, 13);
             this.lblName.TabIndex = 0;
@@ -46,24 +46,24 @@
             // barPkmnHealth
             // 
             this.barPkmnHealth.ForeColor = System.Drawing.Color.Chartreuse;
-            this.barPkmnHealth.Location = new System.Drawing.Point(3, 39);
+            this.barPkmnHealth.Location = new System.Drawing.Point(3, 34);
             this.barPkmnHealth.Name = "barPkmnHealth";
-            this.barPkmnHealth.Size = new System.Drawing.Size(248, 14);
-            this.barPkmnHealth.TabIndex = 1;
+            this.barPkmnHealth.Size = new System.Drawing.Size(294, 14);
+            this.barPkmnHealth.TabIndex = 0;
             // 
             // lblHealth
             // 
             this.lblHealth.AutoSize = true;
-            this.lblHealth.Location = new System.Drawing.Point(3, 23);
+            this.lblHealth.Location = new System.Drawing.Point(13, 18);
             this.lblHealth.Name = "lblHealth";
             this.lblHealth.Size = new System.Drawing.Size(48, 13);
-            this.lblHealth.TabIndex = 0;
+            this.lblHealth.TabIndex = 5;
             this.lblHealth.Text = "999/999";
             // 
             // lblLevel
             // 
             this.lblLevel.AutoSize = true;
-            this.lblLevel.Location = new System.Drawing.Point(70, 0);
+            this.lblLevel.Location = new System.Drawing.Point(3, 0);
             this.lblLevel.Name = "lblLevel";
             this.lblLevel.Size = new System.Drawing.Size(35, 13);
             this.lblLevel.TabIndex = 0;
@@ -78,7 +78,7 @@
             this.Controls.Add(this.lblHealth);
             this.Controls.Add(this.lblName);
             this.Name = "PokemonPanel";
-            this.Size = new System.Drawing.Size(254, 56);
+            this.Size = new System.Drawing.Size(300, 50);
             this.Load += new System.EventHandler(this.PokemonPanel_Load);
             this.Click += new System.EventHandler(this.PokemonPanel_Click);
             this.DoubleClick += new System.EventHandler(this.PokemonPanel_DoubleClick);
