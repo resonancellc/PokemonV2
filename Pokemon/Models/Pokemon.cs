@@ -28,8 +28,10 @@ namespace Pokemon
             this.ID = id;
             this.Name = StaticTypes.GetPokemonNameByID(id);
             this.Level = level;
+
             this.Stat = pokemonStat;
-            this.StartStats = pokemonStat;
+            Stat stat = new Stat(pokemonStat);
+            this.StartStats = stat;
 
             this.HPMax = pokemonStat.Health;
             this.HPCurrent = this.HPMax;
