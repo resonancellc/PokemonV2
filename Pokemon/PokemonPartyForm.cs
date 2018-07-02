@@ -13,9 +13,17 @@ namespace Pokemon
     public partial class PokemonPartyForm : Form
     {
         public Pokemon Pokemon { get; set; }
-        public PokemonPartyForm()
+        public int ActivePokemonIndex { get; set; }
+        Form parentForm;
+
+
+        public PokemonPartyForm(Form parent)
         {
+            parentForm = parent;
             InitializeComponent();
+            this.StartPosition = FormStartPosition.Manual;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Location = new Point(parent.Location.X + parent.Size.Width, parent.Location.Y);
             this.Pokemon = PokemonParty.playerPokemons.First();
             int offset = 0;
             int index = 0;

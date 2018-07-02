@@ -68,7 +68,8 @@ namespace Pokemon
                 PokemonParty.ClearEnemyParty();
                 PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
                 afterWinForm.Dispose();
-                CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
+                AfterBattlePokemonSwitch();
+                //CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
             }
         }
 
@@ -127,9 +128,7 @@ namespace Pokemon
         }
         private void SwitchPokemon()
         {
-            pokemonPartyForm = new PokemonPartyForm();
-
-            pokemonPartyForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+            pokemonPartyForm = new PokemonPartyForm(this);
             pokemonPartyForm.BringToFront();
 
             if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
@@ -141,6 +140,15 @@ namespace Pokemon
                 RedrawUI();
             }
         }
+        private void AfterBattlePokemonSwitch()
+        {
+            if (MessageBox.Show("Switch pokemon?", "Pokemon", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                SwitchPokemon();
+            }
+            else CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
+        }
+
         private void UseItem()
         {
             if (ItemHelper.UseItem(battle.Pokemon, 1))
@@ -209,7 +217,7 @@ namespace Pokemon
                 }
                 else
                 {
-                    CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
+                    AfterBattlePokemonSwitch();
                 }
                 
             }

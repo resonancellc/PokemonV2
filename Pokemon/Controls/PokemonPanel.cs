@@ -57,6 +57,7 @@ namespace Pokemon
             Selected = true;
             parentForm = (PokemonPartyForm)this.Parent;
             this.BackColor = Color.FromArgb(255, 200, 200);
+            PokemonParty.ActivePokemonIndex = ((PokemonPanel)sender).Index;
             parentForm.PokemonPicked(Pokemon);
         }
 
