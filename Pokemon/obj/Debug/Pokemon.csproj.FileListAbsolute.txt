@@ -25,3 +25,4 @@ D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.AfterWinForm.resources
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.PlayerEquipmentForm.resources
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.ShopForm.resources
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.ItemShopPanel.resources
+D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.PokemonDetailsForm.resources

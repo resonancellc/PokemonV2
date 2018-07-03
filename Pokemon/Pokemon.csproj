@@ -90,6 +90,12 @@
       <DependentUpon>PlayerEquipmentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Player\PlayerItems.cs" />
+    <Compile Include="PokemonDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PokemonDetailsForm.Designer.cs">
+      <DependentUpon>PokemonDetailsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PokemonPartyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,7 @@
     <Compile Include="Models\PokemonStat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Static\StaticMain.cs" />
     <Compile Include="Static\StaticSQL.cs" />
     <Compile Include="Static\StaticTypes.cs" />
     <EmbeddedResource Include="AfterWinForm.resx">
@@ -130,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PlayerEquipmentForm.resx">
       <DependentUpon>PlayerEquipmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PokemonDetailsForm.resx">
+      <DependentUpon>PokemonDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PokemonPartyForm.resx">
       <DependentUpon>PokemonPartyForm.cs</DependentUpon>
