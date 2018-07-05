@@ -26,7 +26,6 @@ namespace Pokemon
             attackButtons[3] = btnAttack4;
             PokemonParty.AddManyToParty(pokemonList, true);
 
-
             PokemonParty.AddManyToParty(PokemonGenerator.GenerateMany(teamSize - 1, pokemonList.First().Level), false);
                 
         }
@@ -111,6 +110,7 @@ namespace Pokemon
         }
         private void btnItem_Click(object sender, EventArgs e)
         {
+            ShowItemForm();
             UseItem();
         }
         private void tbLog_TextChanged(object sender, EventArgs e)
@@ -147,6 +147,23 @@ namespace Pokemon
                 SwitchPokemon();
             }
             else CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
+        }
+
+        private void ShowItemForm()
+        {
+            PlayerEquipmentForm playerEquipmentForm = new PlayerEquipmentForm();
+            if (!StaticMain.openedForms.Where(x => x.Name == playerEquipmentForm.Name).Any())
+            {
+                StaticMain.FormOpened(playerEquipmentForm);
+                playerEquipmentForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+                playerEquipmentForm.BringToFront();
+                playerEquipmentForm.Show();
+            }
+            else
+            {
+
+            }
+
         }
 
         private void UseItem()

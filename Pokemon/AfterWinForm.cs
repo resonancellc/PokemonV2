@@ -32,10 +32,20 @@ namespace Pokemon
         private void btnGoToShop_Click(object sender, EventArgs e)
         {
             ShopForm shopForm = new ShopForm();
+            if (!StaticMain.openedForms.Where(x => x.Name == shopForm.Name).Any())
+            {
+                StaticMain.FormOpened(shopForm);
+                shopForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+                shopForm.BringToFront();
+                shopForm.Show();
+            }
+            else
+            {
 
-            shopForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
-            shopForm.BringToFront();
-            shopForm.Show();
+            }
+
+                
+            
         }
     }
 }

@@ -81,7 +81,6 @@
     </Compile>
     <Compile Include="Models\EquipmentItem.cs" />
     <Compile Include="Models\IdNameItem.cs" />
-    <Compile Include="Models\PlayerEquipment.cs" />
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="PlayerEquipmentForm.cs">
       <SubType>Form</SubType>
@@ -89,7 +88,7 @@
     <Compile Include="PlayerEquipmentForm.Designer.cs">
       <DependentUpon>PlayerEquipmentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Player\PlayerItems.cs" />
+    <Compile Include="Player\PlayerEquipment.cs" />
     <Compile Include="PokemonDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>

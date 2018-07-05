@@ -15,6 +15,19 @@ namespace Pokemon
         public PlayerEquipmentForm()
         {
             InitializeComponent();
+            int offset = 0;
+            foreach (EquipmentItem item in PlayerEquipment.playerItems)
+            {
+                if (item != null)
+                {
+                    ItemShopPanel itemShopPanel = new ItemShopPanel(item);
+                    itemShopPanel.Location = new Point(0, offset);
+
+                    this.Controls.Add(itemShopPanel);
+                    offset += itemShopPanel.Size.Height;
+                }
+            }
         }
+
     }
 }
