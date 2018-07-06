@@ -20,6 +20,7 @@ namespace Pokemon
         public BattleForm(Pokemon[] pokemonList, int teamSize)
         {
             InitializeComponent();
+            PlayerEquipment.InitPlayerEquipment();
             attackButtons[0] = btnAttack1;
             attackButtons[1] = btnAttack2;
             attackButtons[2] = btnAttack3;

@@ -10,20 +10,29 @@ using System.Windows.Forms;
 
 namespace Pokemon
 {
-    public partial class ItemShopPanel : UserControl
+    public partial class ItemPanel : UserControl
     {
         public int ID { get; set; }
         ShopForm parentForm;
 
-        public ItemShopPanel(EquipmentItem item)
+        public ItemPanel(EquipmentItem item, bool isShopPanel)
         {
             InitializeComponent();
             this.pictureBox1.Image = ImageHelper.GetItemImageById(item.ID);
             this.ID = item.ID;
             this.lblItemName.Text = item.Name;
             this.lblDescription.Text = item.Description;
-            this.btnBuy.Text = item.Cost.ToString() + "$";
+            if (isShopPanel)
+            {
+                this.btnAction.Text = item.Cost.ToString() + "$";
+            }
+            else
+            {
+                this.btnAction.Text = $"{PlayerEquipment.playerItems[this.ID - 1].ToString()}x";
+            }
+            
         }
+
 
         private void btnBuy_Click(object sender, EventArgs e)
         {

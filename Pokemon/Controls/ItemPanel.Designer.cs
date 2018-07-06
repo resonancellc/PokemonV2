@@ -1,6 +1,6 @@
 ﻿namespace Pokemon
 {
-    partial class ItemShopPanel
+    partial class ItemPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblItemName = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
-            this.btnBuy = new System.Windows.Forms.Button();
+            this.btnAction = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,24 +64,24 @@
             this.lblDescription.Text = "Heals pokemon for 50hp";
             this.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnBuy
+            // btnAction
             // 
-            this.btnBuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuy.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuy.Location = new System.Drawing.Point(350, 0);
-            this.btnBuy.Name = "btnBuy";
-            this.btnBuy.Size = new System.Drawing.Size(50, 50);
-            this.btnBuy.TabIndex = 2;
-            this.btnBuy.Text = "200$";
-            this.btnBuy.UseVisualStyleBackColor = true;
-            this.btnBuy.Click += new System.EventHandler(this.btnBuy_Click);
+            this.btnAction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAction.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAction.Location = new System.Drawing.Point(350, 0);
+            this.btnAction.Name = "btnAction";
+            this.btnAction.Size = new System.Drawing.Size(50, 50);
+            this.btnAction.TabIndex = 2;
+            this.btnAction.Text = "200$";
+            this.btnAction.UseVisualStyleBackColor = true;
+            //this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
             // 
             // ItemShopPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.btnBuy);
+            this.Controls.Add(this.btnAction);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblItemName);
             this.Controls.Add(this.pictureBox1);
@@ -97,6 +97,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblItemName;
         private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.Button btnBuy;
+        private System.Windows.Forms.Button btnAction;
     }
 }

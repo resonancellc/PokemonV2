@@ -16,15 +16,15 @@ namespace Pokemon
         {
             InitializeComponent();
             int offset = 0;
-            foreach (EquipmentItem item in PlayerEquipment.playerItems)
+            foreach (EquipmentItem item in StaticTypes.equipmentItemList)
             {
                 if (item != null)
                 {
-                    ItemShopPanel itemShopPanel = new ItemShopPanel(item);
-                    itemShopPanel.Location = new Point(0, offset);
+                    ItemPanel itemPanel = new ItemPanel(item, false);
+                    itemPanel.Location = new Point(0, offset);
 
-                    this.Controls.Add(itemShopPanel);
-                    offset += itemShopPanel.Size.Height;
+                    this.Controls.Add(itemPanel);
+                    offset += itemPanel.Size.Height;
                 }
             }
         }

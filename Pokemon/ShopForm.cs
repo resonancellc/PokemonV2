@@ -20,11 +20,11 @@ namespace Pokemon
             {
                 if (item != null)
                 {
-                    ItemShopPanel itemShopPanel = new ItemShopPanel(item);
-                    itemShopPanel.Location = new Point(0,offset);
+                    ItemPanel itemPanel = new ItemPanel(item, true);
+                    itemPanel.Location = new Point(0,offset);
 
-                    this.Controls.Add(itemShopPanel);
-                    offset += itemShopPanel.Size.Height;
+                    this.Controls.Add(itemPanel);
+                    offset += itemPanel.Size.Height;
                 }
             }
         }

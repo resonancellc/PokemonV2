@@ -51,11 +51,11 @@
     <Compile Include="AfterWinForm.Designer.cs">
       <DependentUpon>AfterWinForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ItemShopPanel.cs">
+    <Compile Include="Controls\ItemPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ItemShopPanel.Designer.cs">
-      <DependentUpon>ItemShopPanel.cs</DependentUpon>
+    <Compile Include="Controls\ItemPanel.Designer.cs">
+      <DependentUpon>ItemPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\PokemonPanel.cs">
       <SubType>UserControl</SubType>
@@ -128,8 +128,8 @@
     <EmbeddedResource Include="BattleForm.resx">
       <DependentUpon>BattleForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ItemShopPanel.resx">
-      <DependentUpon>ItemShopPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ItemPanel.resx">
+      <DependentUpon>ItemPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PokemonPanel.resx">
       <DependentUpon>PokemonPanel.cs</DependentUpon>
