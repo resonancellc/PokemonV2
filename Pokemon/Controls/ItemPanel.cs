@@ -13,30 +13,55 @@ namespace Pokemon
     public partial class ItemPanel : UserControl
     {
         public int ID { get; set; }
-        ShopForm parentForm;
+        public int ItemValue { get; set; }
+        BattleForm parent;
+        ItemForm formParent;
 
-        public ItemPanel(EquipmentItem item, bool isShopPanel)
+        public ItemPanel(EquipmentItem item, bool isShopPanel, ItemForm formParent, BattleForm parent = null)
         {
             InitializeComponent();
+            this.formParent = formParent;
             this.pictureBox1.Image = ImageHelper.GetItemImageById(item.ID);
+            this.ItemValue = item.Cost;
             this.ID = item.ID;
             this.lblItemName.Text = item.Name;
             this.lblDescription.Text = item.Description;
-            if (isShopPanel)
+            this.btnAction.Text = isShopPanel == true ? item.Cost.ToString() + "$" : $"{PlayerEquipment.playerItems[this.ID - 1].ToString()}x";
+            if (parent != null) this.parent = parent;
+        }
+
+
+        private void btnAction_TextChanged(object sender, EventArgs e)
+        {
+            this.btnAction.Enabled = this.btnAction.Text.Contains("0x") ? false : true;
+        }
+
+        private void btnAction_Click(object sender, EventArgs e)
+        {
+            if (((Button)sender).Text.Contains("$")) // znaczy kupujemy
             {
-                this.btnAction.Text = item.Cost.ToString() + "$";
+                if (PlayerEquipment.Money < this.ItemValue) MessageBox.Show("Not enough money to buy this item");
+                else
+                {
+                    PlayerEquipment.Money -= this.ItemValue;
+                    PlayerEquipment.playerItems[this.ID - 1]++;
+                    MessageBox.Show($"Bought {this.lblItemName.Text} for {((Button)sender).Text}. Actual balance: {PlayerEquipment.Money}");
+                }
             }
-            else
+            else // znaczy uzywamy
             {
-                this.btnAction.Text = $"{PlayerEquipment.playerItems[this.ID - 1].ToString()}x";
+                if (PlayerEquipment.playerItems[this.ID - 1] == 0) MessageBox.Show("You don't have this item");
+                else
+                {
+                    formParent.Close();
+                    parent.UseItem(this.ID - 1);
+                }
             }
             
         }
 
 
-        private void btnBuy_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show($"Bought {this.lblItemName.Text} for {((Button)sender).Text}");
-        }
+
+
     }
 }

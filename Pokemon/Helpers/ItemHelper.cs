@@ -12,7 +12,7 @@ namespace Pokemon
         {
             switch (itemId)
             {
-                case 1: //potion
+                case 0: //potion
                     if (pokemon.HPCurrent <= 0) return false;
                     if (pokemon.HPCurrent == pokemon.HPMax) return false;
 
@@ -20,29 +20,34 @@ namespace Pokemon
                         pokemon.HPCurrent = pokemon.HPMax;
                     else
                         pokemon.HPCurrent += 20;
-
+                    PlayerEquipment.playerItems[0]--;
                     return true;
 
-                case 2: // FullHeal
+                case 1: // FullHeal
                     if (pokemon.Condition == 0) return false;
-                    pokemon.Condition = 0; return true;
+                    pokemon.Condition = 0;
+                    PlayerEquipment.playerItems[1]--; return true;
 
-                case 3:
+                case 2:
                     if (pokemon.HPCurrent == pokemon.HPMax) return false;
 
                     if (pokemon.HPCurrent + 50 > pokemon.HPMax)
                         pokemon.HPCurrent = pokemon.HPMax;
                     else
                         pokemon.HPCurrent += 50;
-
+                    PlayerEquipment.playerItems[2]--;
                     return true;
-                case 4: // Attack X
+                case 3: // Attack X
                     return BattleHelper.ChangeTempPokemonStats(pokemon, 0, 2) ? true : false;
                 default:
                     return false;
             }
         }
 
+        public static string GetItemNameByID(int ID)
+        {
+           return StaticTypes.equipmentItemList.Where(i => i.ID == ID).First().Name;
+        }
 
 
     }

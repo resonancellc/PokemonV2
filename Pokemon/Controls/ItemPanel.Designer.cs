@@ -1,4 +1,6 @@
-﻿namespace Pokemon
+﻿using System;
+
+namespace Pokemon
 {
     partial class ItemPanel
     {
@@ -74,7 +76,8 @@
             this.btnAction.TabIndex = 2;
             this.btnAction.Text = "200$";
             this.btnAction.UseVisualStyleBackColor = true;
-            //this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
+            this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
+            this.btnAction.TextChanged += new EventHandler(this.btnAction_TextChanged);
             // 
             // ItemShopPanel
             // 
@@ -91,6 +94,8 @@
             this.ResumeLayout(false);
 
         }
+
+
 
         #endregion
 

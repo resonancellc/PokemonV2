@@ -1,6 +1,6 @@
 ﻿namespace Pokemon
 {
-    partial class PlayerEquipmentForm
+    partial class ItemForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,15 @@
         {
             this.SuspendLayout();
             // 
-            // PlayerEquipmentForm
+            // ShopForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 300);
-            this.Name = "PlayerEquipmentForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ItemForm_FormClosing);
+            this.Name = "ItemForm";
             this.ShowIcon = false;
-            this.Text = "Items";
+            this.Text = "ShopForm";
             this.ResumeLayout(false);
 
         }

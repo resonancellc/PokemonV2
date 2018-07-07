@@ -173,6 +173,7 @@ namespace Pokemon
         {
             if (pokemon.statModifierStages[statType] <= 6 - stageValue)
             {
+                pokemon.statModifierStages[statType] += stageValue;
                 int previousValue = pokemon.Stat.Stats[statType];
                 pokemon.Stat.Stats[statType] = Convert.ToInt32(pokemon.StartStats.Stats[statType] * StageHelper.StageToMultipler(pokemon.statModifierStages[statType]));
                 BattleLog.AppendText($"{pokemon.Name} {((PokemonEnum.Stat)statType).ToString()} changed from {previousValue} to {pokemon.Stat.Stats[statType]}");

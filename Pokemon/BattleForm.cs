@@ -112,7 +112,6 @@ namespace Pokemon
         private void btnItem_Click(object sender, EventArgs e)
         {
             ShowItemForm();
-            UseItem();
         }
         private void tbLog_TextChanged(object sender, EventArgs e)
         {
@@ -152,7 +151,7 @@ namespace Pokemon
 
         private void ShowItemForm()
         {
-            PlayerEquipmentForm playerEquipmentForm = new PlayerEquipmentForm();
+            ItemForm playerEquipmentForm = new ItemForm(false, this);
             if (!StaticMain.openedForms.Where(x => x.Name == playerEquipmentForm.Name).Any())
             {
                 StaticMain.FormOpened(playerEquipmentForm);
@@ -160,20 +159,14 @@ namespace Pokemon
                 playerEquipmentForm.BringToFront();
                 playerEquipmentForm.Show();
             }
-            else
-            {
-
-            }
-
         }
 
-        private void UseItem()
+        public void UseItem(int itemID)
         {
-            if (ItemHelper.UseItem(battle.Pokemon, 1))
+            if (ItemHelper.UseItem(battle.Pokemon, itemID))
             {
                 BattleLog.ClearText();
-                BattleLog.AppendText($"You used potion on {battle.Pokemon.Name}");
-                //BattleLog.AppendText($"You used {StaticTypes.equipmentItemList[0].Name} on {battle.Pokemon.Name}");
+                BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID)} on {battle.Pokemon.Name}");
                 Attack enemyAttack = battle.GeneratePokemonAttack(false);
                 battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
                 RedrawUI();

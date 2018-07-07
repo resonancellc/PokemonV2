@@ -31,7 +31,7 @@ namespace Pokemon
 
         private void btnGoToShop_Click(object sender, EventArgs e)
         {
-            ShopForm shopForm = new ShopForm();
+            ItemForm shopForm = new ItemForm(true, this);
             if (!StaticMain.openedForms.Where(x => x.Name == shopForm.Name).Any())
             {
                 StaticMain.FormOpened(shopForm);
@@ -43,9 +43,11 @@ namespace Pokemon
             {
 
             }
+        }
 
-                
-            
+        public void RefreshBalance()
+        {
+            this.rbWinnings.Text = $"Current money: {PlayerEquipment.Money}";
         }
     }
 }

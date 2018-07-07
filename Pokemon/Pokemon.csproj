@@ -82,12 +82,6 @@
     <Compile Include="Models\EquipmentItem.cs" />
     <Compile Include="Models\IdNameItem.cs" />
     <Compile Include="Models\Pokemon.cs" />
-    <Compile Include="PlayerEquipmentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PlayerEquipmentForm.Designer.cs">
-      <DependentUpon>PlayerEquipmentForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Player\PlayerEquipment.cs" />
     <Compile Include="PokemonDetailsForm.cs">
       <SubType>Form</SubType>
@@ -102,11 +96,11 @@
       <DependentUpon>PokemonPartyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PokemonParty\PokemonParty.cs" />
-    <Compile Include="ShopForm.cs">
+    <Compile Include="ItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ShopForm.Designer.cs">
-      <DependentUpon>ShopForm.cs</DependentUpon>
+    <Compile Include="ItemForm.Designer.cs">
+      <DependentUpon>ItemForm.cs</DependentUpon>
     </Compile>
     <Compile Include="StartForm.cs">
       <SubType>Form</SubType>
@@ -134,9 +128,6 @@
     <EmbeddedResource Include="Controls\PokemonPanel.resx">
       <DependentUpon>PokemonPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlayerEquipmentForm.resx">
-      <DependentUpon>PlayerEquipmentForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PokemonDetailsForm.resx">
       <DependentUpon>PokemonDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,8 +144,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ShopForm.resx">
-      <DependentUpon>ShopForm.cs</DependentUpon>
+    <EmbeddedResource Include="ItemForm.resx">
+      <DependentUpon>ItemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
