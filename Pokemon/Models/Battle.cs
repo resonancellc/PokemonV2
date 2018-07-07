@@ -44,7 +44,11 @@ namespace Pokemon
                     if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
                     else
                     {
-                        BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
+                        if (isPlayerAttack)
+                            BattleLog.AppendText($"Your {attackingPokemon.Name} used {attack.Name}");
+                        else BattleLog.AppendText($"Foe {attackingPokemon.Name} used {attack.Name}");
+
+
                         Attack(isPlayerAttack, attack);
 
                         if (attack.BoostStats != string.Empty)

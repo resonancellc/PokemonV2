@@ -33,7 +33,7 @@ namespace Pokemon
 
         private void btnAction_TextChanged(object sender, EventArgs e)
         {
-            this.btnAction.Enabled = this.btnAction.Text.Contains("0x") ? false : true;
+            this.btnAction.Enabled = this.btnAction.Text == "0x" ? false : true;
         }
 
         private void btnAction_Click(object sender, EventArgs e)

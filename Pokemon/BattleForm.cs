@@ -163,10 +163,10 @@ namespace Pokemon
 
         public void UseItem(int itemID)
         {
+            BattleLog.ClearText();
             if (ItemHelper.UseItem(battle.Pokemon, itemID))
             {
-                BattleLog.ClearText();
-                BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID)} on {battle.Pokemon.Name}");
+                BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID+1)} on {battle.Pokemon.Name}");
                 Attack enemyAttack = battle.GeneratePokemonAttack(false);
                 battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
                 RedrawUI();
