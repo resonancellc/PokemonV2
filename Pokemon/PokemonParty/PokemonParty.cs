@@ -124,13 +124,14 @@ namespace Pokemon
 
         }
 
-        public static void HealAll()
+        public static void ResetParty()
         {
             foreach (Pokemon pokemon in playerPokemons)
             {
                 if (pokemon == null) break;
                 pokemon.HPCurrent = pokemon.HPMax;
                 pokemon.Condition = (int)PokemonEnum.Condition.None;
+                pokemon.ResetStats();
             }
         }
     }

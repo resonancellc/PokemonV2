@@ -64,7 +64,7 @@ namespace Pokemon
 
             if (afterWinForm.ShowDialog() == DialogResult.OK)
             {
-                PokemonParty.HealAll();
+                PokemonParty.ResetParty();
                 PokemonParty.ClearEnemyParty();
                 PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
                 afterWinForm.Dispose();
