@@ -66,10 +66,16 @@ namespace Pokemon
             {
                 PokemonParty.ResetParty();
                 PokemonParty.ClearEnemyParty();
-                PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
+
+                for (int i = 0; i < PokemonParty.playerPokemons.Length; i++)
+                {
+                    if (PokemonParty.playerPokemons[i] == null) break;
+                    PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
+                }
+                
                 afterWinForm.Dispose();
-                AfterBattlePokemonSwitch();
-                //CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
+                //AfterBattlePokemonSwitch();
+                CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
             }
         }
 
@@ -134,20 +140,25 @@ namespace Pokemon
             if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
             {
                 Pokemon pokemon = pokemonPartyForm.PickedPokemon;
-                pokemon.ResetStats();
-                this.battle.Pokemon = pokemon;
-                SetAttackButtons(pokemon);
-                RedrawUI();
+                if (pokemon != battle.Pokemon)
+                {
+                    pokemon.ResetStats();
+                    this.battle.Pokemon = pokemon;
+                    SetAttackButtons(pokemon);
+                    RedrawUI(true);
+                }
             }
         }
-#warning to poprawic
         private void AfterBattlePokemonSwitch()
         {
-            if (MessageBox.Show("Switch pokemon?", "Pokemon", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (PokemonParty.playerPokemons[1] != null)
             {
-                SwitchPokemon();
+                if (MessageBox.Show("Switch pokemon?", "Pokemon", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    SwitchPokemon();
+                }
             }
-            else CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
+            CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
         }
 
         private void ShowItemForm()
@@ -187,18 +198,33 @@ namespace Pokemon
                 item.Enabled = false;
             }
         }
+
+
+
         private void RedrawUI()
         {
             SetPokemonImages(battle.Pokemon.ID, battle.EnemyPokemon.ID);
             SetPkmnHealthBars(battle.Pokemon, battle.EnemyPokemon);
             SetPkmnLabels(battle.Pokemon, battle.EnemyPokemon);
         }
-
+        private void RedrawUI(bool afterPokemonSwitch)
+        {
+            SetPokemonImages(battle.Pokemon.ID, battle.EnemyPokemon.ID);
+            SetPkmnHealthBars(battle.Pokemon);
+            SetPkmnLabels(battle.Pokemon, battle.EnemyPokemon);
+        }
         private void SetPokemonImages(int playerPokemonID, int enemyPokemonID)
         {
             playerPkmnImage.Image = ImageHelper.GetImageById(true, playerPokemonID);
             enemyPkmnImage.Image = ImageHelper.GetImageById(false, enemyPokemonID);
         }
+
+        private void SetPkmnHealthBars(Pokemon pokemon)
+        {
+            barPlayerPkmnHealth.Maximum = pokemon.HPMax;
+            barPlayerPkmnHealth.Value = pokemon.HPCurrent;
+        }
+
         private void SetPkmnHealthBars(Pokemon pokemon, Pokemon enemyPokemon)
         {
             if (pokemon.CheckIfPokemonAlive())
@@ -229,6 +255,7 @@ namespace Pokemon
                 }
                 else
                 {
+#warning to?
                     AfterBattlePokemonSwitch();
                 }
                 
