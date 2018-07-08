@@ -83,14 +83,19 @@ namespace Pokemon
             return CheckIfPokemonAlive();
         }
 
-        /// <summary>
-        /// Returns True if pokemon is Alive
-        /// </summary>
-        /// <returns></returns>
         public bool CheckIfPokemonAlive()
         {
             if (HPCurrent > 0) return true;  
             return false;
+        }
+
+        public void ResetStats()
+        {
+            for (int i = 0; i < Stat.Stats.Length; i++)
+            {
+                this.statModifierStages[i] = 0;
+                this.Stat.Stats[i] = this.StartStats.Stats[i];
+            }
         }
     }
 }

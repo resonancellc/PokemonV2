@@ -41,8 +41,6 @@ namespace Pokemon
                 return CalculatorHelper.ChanceCalculator(1, 255);
         }
 
-
-
         public static bool IsConditionChange(Attack attack, Pokemon targetPokemon)
         {
             string[] attributes = attack.AdditionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();

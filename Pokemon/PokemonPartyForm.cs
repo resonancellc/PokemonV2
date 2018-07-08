@@ -12,7 +12,7 @@ namespace Pokemon
 {
     public partial class PokemonPartyForm : Form
     {
-        public Pokemon Pokemon { get; set; }
+        public Pokemon PickedPokemon { get; set; }
         public int ActivePokemonIndex { get; set; }
         Form parentForm;
 
@@ -24,7 +24,7 @@ namespace Pokemon
             this.StartPosition = FormStartPosition.Manual;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new Point(parent.Location.X + parent.Size.Width, parent.Location.Y);
-            this.Pokemon = PokemonParty.playerPokemons.First();
+            this.PickedPokemon = PokemonParty.playerPokemons.First();
             int offset = 0;
             int index = 0;
             foreach (Pokemon pokemon in PokemonParty.playerPokemons)
@@ -53,7 +53,7 @@ namespace Pokemon
 
         public void PokemonPicked(Pokemon pokemon)
         {
-            this.Pokemon = pokemon;
+            this.PickedPokemon = pokemon;
             this.DialogResult = DialogResult.OK;
             this.Hide();
         }

@@ -133,13 +133,14 @@ namespace Pokemon
 
             if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
             {
-                Pokemon pokemon = pokemonPartyForm.Pokemon;
+                Pokemon pokemon = pokemonPartyForm.PickedPokemon;
+                pokemon.ResetStats();
                 this.battle.Pokemon = pokemon;
                 SetAttackButtons(pokemon);
-                //EnemyPokemonAttack();
                 RedrawUI();
             }
         }
+#warning to poprawic
         private void AfterBattlePokemonSwitch()
         {
             if (MessageBox.Show("Switch pokemon?", "Pokemon", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
