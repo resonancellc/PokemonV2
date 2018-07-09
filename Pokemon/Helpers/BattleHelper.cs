@@ -150,12 +150,17 @@ namespace Pokemon
 
         public static void ChangeTempStats(bool isPlayerAttack, Attack attack, Battle battle)
         {
-            string[] attributes = attack.BoostStats.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
-            if (attributes.Length > 0)
+            string[] boosts = attack.BoostStats.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string boost in boosts)
             {
-                bool isEnemyTarget = attributes[0] == "enemy";
-                ChangeTempStats(isPlayerAttack, isEnemyTarget, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
+                string[] attributes = boost.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
+                if (attributes.Length > 0)
+                {
+                    bool isEnemyTarget = attributes[0] == "enemy";
+                    ChangeTempStats(isPlayerAttack, isEnemyTarget, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), battle);
+                }
             }
+
         }
 
         public static void ChangeTempStats(bool isPlayerAttack, bool isEnemyTarget, int statType, int stageValue, Battle battle)
