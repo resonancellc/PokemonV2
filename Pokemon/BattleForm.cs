@@ -142,10 +142,16 @@ namespace Pokemon
                 Pokemon pokemon = pokemonPartyForm.PickedPokemon;
                 if (pokemon != battle.Pokemon)
                 {
+                    BattleLog.ClearText();
+                    tbLog.Text = string.Empty;
                     pokemon.ResetStats();
                     this.battle.Pokemon = pokemon;
                     SetAttackButtons(pokemon);
+                    BattleLog.AppendText($"Go {pokemon.Name}!");
+                    Attack enemyAttack = battle.GeneratePokemonAttack(false);
+                    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
                     RedrawUI(true);
+                    tbLog.Text = BattleLog.Log;
                 }
             }
         }
