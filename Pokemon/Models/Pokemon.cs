@@ -16,6 +16,8 @@ namespace Pokemon
         public Stat StartStats { get; set; }
         public int Condition { get; set; }
         public bool IsFlinched { get; set; }
+        public bool IsEnergyFocused { get; set; }
+        public bool IsConfused { get; set; }
 
         public int PrimaryTypeID { get; set; }
         public int? SecondaryTypeID { get; set; }
@@ -96,6 +98,9 @@ namespace Pokemon
                 this.statModifierStages[i] = 0;
                 this.Stat.Stats[i] = this.StartStats.Stats[i];
             }
+            IsConfused = false;
+            IsFlinched = false;
+            IsEnergyFocused = false;
         }
     }
 }

@@ -205,19 +205,17 @@ namespace Pokemon
             }
         }
 
-
-
         private void RedrawUI()
         {
             SetPokemonImages(battle.Pokemon.ID, battle.EnemyPokemon.ID);
-            SetPkmnHealthBars(battle.Pokemon, battle.EnemyPokemon);
             SetPkmnLabels(battle.Pokemon, battle.EnemyPokemon);
+            SetPkmnHealthBars(battle.Pokemon, battle.EnemyPokemon);
         }
         private void RedrawUI(bool afterPokemonSwitch)
         {
             SetPokemonImages(battle.Pokemon.ID, battle.EnemyPokemon.ID);
-            SetPkmnHealthBars(battle.Pokemon);
             SetPkmnLabels(battle.Pokemon, battle.EnemyPokemon);
+            SetPkmnHealthBars(battle.Pokemon);
         }
         private void SetPokemonImages(int playerPokemonID, int enemyPokemonID)
         {

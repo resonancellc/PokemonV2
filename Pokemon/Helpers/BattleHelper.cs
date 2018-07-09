@@ -33,12 +33,19 @@ namespace Pokemon
             return !CalculatorHelper.ChanceCalculator(attack.Accuracy.Value);
         }
 
-        public static bool IsCritical(Attack attack)
+        public static bool IsConfused(Pokemon attackingPokemon)
         {
+            if (!attackingPokemon.IsConfused) return false;
+            return CalculatorHelper.ChanceCalculator(50, 100);
+        }
+
+        public static bool IsCritical(Attack attack, Pokemon attackingPokemon)
+        {
+            int boostCrit = attackingPokemon.IsEnergyFocused ? 20 : 0;
             if (attack.AdditionalEffect == "highCrit")
-                return CalculatorHelper.ChanceCalculator(21, 255);
+                return CalculatorHelper.ChanceCalculator(21 + boostCrit, 255);
             else
-                return CalculatorHelper.ChanceCalculator(1, 255);
+                return CalculatorHelper.ChanceCalculator(1 + boostCrit, 255);
         }
 
         public static bool IsConditionChange(Attack attack, Pokemon targetPokemon)
@@ -89,6 +96,25 @@ namespace Pokemon
                 else if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.SLP, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
                 {
                     BattleLog.AppendText($"{targetPokemon.Name} is now sleeping");
+                    return true;
+                }
+            }
+            if (attributes.Contains("confusion"))
+            {
+                if (targetPokemon.IsConfused) BattleLog.AppendText($"{targetPokemon.Name} is already confused");
+                if (attributes.Length > 2 )
+                {
+                    if (CalculatorHelper.ChanceCalculator(Convert.ToInt32(attributes[2]), 100))
+                    {
+                        targetPokemon.IsConfused = true;
+                        BattleLog.AppendText($"{targetPokemon.Name} is now confused");
+                        return true;
+                    }
+                }
+                else
+                {
+                    targetPokemon.IsConfused = true;
+                    BattleLog.AppendText($"{targetPokemon.Name} is now confused");
                     return true;
                 }
             }

@@ -15,30 +15,43 @@ namespace Pokemon
 
         public static int IsAlwaysSameDamage(string additionalEffect)
         {
-            if (additionalEffect != string.Empty)
-            {
-                string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            if (additionalEffect == string.Empty) return 0;
 
-                if (effectSplit[0] == "sameDamage")
-                {
-                    return Convert.ToInt32(effectSplit[1]);
-                }
+            string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (effectSplit[0] == "sameDamage")
+            {
+                return Convert.ToInt32(effectSplit[1]);
             }
-            return 0;
+            else return 0;
+
         }
 
         public static bool IsFlinch(string additionalEffect, Pokemon targetPokemon)
         {
-            if (additionalEffect != string.Empty)
-            {
-                string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
+            if (additionalEffect == string.Empty) return false;
 
-                if (effectSplit[0].Contains("flinch"))
-                {
-                    targetPokemon.IsFlinched = CalculatorHelper.ChanceCalculator(Convert.ToInt32(effectSplit[1]), 100);
-                    return true;
-                }
+            string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (effectSplit[0] == "flinch")
+            {
+                targetPokemon.IsFlinched = CalculatorHelper.ChanceCalculator(Convert.ToInt32(effectSplit[1]), 100);
+                return true;
             }
+            else return false;
+        }
+
+        public static bool IsCritBoosting(string additionalEffect, Pokemon targetPokemon)
+        {
+            if (additionalEffect == string.Empty) return false;
+
+            string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (effectSplit[0] == "boostCrit")
+            {
+                targetPokemon.IsEnergyFocused = true;
+            }
+
             return false;
         }
     }

@@ -38,23 +38,31 @@ namespace Pokemon
         {
             if (!attackingPokemon.IsFlinched)
             {
-                if (BattleHelper.ApplyConditionEffect(attackingPokemon)) // change name for something like // IsImmobilizedByCondition() ?
+                if (!BattleHelper.IsConfused(attackingPokemon))
                 {
-                    // Checking if not miss
-                    if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
-                    else
+                    if (BattleHelper.ApplyConditionEffect(attackingPokemon)) // change name for something like // IsImmobilizedByCondition() ?
                     {
-                        if (isPlayerAttack)
-                            BattleLog.AppendText($"Your {attackingPokemon.Name} used {attack.Name}");
-                        else BattleLog.AppendText($"Foe {attackingPokemon.Name} used {attack.Name}");
+                        // Checking if not miss
+                        if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
+                        else
+                        {
+                            if (isPlayerAttack)
+                                BattleLog.AppendText($"Your {attackingPokemon.Name} used {attack.Name}");
+                            else BattleLog.AppendText($"Foe {attackingPokemon.Name} used {attack.Name}");
 
 
-                        Attack(isPlayerAttack, attack);
+                            Attack(isPlayerAttack, attack);
 
-                        if (attack.BoostStats != string.Empty)
-                            BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
+                            if (attack.BoostStats != string.Empty)
+                                BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
 
-                    }
+                        }
+                    } 
+                }
+                else
+                {
+                    attackingPokemon.Hurt(CalculatorHelper.CalculateAttackPower(!isPlayerAttack, StaticTypes.attackList.Where(a=>a.Name == "ConfusionHit").First(), this));
+                    BattleLog.AppendText($"{attackingPokemon.Name} hurts itself in its confusion");
                 }
             }
             else
@@ -72,7 +80,7 @@ namespace Pokemon
             {
                 damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
                 if (damage < 1) damage = 1;
-                if (BattleHelper.IsCritical(attack))
+                if (BattleHelper.IsCritical(attack, isPlayerAttack ? this.Pokemon : this.EnemyPokemon))
                 {
                     damage *= 2;
                     BattleLog.AppendText("Critical hit!");
@@ -83,6 +91,8 @@ namespace Pokemon
             {
                 BattleHelper.IsConditionChange(attack, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
                 AdditionalEffectHelper.IsFlinch(attack.AdditionalEffect, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
+                AdditionalEffectHelper.IsCritBoosting(attack.AdditionalEffect, isPlayerAttack ? this.Pokemon : this.EnemyPokemon);
+                
             }
 
             if (damage != 0)
