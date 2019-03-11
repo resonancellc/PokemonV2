@@ -15,7 +15,7 @@ namespace Pokemon
     public partial class StartForm : Form
     {
         List<PictureBox> pictures = new List<PictureBox>();
-        IPokemon[] pokemonList = new IPokemon[6];
+        List<IPokemon> pokemonList = new List<IPokemon>();
         int teamSize = 1;
         public StartForm()
         {

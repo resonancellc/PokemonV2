@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace Pokemon.Models
 {
-    class EnemyPokemonParty : IPokemonParty<IPokemon>
+    public class EnemyPokemonParty : IPokemonParty<IPokemon>
     {
         public List<IPokemon> Pokemons { get; set; }
 
+        public IPokemon GetFirstAlivePokemon()
+        {
+            return Pokemons.First(p => p.HPCurrent > 0); 
+        }
+
         public IPokemon GetPokemon()
         {
-            return Pokemons.First(p => p.HPCurrent > 0);
+            throw new NotImplementedException();
         }
     }
 }

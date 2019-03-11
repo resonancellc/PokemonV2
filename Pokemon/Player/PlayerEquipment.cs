@@ -9,12 +9,12 @@ namespace Pokemon
     public static class PlayerEquipment
     {
         public static int Money { get; set; }
-        public static int[] playerItems = new int[StaticTypes.equipmentItemList.Count];
+        public static int[] playerItems = new int[ItemsList.Items.Count];
 
         public static void InitPlayerEquipment()
         {
             Money = 100;
-            for (int i = 0; i < StaticTypes.equipmentItemList.Count; i++)
+            for (int i = 0; i < ItemsList.Items.Count; i++)
             {
                 playerItems[i] = 0;
             }

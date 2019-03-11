@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pokemon.Models;
+using Pokemon.Factory;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,24 +19,27 @@ namespace Pokemon
         Battle battle;
         PokemonPartyForm pokemonPartyForm = null;
 
-        public BattleForm(Pokemon[] pokemonList, int teamSize)
+        IPokemonParty<IPokemon> _playerParty;
+        IPokemonParty<IPokemon> _enemyParty;
+
+        public BattleForm(List<IPokemon> pokemonList, int teamSize)
         {
             InitializeComponent();
             PlayerEquipment.InitPlayerEquipment();
+
+
             attackButtons[0] = btnAttack1;
             attackButtons[1] = btnAttack2;
             attackButtons[2] = btnAttack3;
             attackButtons[3] = btnAttack4;
-            PokemonParty.AddManyToParty(pokemonList, true);
 
-            PokemonParty.AddManyToParty(PokemonGenerator.GenerateMany(teamSize - 1, pokemonList.First().Level), false);
-                
+            _playerParty = PokemonPartyFactory.CreatePokemonParty(true, pokemonList);
+            _enemyParty = PokemonPartyFactory.CreateEnemyPokemonParty(teamSize, pokemonList.First().Level);
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void BattleForm_Load(object sender, EventArgs e)
         {
-            PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
-            CreateBattle(PokemonParty.GetFirstPokemonAlive(true), PokemonParty.GetFirstPokemonAlive(false));
+            CreateBattle(_playerParty.GetFirstAlivePokemon(), _enemyParty.GetFirstAlivePokemon());
         }
 
         private void CreateBattle(Pokemon playerPokemon, Pokemon enemyPokemon)

@@ -294,7 +294,7 @@
             this.Controls.Add(this.playerPkmnImage);
             this.Name = "BattleForm";
             this.Text = "Battle";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Load += new System.EventHandler(this.BattleForm_Load);
             this.panel1.ResumeLayout(false);
             this.panelAttackPool.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.playerPkmnImage)).EndInit();
