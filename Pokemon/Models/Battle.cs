@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Pokemon.Models;
 
 namespace Pokemon
 {
-    public class Battle
+    public class Battle : IBattle
     {
-        public Pokemon Pokemon { get; set; }
-        public Pokemon EnemyPokemon { get; set; }
+        public IPokemon Pokemon { get; set; }
+        public IPokemon EnemyPokemon { get; set; }
 
-        public Battle(Pokemon pokemon, Pokemon enemyPokemon)
+        public Battle(IPokemon pokemon, IPokemon enemyPokemon)
         {
             this.Pokemon = pokemon;
-
             this.EnemyPokemon = enemyPokemon;
         }
 
@@ -102,7 +102,5 @@ namespace Pokemon
             }
 
         }
-
-
     }
 }

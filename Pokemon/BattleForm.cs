@@ -42,7 +42,7 @@ namespace Pokemon
             CreateBattle(_playerParty.GetFirstAlivePokemon(), _enemyParty.GetFirstAlivePokemon());
         }
 
-        private void CreateBattle(Pokemon playerPokemon, Pokemon enemyPokemon)
+        private void CreateBattle(IPokemon playerPokemon, IPokemon enemyPokemon)
         {
             battle = new Battle(playerPokemon, enemyPokemon);
 
@@ -84,26 +84,25 @@ namespace Pokemon
             }
         }
 
-        private void SetAttackButtons(Pokemon pokemon)
+        private void SetAttackButtons(IPokemon pokemon)
         {
             foreach (Button attackButton in attackButtons)
             {
                 attackButton.Text = "---";
                 attackButton.Enabled = false;
             }
-            for (int i = 0; i < pokemon.attackPool.Length; i++)
+            if (pokemon.Attacks != null)
             {
-                if (pokemon.attackPool[i] != null)
+                for (int i = 0; i < pokemon.Attacks.Count; i++)
                 {
-                    attackButtons[i].Text = pokemon.attackPool[i].Name;
-                    if (pokemon.attackPool[i].Name.Length > 9)
+                    attackButtons[i].Text = pokemon.Attacks[i].Name;
+                    if (pokemon.Attacks[i].Name.Length > 9)
                     {
                         attackButtons[i].Font = new System.Drawing.Font("Unispace", 8, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     }
                     attackButtons[i].Enabled = true;
                 }
             }
-
         }
 
         #region events
