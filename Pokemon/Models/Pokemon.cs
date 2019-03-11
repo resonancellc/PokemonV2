@@ -33,7 +33,7 @@ namespace Pokemon
 
         public Pokemon()
         {
-
+            StatModifierStages = new int[5] { 0,0,0,0,0};
         }
 
         public Pokemon(int id, int level, Stat pokemonStat)

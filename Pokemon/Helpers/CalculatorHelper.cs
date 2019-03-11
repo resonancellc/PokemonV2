@@ -9,26 +9,6 @@ namespace Pokemon
 {
     public static class CalculatorHelper
     {
-        ///// <summary>
-        ///// Calculating stats of new generated pokemon basing on his base stats (lvl 10 pokemon with 40 base attack gives pokemon with 15-19 attack)
-        ///// </summary>
-        ///// <param name="level"></param>
-        ///// <param name="pokemonStat"></param>
-        ///// <returns></returns>
-        //public static IPokemonStats CalculateStats(int level, IPokemonStats pokemonStat)
-        //{
-        //    IPokemonStats pokemonStats = Factory.CreatePokemonStats();
-
-        //    pokemonStats.Health = ((10 + pokemonStat.Health + GenerateRandomNumber.GetRandomNumber(0, 20) + 50) * level) / 50 + 10;
-        //    pokemonStats.Attack = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5;
-        //    pokemonStats.Defence = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5;
-        //    pokemonStats.SpecialAttack = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5;
-        //    pokemonStats.SpecialDefence = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5;
-        //    pokemonStats.Speed = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5;
-
-        //    return pokemonStats;
-        //}
-
         private static int CalculateBaseDamage(int level)
         {
             return (2 * level / 5) + 2;

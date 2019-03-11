@@ -1,4 +1,5 @@
-﻿using Pokemon.Models;
+﻿using Pokemon.Factory;
+using Pokemon.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,7 +19,7 @@ namespace Pokemon
             foreach (DataRow pokemonRow in pokemonDataRows)
             {
                 var values = pokemonRow.ItemArray;
-                IPokemon pokemon = Factory.CreatePokemon();
+                IPokemon pokemon = PokemonFactory.CreatePokemon();
 
                 pokemon.ID = (int)values[0];
                 pokemon.Name = (string)values[1];
@@ -47,7 +48,7 @@ namespace Pokemon
                 foreach (DataRow attackDataRow in attackDataRows)
                 {
                     var values = attackDataRow.ItemArray;
-                    IAttack attack = Factory.CreateAttack();
+                    IAttack attack = PokemonAttacksFactory.CreateAttack();
 
                     attack.ID = (int)values[0];
                     attack.Name = (string)values[1];

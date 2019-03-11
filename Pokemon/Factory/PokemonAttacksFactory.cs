@@ -9,11 +9,14 @@ namespace Pokemon.Factory
 {
     public static class PokemonAttacksFactory
     {
-        public static List<IAttack> CreateAttacks()
+        public static IAttack CreateAttack()
         {
-            IAttack attack = new Attack();
+            return new Attack();
+        }
 
-            return attack;
+        public static List<IAttack> GetAttacks(IPokemon pokemon)
+        {           
+            return pokemon.Attacks.Where(a => a.Level <= pokemon.Level).OrderByDescending(a => a.Level).Take(4).ToList();
         }
 
         
