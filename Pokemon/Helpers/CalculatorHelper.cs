@@ -13,24 +13,24 @@ namespace Pokemon
         {
             return (2 * level / 5) + 2;
         }
-        private static float CalculateAttackDefenceRatio(int[] attackerStats, int[] targetStats, bool isSpecial)
+
+        private static float CalculateAttackDefenceRatio(int attackStat, int defenceStat)
         {
-            if (!isSpecial)
-                return (float)attackerStats[(int)PokemonEnum.Stat.Attack] / (float)targetStats[(int)PokemonEnum.Stat.Defence];
-            else
-                return (float)attackerStats[(int)PokemonEnum.Stat.SpecialAttack] / (float)targetStats[(int)PokemonEnum.Stat.SpecialDefence];
+            return (float)attackStat / defenceStat;
         }
+
         private static float CalculateMultipler(int targetPrimaryType, int? attackType, int? targetSecondaryType = null)
         {
             return ((float)AttackEffectivenessHelper.GetMultipler((int)attackType, targetPrimaryType))
                                                 * ((float)(targetSecondaryType.HasValue ? AttackEffectivenessHelper.GetMultipler((int)attackType, (int)targetSecondaryType) : 1d));
         }
+
         private static int CalculateOverallDamage(int baseDamage, int attackPower, float attackDefenceRatio, float multipler)
         {
             return Convert.ToInt32(baseDamage * attackPower * attackDefenceRatio * multipler / 50);
         }
 
-        public static int CalculateAttackPower(bool isPlayerAttack, Attack attack, Battle battle)
+        public static int CalculateAttackPower(bool isPlayerAttack, IAttack attack, IBattle battle)
         {
             int damage = 0;
             if (isPlayerAttack)
@@ -38,10 +38,22 @@ namespace Pokemon
                 if (attack.Power.HasValue)
                 {
                     int baseDamage = CalculateBaseDamage(battle.Pokemon.Level);
-                    float attackDefenceRatio = CalculateAttackDefenceRatio(battle.Pokemon.Stat.Stats, battle.EnemyPokemon.Stat.Stats, attack.IsSpecial);
-                    float multipler = CalculateMultipler(battle.EnemyPokemon.PrimaryTypeID, attack.TypeID, battle.EnemyPokemon.SecondaryTypeID);
+
+                    float attackDefenceRatio;
+                    if (!attack.IsSpecial)
+                    {
+                        attackDefenceRatio = CalculateAttackDefenceRatio(battle.Pokemon.Stats.Attack, battle.EnemyPokemon.Stats.Defence);
+                    }
+                    else
+                    {
+                        attackDefenceRatio = CalculateAttackDefenceRatio(battle.Pokemon.Stats.SpecialAttack, battle.EnemyPokemon.Stats.SpecialDefence);
+                    }
+                    
+                    float multipler = CalculateMultipler(battle.EnemyPokemon.PrimaryTypeID, (int)attack.ElementalType, battle.EnemyPokemon.SecondaryTypeID);
+
                     if (multipler > 1) BattleLog.AppendText("It's super effective!");
                     else if (multipler < 1) BattleLog.AppendText("It's not very effective!");
+
                     damage = CalculateOverallDamage(baseDamage, (int)attack.Power, attackDefenceRatio, multipler);                      
                 }
 
@@ -52,8 +64,19 @@ namespace Pokemon
                 if (attack.Power.HasValue)
                 {
                     int baseDamage = CalculateBaseDamage(battle.EnemyPokemon.Level);
-                    float attackDefenceRatio = CalculateAttackDefenceRatio(battle.EnemyPokemon.Stat.Stats, battle.Pokemon.Stat.Stats, attack.IsSpecial);
-                    float multipler = CalculateMultipler(battle.Pokemon.PrimaryTypeID, attack.TypeID, battle.Pokemon.SecondaryTypeID);
+
+                    float attackDefenceRatio;
+                    if (!attack.IsSpecial)
+                    {
+                        attackDefenceRatio = CalculateAttackDefenceRatio(battle.EnemyPokemon.Stats.Attack, battle.Pokemon.Stats.Defence);
+                    }
+                    else
+                    {
+                        attackDefenceRatio = CalculateAttackDefenceRatio(battle.EnemyPokemon.Stats.SpecialAttack, battle.Pokemon.Stats.SpecialDefence);
+                    }
+
+                    float multipler = CalculateMultipler(battle.Pokemon.PrimaryTypeID, (int)attack.ElementalType, battle.Pokemon.SecondaryTypeID);
+
                     if (multipler > 1) BattleLog.AppendText("It's super effective!");
                     else if (multipler < 1) BattleLog.AppendText("It's not very effective!");
                     damage = CalculateOverallDamage(baseDamage, (int)attack.Power, attackDefenceRatio, multipler);
@@ -67,7 +90,7 @@ namespace Pokemon
 
         public static bool ChanceCalculator(int chance, int maxRange = 100)
         {
-            int chanceScore = CalculatorHelper.RandomNumber(0, maxRange);
+            int chanceScore = GenerateRandomNumber.GetRandomNumber(0, maxRange);
             if (chanceScore <= chance)
             {
                 return true; // success

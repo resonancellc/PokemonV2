@@ -138,26 +138,26 @@ namespace Pokemon
         }
         private void SwitchPokemon()
         {
-            pokemonPartyForm = new PokemonPartyForm(this);
-            pokemonPartyForm.BringToFront();
+            //pokemonPartyForm = new PokemonPartyForm(this);
+            //pokemonPartyForm.BringToFront();
 
-            if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
-            {
-                Pokemon pokemon = pokemonPartyForm.PickedPokemon;
-                if (pokemon != battle.Pokemon)
-                {
-                    BattleLog.ClearText();
-                    tbLog.Text = string.Empty;
-                    pokemon.ResetStats();
-                    this.battle.Pokemon = pokemon;
-                    SetAttackButtons(pokemon);
-                    BattleLog.AppendText($"Go {pokemon.Name}!");
-                    Attack enemyAttack = battle.GeneratePokemonAttack(false);
-                    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-                    RedrawUI();
-                    tbLog.Text = BattleLog.Log;
-                }
-            }
+            //if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
+            //{
+            //    Pokemon pokemon = pokemonPartyForm.PickedPokemon;
+            //    if (pokemon != battle.Pokemon)
+            //    {
+            //        BattleLog.ClearText();
+            //        tbLog.Text = string.Empty;
+            //        pokemon.ResetStats();
+            //        this.battle.Pokemon = pokemon;
+            //        SetAttackButtons(pokemon);
+            //        BattleLog.AppendText($"Go {pokemon.Name}!");
+            //        Attack enemyAttack = battle.GeneratePokemonAttack(false);
+            //        battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+            //        RedrawUI();
+            //        tbLog.Text = BattleLog.Log;
+            //    }
+            //}
         }
         private void AfterBattlePokemonSwitch()
         {
@@ -185,16 +185,16 @@ namespace Pokemon
 
         public void UseItem(int itemID)
         {
-            BattleLog.ClearText();
-            if (ItemHelper.UseItem(battle.Pokemon, itemID))
-            {
-                BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID+1)} on {battle.Pokemon.Name}");
-                Attack enemyAttack = battle.GeneratePokemonAttack(false);
-                battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-                RedrawUI();
-                tbLog.Text = BattleLog.Log;
-            }
-            else tbLog.Text = "It's not the time to use this item";
+            //BattleLog.ClearText();
+            //if (ItemHelper.UseItem(battle.Pokemon, itemID))
+            //{
+            //    BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID+1)} on {battle.Pokemon.Name}");
+            //    Attack enemyAttack = battle.GeneratePokemonAttack(false);
+            //    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+            //    RedrawUI();
+            //    tbLog.Text = BattleLog.Log;
+            //}
+            //else tbLog.Text = "It's not the time to use this item";
 
         }
 
@@ -223,13 +223,13 @@ namespace Pokemon
             enemyPkmnImage.Image = ImageHelper.GetImageById(false, enemyPokemonID);
         }
 
-        private void SetPkmnHealthBars(Pokemon pokemon)
+        private void SetPkmnHealthBars(IPokemon pokemon)
         {
             barPlayerPkmnHealth.Maximum = pokemon.HPMax;
             barPlayerPkmnHealth.Value = pokemon.HPCurrent;
         }
 
-        private void SetPkmnHealthBars(Pokemon pokemon, Pokemon enemyPokemon)
+        private void SetPkmnHealthBars(IPokemon pokemon, IPokemon enemyPokemon)
         {
             if (pokemon.CheckIfPokemonAlive())
             {
@@ -269,16 +269,16 @@ namespace Pokemon
             }
 
         }
-        private void SetPkmnLabels(Pokemon pokemon, Pokemon enemyPokemon)
+        private void SetPkmnLabels(IPokemon pokemon, IPokemon enemyPokemon)
         {
-            lblPlayerPkmnLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : ((PokemonEnum.Condition)pokemon.Condition).ToString();
+            lblPlayerPkmnLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : (pokemon.Condition).ToString();
             lblPlayerPkmnHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
             lblPlayerPkmnName.Text = pokemon.Name;
             if (!pokemon.CheckIfPokemonAlive())
             {
                 lblPlayerPkmnHealth.Text = $"0/{pokemon.HPMax}";
             }
-            lblEnemyPkmnLevel.Text = enemyPokemon.Condition == 0 ? "L" + enemyPokemon.Level.ToString() : ((PokemonEnum.Condition)enemyPokemon.Condition).ToString();
+            lblEnemyPkmnLevel.Text = enemyPokemon.Condition == 0 ? "L" + enemyPokemon.Level.ToString() : (enemyPokemon.Condition).ToString();
             lblEnemyPkmnHealth.Text = $"{enemyPokemon.HPCurrent}/{enemyPokemon.HPMax}";
             lblEnemyPkmnName.Text = enemyPokemon.Name;
             if (!enemyPokemon.CheckIfPokemonAlive())
@@ -296,30 +296,30 @@ namespace Pokemon
 
         private void BeginAttackPhase(object sender)
         {
-            bool battleEnded = false;
-            BattleLog.ClearText();
+            //bool battleEnded = false;
+            //BattleLog.ClearText();
             
-            Attack playerAttack = battle.GeneratePokemonAttack(true, sender);
-            Attack enemyAttack = battle.GeneratePokemonAttack(false);
+            //Attack playerAttack = battle.GeneratePokemonAttack(true, sender);
+            //Attack enemyAttack = battle.GeneratePokemonAttack(false);
 
-            if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))
-            {
-                battle.PokemonAttack(playerAttack, battle.Pokemon, true);
-                if (battle.EnemyPokemon.CheckIfPokemonAlive())
-                    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-                else
-                    battleEnded = true;
-            }
-            else
-            {
-                battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-                if (battle.Pokemon.CheckIfPokemonAlive())
-                    battle.PokemonAttack(playerAttack, battle.Pokemon, true);
-                else
-                    battleEnded = true;
-            }
-            RedrawUI();
-            if (!battleEnded) tbLog.Text = BattleLog.Log;
+            //if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))
+            //{
+            //    battle.PokemonAttack(playerAttack, battle.Pokemon, true);
+            //    if (battle.EnemyPokemon.CheckIfPokemonAlive())
+            //        battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+            //    else
+            //        battleEnded = true;
+            //}
+            //else
+            //{
+            //    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+            //    if (battle.Pokemon.CheckIfPokemonAlive())
+            //        battle.PokemonAttack(playerAttack, battle.Pokemon, true);
+            //    else
+            //        battleEnded = true;
+            //}
+            //RedrawUI();
+            //if (!battleEnded) tbLog.Text = BattleLog.Log;
 
         }
 

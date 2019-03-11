@@ -30,6 +30,5 @@ namespace Pokemon.Models
 
         bool CheckIfPokemonAlive();
         bool Hurt(int value);
-        void SetPokemonAttackPool();
     }
 }
