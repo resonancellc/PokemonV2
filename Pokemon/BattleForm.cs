@@ -150,7 +150,7 @@ namespace Pokemon
                     BattleLog.AppendText($"Go {pokemon.Name}!");
                     Attack enemyAttack = battle.GeneratePokemonAttack(false);
                     battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-                    RedrawUI(true);
+                    RedrawUI();
                     tbLog.Text = BattleLog.Log;
                 }
             }
@@ -210,13 +210,9 @@ namespace Pokemon
             SetPokemonImages(battle.Pokemon.ID, battle.EnemyPokemon.ID);
             SetPkmnLabels(battle.Pokemon, battle.EnemyPokemon);
             SetPkmnHealthBars(battle.Pokemon, battle.EnemyPokemon);
+            tbLog.Refresh();
         }
-        private void RedrawUI(bool afterPokemonSwitch)
-        {
-            SetPokemonImages(battle.Pokemon.ID, battle.EnemyPokemon.ID);
-            SetPkmnLabels(battle.Pokemon, battle.EnemyPokemon);
-            SetPkmnHealthBars(battle.Pokemon);
-        }
+
         private void SetPokemonImages(int playerPokemonID, int enemyPokemonID)
         {
             playerPkmnImage.Image = ImageHelper.GetImageById(true, playerPokemonID);
@@ -241,7 +237,7 @@ namespace Pokemon
                 barPlayerPkmnHealth.Value = 0;
                 BattleLog.AppendText($"{pokemon.Name} has fainted!");
                 BlockUI();
-                
+                SwitchPokemon();
             }
             if (enemyPokemon.CheckIfPokemonAlive())
             {
@@ -253,13 +249,16 @@ namespace Pokemon
                 barEnemyPkmnHealth.Value = 0;
                 BattleLog.AppendText($"{enemyPokemon.Name} has fainted!");
                 BlockUI();
+
+
                 if (!PokemonParty.CheckIfAnyPokemonAlive(false))
                 {
                     BattleResult(true);
                 }
                 else
                 {
-#warning to?
+
+                    tbLog.AppendText($"Next pokemon: {PokemonParty.GetFirstPokemonAlive(false).Name}");
                     AfterBattlePokemonSwitch();
                 }
                 

@@ -13,10 +13,10 @@ namespace Pokemon
 
         public static void InitPlayerEquipment()
         {
-            Money = 5000;
+            Money = 100;
             for (int i = 0; i < StaticTypes.equipmentItemList.Count; i++)
             {
-                playerItems[i] = 12;
+                playerItems[i] = 0;
             }
         }
     }
