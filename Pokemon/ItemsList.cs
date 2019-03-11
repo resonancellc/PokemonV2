@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Factory;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Pokemon
             foreach (DataRow itemRow in itemDataRows)
             {
                 var values = itemRow.ItemArray;
-                IEquipmentItem item = Factory.CreateItem();
+                IEquipmentItem item = EquipmentItemFactory.CreateItem();
 
                 item.ID = (int)values[0];
                 item.Name = (string)values[1];

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pokemon.Factory;
+using Pokemon.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,20 +15,13 @@ namespace Pokemon
     public partial class StartForm : Form
     {
         List<PictureBox> pictures = new List<PictureBox>();
-        Pokemon[] pokemonList = new Pokemon[6];
+        IPokemon[] pokemonList = new IPokemon[6];
         int teamSize = 1;
         public StartForm()
         {
             InitializeComponent();
             LoadPicturesToList();
             StartRandomizing(1);
-        }
-
-        private void btnRandomize_Click(object sender, EventArgs e)
-        {
-            if (rbOnePoke.Checked) StartRandomizing(1);
-            if (rbThreePoke.Checked) StartRandomizing(3);
-            if (rbSixPoke.Checked) StartRandomizing(6);
         }
 
         private void StartRandomizing(int pokeNumber)
@@ -41,7 +36,8 @@ namespace Pokemon
 
                 for (int i = 0; i < pokeNumber; i++)
                 {
-                    Pokemon pokemon = PokemonGenerator.GetPokemon(Convert.ToInt32(tbLevel.Text));
+                    int level = Convert.ToInt32(tbLevel.Text);
+                    IPokemon pokemon = PokemonFactory.CreatePokemon(level);
                     pokemonList[i] = pokemon;
                     pictures[i].Image = ImageHelper.GetImageById(false, pokemon.ID);
                 }
@@ -61,6 +57,13 @@ namespace Pokemon
             pictures.Add(pictureBox4);
             pictures.Add(pictureBox5);
             pictures.Add(pictureBox6);
+        }
+
+        private void btnRandomize_Click(object sender, EventArgs e)
+        {
+            if (rbOnePoke.Checked) StartRandomizing(1);
+            if (rbThreePoke.Checked) StartRandomizing(3);
+            if (rbSixPoke.Checked) StartRandomizing(6);
         }
 
         private void btnStart_Click(object sender, EventArgs e)
