@@ -18,9 +18,12 @@ namespace Pokemon
             Application.SetCompatibleTextRenderingDefault(false);
 
             StaticSQL.SetConnectionString("Server=DESKTOP-6CLE20J\\SQLEXPRESS;Database=Pokemon;Trusted_Connection=true;");
-            StaticTypes.FillPokemonList();
-            StaticTypes.FillPokemonStatsList();
-            StaticTypes.FillAttackList();
+
+            PokemonList.FillPokemonList();
+
+            //StaticTypes.FillPokemonList();
+            //StaticTypes.FillPokemonStatsList();
+            //StaticTypes.FillAttackList();
             StaticTypes.FillItemList();
 
             Application.Run(new StartForm());

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,14 +8,19 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class Pokemon : IdNameItem
+    public class Pokemon : IPokemon
     {
-        public int Level { get; set; }
-        public int HPMax { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+
         public int HPCurrent { get; set; }
-        public Stat Stat { get; set; }
-        public Stat StartStats { get; set; }
-        public int Condition { get; set; }
+        public int HPMax { get; set; }
+        public int Level { get; set; }
+
+        public IPokemonStats Stats { get; set; }
+        public List<IAttack> Attacks { get; set; }
+
+        public Condition Condition { get; set; }
         public bool IsFlinched { get; set; }
         public bool IsEnergyFocused { get; set; }
         public bool IsConfused { get; set; }
@@ -22,9 +28,14 @@ namespace Pokemon
         public int PrimaryTypeID { get; set; }
         public int? SecondaryTypeID { get; set; }
 
-        public Attack[] attackPool = new Attack[4];
-        public int[] statModifierStages = { 0,0,0,0,0 }; 
- 
+        public int[] StatModifierStages { get; set; }
+        public int MinimalLevel { get; set; }
+
+        public Pokemon()
+        {
+
+        }
+
         public Pokemon(int id, int level, Stat pokemonStat)
         {
             this.ID = id;
