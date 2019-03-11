@@ -38,17 +38,17 @@ namespace Pokemon
 
         private void SetUI(Pokemon pokemon)
         {
-            for (int i = 0; i < statsLabel.Length; i++)
-            {
-                statsLabel[i].Text = pokemon.StartStats.Stats[i].ToString();
-            }
+            //for (int i = 0; i < statsLabel.Length; i++)
+            //{
+            //    statsLabel[i].Text = pokemon.StartStats.Stats[i].ToString();
+            //}
 
-            lblName.Text = pokemon.Name;
-            lblLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : ((PokemonEnum.Condition)pokemon.Condition).ToString();
-            lblHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
-            progressBar1.Maximum = pokemon.HPMax;
-            progressBar1.Value = pokemon.HPCurrent;
-            pictureBox1.Image = ImageHelper.GetImageById(false, pokemon.ID);
+            //lblName.Text = pokemon.Name;
+            //lblLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : ((PokemonEnum.Condition)pokemon.Condition).ToString();
+            //lblHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
+            //progressBar1.Maximum = pokemon.HPMax;
+            //progressBar1.Value = pokemon.HPCurrent;
+            //pictureBox1.Image = ImageHelper.GetImageById(false, pokemon.ID);
         }
 
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)

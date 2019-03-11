@@ -50,7 +50,8 @@ namespace Pokemon
 
         public static string GetItemNameByID(int ID)
         {
-           return StaticTypes.equipmentItemList.Where(i => i.ID == ID).First().Name;
+            return "";
+           //return StaticTypes.equipmentItemList.Where(i => i.ID == ID).First().Name;
         }
 
 

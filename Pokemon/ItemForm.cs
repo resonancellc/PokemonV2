@@ -24,7 +24,7 @@ namespace Pokemon
 
             this.Text = isShopForm ? "Shop" : "Items";
             int offset = 0;
-            foreach (EquipmentItem item in StaticTypes.equipmentItemList)
+            foreach (EquipmentItem item in ItemsList.Items.Values)
             {
                 if (item != null)
                 {

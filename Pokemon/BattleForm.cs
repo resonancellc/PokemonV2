@@ -63,25 +63,25 @@ namespace Pokemon
         private void BattleWon()
         {
             
-            AfterWinForm afterWinForm = new AfterWinForm(CalculatorHelper.CalculateWinnings());
-            //afterWinForm.Show();
-            this.Hide();
+            //AfterWinForm afterWinForm = new AfterWinForm(CalculatorHelper.CalculateWinnings());
+            ////afterWinForm.Show();
+            //this.Hide();
 
-            if (afterWinForm.ShowDialog() == DialogResult.OK)
-            {
-                PokemonParty.ResetParty();
-                PokemonParty.ClearEnemyParty();
+            //if (afterWinForm.ShowDialog() == DialogResult.OK)
+            //{
+            //    PokemonParty.ResetParty();
+            //    PokemonParty.ClearEnemyParty();
 
-                for (int i = 0; i < PokemonParty.playerPokemons.Length; i++)
-                {
-                    if (PokemonParty.playerPokemons[i] == null) break;
-                    PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
-                }
+            //    for (int i = 0; i < PokemonParty.playerPokemons.Length; i++)
+            //    {
+            //        if (PokemonParty.playerPokemons[i] == null) break;
+            //        PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
+            //    }
                 
-                afterWinForm.Dispose();
-                //AfterBattlePokemonSwitch();
-                CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
-            }
+            //    afterWinForm.Dispose();
+            //    //AfterBattlePokemonSwitch();
+            //    CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
+            //}
         }
 
         private void SetAttackButtons(IPokemon pokemon)

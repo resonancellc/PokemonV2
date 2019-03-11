@@ -63,11 +63,20 @@
     <Compile Include="Controls\PokemonPanel.Designer.cs">
       <DependentUpon>PokemonPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Enums.cs" />
+    <Compile Include="Factory\BattleFactory.cs" />
+    <Compile Include="Factory\EquipmentItemFactory.cs" />
+    <Compile Include="Factory\PokemonPartyFactory.cs" />
+    <Compile Include="Factory\PokemonAttacksFactory.cs" />
+    <Compile Include="Factory\PokemonFactory.cs" />
+    <Compile Include="Factory\PokemonStatsFactory.cs" />
+    <Compile Include="GenerateRandomNumber.cs" />
     <Compile Include="Helpers\AdditionalEffectHelper.cs" />
     <Compile Include="Helpers\AttackEffectivenessHelper.cs" />
     <Compile Include="Helpers\BattleHelper.cs" />
     <Compile Include="Helpers\ItemHelper.cs" />
     <Compile Include="Helpers\StageHelper.cs" />
+    <Compile Include="ItemsList.cs" />
     <Compile Include="Models\Attack.cs" />
     <Compile Include="Models\Battle.cs" />
     <Compile Include="Helpers\CalculatorHelper.cs" />
@@ -79,8 +88,16 @@
     <Compile Include="BattleForm.Designer.cs">
       <DependentUpon>BattleForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\EnemyPokemonParty.cs" />
     <Compile Include="Models\EquipmentItem.cs" />
+    <Compile Include="Models\IAttack.cs" />
+    <Compile Include="Models\IBattle.cs" />
     <Compile Include="Models\IdNameItem.cs" />
+    <Compile Include="Models\IEquipmentItem.cs" />
+    <Compile Include="Models\IPokemon.cs" />
+    <Compile Include="Models\IPokemonParty.cs" />
+    <Compile Include="Models\IPokemonStats.cs" />
+    <Compile Include="Models\PlayerPokemonParty.cs" />
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="Player\PlayerEquipment.cs" />
     <Compile Include="PokemonDetailsForm.cs">
@@ -89,6 +106,7 @@
     <Compile Include="PokemonDetailsForm.Designer.cs">
       <DependentUpon>PokemonDetailsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PokemonList.cs" />
     <Compile Include="PokemonPartyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,14 +126,11 @@
     <Compile Include="StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Static\PokemonEnum.cs" />
-    <Compile Include="Generators\PokemonGenerator.cs" />
     <Compile Include="Models\PokemonStat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Static\StaticMain.cs" />
     <Compile Include="Static\StaticSQL.cs" />
-    <Compile Include="Static\StaticTypes.cs" />
     <EmbeddedResource Include="AfterWinForm.resx">
       <DependentUpon>AfterWinForm.cs</DependentUpon>
     </EmbeddedResource>

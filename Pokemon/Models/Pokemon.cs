@@ -50,14 +50,14 @@ namespace Pokemon
 
         public void ResetStats()
         {
-            for (int i = 0; i < Stat.Stats.Length; i++)
-            {
-                this.statModifierStages[i] = 0;
-                this.Stat.Stats[i] = this.StartStats.Stats[i];
-            }
-            IsConfused = false;
-            IsFlinched = false;
-            IsEnergyFocused = false;
+            //for (int i = 0; i < Stat.Stats.Length; i++)
+            //{
+            //    this.statModifierStages[i] = 0;
+            //    this.Stat.Stats[i] = this.StartStats.Stats[i];
+            //}
+            //IsConfused = false;
+            //IsFlinched = false;
+            //IsEnergyFocused = false;
         }
     }
 }

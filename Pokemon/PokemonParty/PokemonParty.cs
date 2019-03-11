@@ -130,7 +130,7 @@ namespace Pokemon
             {
                 if (pokemon == null) break;
                 pokemon.HPCurrent = pokemon.HPMax;
-                pokemon.Condition = (int)PokemonEnum.Condition.None;
+                pokemon.Condition = (int)Condition.None;
                 pokemon.ResetStats();
             }
         }
