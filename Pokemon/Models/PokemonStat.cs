@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,41 +8,13 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class Stat : IdNameItem
+    public class PokemonStats : IPokemonStats
     {
-        public int[] Stats = new int[5];
         public int Health { get; set; }
-        public int PrimaryTypeID { get; set; }
-        public int? SecondaryTypeID { get; set; }
-        public int MinimalLevel { get; set; }
-
-        public Stat()
-        {
-
-        }
-
-        public Stat(Stat stat)
-        {
-            this.Stats[0] = stat.Stats[0];
-            this.Stats[1] = stat.Stats[1];
-            this.Stats[2] = stat.Stats[2];
-            this.Stats[3] = stat.Stats[3];
-            this.Stats[4] = stat.Stats[4];
-        }
+        public int Attack { get; set; }
+        public int Defence { get; set; }
+        public int SpecialAttack { get; set; }
+        public int SpecialDefence { get; set; }
+        public int Speed { get; set; }
     }
-
-    public class PokemonStat : Stat
-    {
-        public void SetStatsArray(int attack, int defence, int specialAttack, int specialDefence, int speed)
-        {
-            this.Stats[0] = attack;
-            this.Stats[1] = defence;
-            this.Stats[2] = specialAttack;
-            this.Stats[3] = specialDefence;
-            this.Stats[4] = speed;
-        }
-    }
-
-
-
 }
