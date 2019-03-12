@@ -38,7 +38,7 @@ namespace Pokemon
                 {
                     int level = Convert.ToInt32(tbLevel.Text);
                     IPokemon pokemon = PokemonFactory.CreatePokemon(level);
-                    pokemonList[i] = pokemon;
+                    pokemonList.Add(pokemon);
                     pictures[i].Image = ImageHelper.GetImageById(false, pokemon.ID);
                 }
             }

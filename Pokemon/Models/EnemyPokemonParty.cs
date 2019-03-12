@@ -10,6 +10,11 @@ namespace Pokemon.Models
     {
         public List<IPokemon> Pokemons { get; set; }
 
+        public EnemyPokemonParty()
+        {
+            Pokemons = new List<IPokemon>();
+        }
+
         public IPokemon GetFirstAlivePokemon()
         {
             return Pokemons.First(p => p.HPCurrent > 0); 

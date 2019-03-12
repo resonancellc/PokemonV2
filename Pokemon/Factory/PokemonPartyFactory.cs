@@ -33,8 +33,8 @@ namespace Pokemon.Factory
 
         public static IPokemonParty<IPokemon> CreateEnemyPokemonParty(int teamSize, int level)
         {
-            EnemyPokemonParty party = new EnemyPokemonParty();
-            for (int i = 0; i <= teamSize; i++)
+            IPokemonParty<IPokemon> party = new EnemyPokemonParty();
+            for (int i = 0; i < teamSize; i++)
             {
                 IPokemon pokemon = PokemonFactory.CreatePokemon(level);
                 party.Pokemons.Add(pokemon);

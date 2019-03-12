@@ -20,9 +20,9 @@ namespace Pokemon
             this.EnemyPokemon = enemyPokemon;
         }
 
-        public IAttack GeneratePokemonAttack(bool isPlayerAttack, object sender = null)
+        public void GeneratePokemonAttack(bool isPlayerAttack, object sender = null)
         {
-            return PokemonAttacksFactory.CreateAttack();
+            
             //Attack attack = null;
             //if (!isPlayerAttack)
             //{

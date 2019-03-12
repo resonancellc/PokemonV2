@@ -12,13 +12,15 @@ namespace Pokemon.Factory
     {
         public static IPokemon CreatePokemon()
         {
-            return new Pokemon();
+            IPokemon pokemon = new Pokemon();
+            pokemon.Stats = PokemonStatsFactory.CreateStats();
+            pokemon.Attacks = PokemonAttacksFactory.CreateAttacks();
+            return pokemon;
         }
 
         public static IPokemon CreatePokemon(int level, int id = 0)
         {
             IPokemon pokemon = new Pokemon();
-            pokemon.Level = level;
 
             if (id > 0)
             {
@@ -35,7 +37,10 @@ namespace Pokemon.Factory
                             .Value;
             }
 
+            pokemon.Level = level;
             pokemon.Stats = PokemonStatsFactory.CreateStats(level, pokemon.Stats);
+            pokemon.HPCurrent = pokemon.HPMax = pokemon.Stats.Health;
+
             pokemon.Attacks = PokemonAttacksFactory.GetAttacks(pokemon);
 
             return pokemon;

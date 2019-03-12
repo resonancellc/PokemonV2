@@ -10,7 +10,7 @@ namespace Pokemon
 {
     public static class ItemsList
     {
-        public static Dictionary<int, IEquipmentItem> Items { get; set; }
+        public static Dictionary<int, IEquipmentItem> Items = new Dictionary<int, IEquipmentItem>();
 
         public static void FillItemsList()
         {

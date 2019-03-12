@@ -9,6 +9,11 @@ namespace Pokemon.Factory
 {
     public static class PokemonStatsFactory
     {
+        public static IPokemonStats CreateStats()
+        {
+            return new PokemonStats();
+        }
+
         public static IPokemonStats CreateStats(int level, IPokemonStats pokemonStat)
         {
             IPokemonStats pokemonStats = new PokemonStats();

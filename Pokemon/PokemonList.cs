@@ -11,7 +11,7 @@ namespace Pokemon
 {
     public static class PokemonList
     {
-        public static Dictionary<int, IPokemon> Pokemons { get; set; }
+        public static Dictionary<int, IPokemon> Pokemons = new Dictionary<int, IPokemon>();
 
         public static void FillPokemonList()
         {
@@ -52,12 +52,12 @@ namespace Pokemon
 
                     attack.ID = (int)values[0];
                     attack.Name = (string)values[1];
-                    attack.Power = (int)values[2];
+                    attack.Power = values[2] != DBNull.Value ? (int?)values[2] : null;
                     attack.Accuracy = (int)values[3];
-                    attack.BoostStats = (string)values[4];
-                    attack.ElementalType = (ElementalType)values[5];
-                    attack.IsSpecial = (int)values[6] == 0 ? false : true;
-                    attack.AdditionalEffect = (string)values[7];
+                    attack.BoostStats = values[4] != DBNull.Value ? (string)values[4] : null;
+                    attack.ElementalType = values[5] != DBNull.Value ? (ElementalType)values[5] : 0;
+                    attack.IsSpecial = (bool)values[6]; // == false ? false : true;
+                    attack.AdditionalEffect = values[7] != DBNull.Value ? (string)values[7] : null;
                     attack.Level = (int)values[8];
 
                     pokemon.Attacks.Add(attack);

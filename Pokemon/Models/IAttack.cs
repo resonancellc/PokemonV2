@@ -10,7 +10,6 @@
         bool IsSpecial { get; set; }
         int Level { get; set; }
         string Name { get; set; }
-        float PoisonChance { get; set; }
         int? Power { get; set; }
     }
 }
