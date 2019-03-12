@@ -102,7 +102,7 @@ namespace Pokemon
         }
 
         #region events
-        private void btnAttack_Click(object sender, EventArgs e)
+        private void btnAttack_Click(AttackButton sender, EventArgs e)
         {
             tbLog.Text = "";
             BeginAttackPhase(sender);
@@ -291,12 +291,12 @@ namespace Pokemon
 
         #endregion
 
-        private void BeginAttackPhase(object sender)
+        private void BeginAttackPhase(AttackButton sender)
         {
             bool battleEnded = false;
             BattleLog.ClearText();
 
-            IAttack playerAttack = battle.GeneratePokemonAttack(true, sender);
+            IAttack playerAttack = sender.Attack;
             IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0,4)];
 
             if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))

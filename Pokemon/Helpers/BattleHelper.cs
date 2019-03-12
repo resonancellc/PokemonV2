@@ -29,12 +29,12 @@ namespace Pokemon
             return true;
         }
 
-        public static bool IsMiss(Attack attack)
+        public static bool IsMiss(IAttack attack)
         {
             return !CalculatorHelper.ChanceCalculator(attack.Accuracy.Value);
         }
 
-        public static bool IsConfused(Pokemon attackingPokemon)
+        public static bool IsConfused(IPokemon attackingPokemon)
         {
             if (!attackingPokemon.IsConfused) return false;
             return CalculatorHelper.ChanceCalculator(50, 100);
@@ -132,7 +132,7 @@ namespace Pokemon
             return false;            
         }
 
-        public static bool ApplyConditionEffect(Pokemon pokemon)
+        public static bool ApplyConditionEffect(IPokemon pokemon)
         {
             //int damage;
             //switch (pokemon.Condition)
@@ -176,7 +176,7 @@ namespace Pokemon
             return false; // i have added this just to avoid error
         }
 
-        public static void ChangeTempStats(bool isPlayerAttack, Attack attack, Battle battle)
+        public static void ChangeTempStats(bool isPlayerAttack, IAttack attack, IBattle battle)
         {
             string[] boosts = attack.BoostStats.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string boost in boosts)
@@ -191,7 +191,7 @@ namespace Pokemon
 
         }
 
-        public static void ChangeTempStats(bool isPlayerAttack, bool isEnemyTarget, int statType, int stageValue, Battle battle)
+        public static void ChangeTempStats(bool isPlayerAttack, bool isEnemyTarget, int statType, int stageValue, IBattle battle)
         {
             if (!isPlayerAttack && isEnemyTarget || isPlayerAttack && !isEnemyTarget) // 
                 ChangePokemonStats(true, statType, battle, stageValue);
@@ -214,7 +214,7 @@ namespace Pokemon
 
         }
 
-        private static void ChangePokemonStats(bool isPlayerTarget, int statType, Battle battle, int stageValue)
+        private static void ChangePokemonStats(bool isPlayerTarget, int statType, IBattle battle, int stageValue)
         {
             //int previousValue = 0;
             //if (isPlayerTarget)

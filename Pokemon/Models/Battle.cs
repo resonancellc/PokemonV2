@@ -20,61 +20,45 @@ namespace Pokemon
             this.EnemyPokemon = enemyPokemon;
         }
 
-        public void GeneratePokemonAttack(bool isPlayerAttack, object sender = null)
+        public void PokemonAttack(IAttack attack, IPokemon attackingPokemon, bool isPlayerAttack)
         {
-            
-            //Attack attack = null;
-            //if (!isPlayerAttack)
-            //{
-            //    while (attack == null)
-            //    {
-            //        attack = EnemyPokemon.attackPool[CalculatorHelper.RandomNumber(0, EnemyPokemon.attackPool.Length)];
-            //    }
-            //}
-            //else return attack = StaticTypes.attackList.Where(x => x.Name == ((Button)sender).Text).First();
+            if (!attackingPokemon.IsFlinched)
+            {
+                if (!BattleHelper.IsConfused(attackingPokemon))
+                {
+                    if (BattleHelper.ApplyConditionEffect(attackingPokemon)) // change name for something like // IsImmobilizedByCondition() ?
+                    {
+                        // Checking if not miss
+                        if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
+                        else
+                        {
+                            if (isPlayerAttack)
+                                BattleLog.AppendText($"Your {attackingPokemon.Name} used {attack.Name}");
+                            else BattleLog.AppendText($"Foe {attackingPokemon.Name} used {attack.Name}");
 
-            //return attack;
+
+                            Attack(isPlayerAttack, attack);
+
+                            if (attack.BoostStats != string.Empty)
+                                BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
+
+                        }
+                    }
+                }
+                else
+                {
+                    attackingPokemon.Hurt(CalculatorHelper.CalculateAttackPower(!isPlayerAttack, AttackList.Attacks.Where(a => a.Value.Name == "ConfusionHit").First().Value, this));
+                    BattleLog.AppendText($"{attackingPokemon.Name} hurts itself in its confusion");
+                }
+            }
+            else
+            {
+                attackingPokemon.IsFlinched = false;
+                BattleLog.AppendText($"{attackingPokemon.Name} is flinched");
+            }
         }
 
-        public void PokemonAttack(Attack attack, Pokemon attackingPokemon, bool isPlayerAttack)
-        {
-            //if (!attackingPokemon.IsFlinched)
-            //{
-            //    if (!BattleHelper.IsConfused(attackingPokemon))
-            //    {
-            //        if (BattleHelper.ApplyConditionEffect(attackingPokemon)) // change name for something like // IsImmobilizedByCondition() ?
-            //        {
-            //            // Checking if not miss
-            //            if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
-            //            else
-            //            {
-            //                if (isPlayerAttack)
-            //                    BattleLog.AppendText($"Your {attackingPokemon.Name} used {attack.Name}");
-            //                else BattleLog.AppendText($"Foe {attackingPokemon.Name} used {attack.Name}");
-
-
-            //                Attack(isPlayerAttack, attack);
-
-            //                if (attack.BoostStats != string.Empty)
-            //                    BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
-
-            //            }
-            //        } 
-            //    }
-            //    else
-            //    {
-            //        attackingPokemon.Hurt(CalculatorHelper.CalculateAttackPower(!isPlayerAttack, StaticTypes.attackList.Where(a=>a.Name == "ConfusionHit").First(), this));
-            //        BattleLog.AppendText($"{attackingPokemon.Name} hurts itself in its confusion");
-            //    }
-            //}
-            //else
-            //{
-            //    attackingPokemon.IsFlinched = false;
-            //    BattleLog.AppendText($"{attackingPokemon.Name} is flinched");
-            //}
-        }
-
-        public void Attack(bool isPlayerAttack, Attack attack)
+        public void Attack(bool isPlayerAttack, IAttack attack)
         {
             //int damage = AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect);
             //if (damage == 0 && attack.Power.HasValue)
