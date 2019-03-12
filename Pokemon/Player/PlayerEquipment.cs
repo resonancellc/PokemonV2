@@ -16,7 +16,7 @@ namespace Pokemon
             Money = 100;
             for (int i = 0; i < ItemsList.Items.Count; i++)
             {
-                playerItems[i] = 0;
+                playerItems[i] = 5;
             }
         }
     }

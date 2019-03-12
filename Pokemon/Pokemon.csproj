@@ -92,7 +92,6 @@
     <Compile Include="Models\EquipmentItem.cs" />
     <Compile Include="Models\IAttack.cs" />
     <Compile Include="Models\IBattle.cs" />
-    <Compile Include="Models\IdNameItem.cs" />
     <Compile Include="Models\IEquipmentItem.cs" />
     <Compile Include="Models\IPokemon.cs" />
     <Compile Include="Models\IPokemonParty.cs" />

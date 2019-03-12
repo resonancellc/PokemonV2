@@ -33,10 +33,10 @@
             this.btnSwitchPkmn = new System.Windows.Forms.Button();
             this.btnItem = new System.Windows.Forms.Button();
             this.panelAttackPool = new System.Windows.Forms.Panel();
-            this.btnAttack2 = new System.Windows.Forms.Button();
-            this.btnAttack4 = new System.Windows.Forms.Button();
-            this.btnAttack3 = new System.Windows.Forms.Button();
-            this.btnAttack1 = new System.Windows.Forms.Button();
+            this.btnAttack2 = new AttackButton();
+            this.btnAttack4 = new AttackButton();
+            this.btnAttack3 = new AttackButton();
+            this.btnAttack1 = new AttackButton();
             this.barPlayerPkmnHealth = new System.Windows.Forms.ProgressBar();
             this.lblPlayerPkmnName = new System.Windows.Forms.Label();
             this.lblPlayerPkmnHealth = new System.Windows.Forms.Label();
@@ -307,7 +307,6 @@
         #endregion
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panelAttackPool;
-        private System.Windows.Forms.Button btnAttack1;
         private System.Windows.Forms.ProgressBar barPlayerPkmnHealth;
         private System.Windows.Forms.Label lblPlayerPkmnName;
         private System.Windows.Forms.Label lblPlayerPkmnHealth;
@@ -321,9 +320,10 @@
         private System.Windows.Forms.Label lblEnemyPkmnHealth;
         private System.Windows.Forms.PictureBox playerPkmnImage;
         private System.Windows.Forms.PictureBox enemyPkmnImage;
-        private System.Windows.Forms.Button btnAttack2;
-        private System.Windows.Forms.Button btnAttack4;
-        private System.Windows.Forms.Button btnAttack3;
+        private AttackButton btnAttack1;
+        private AttackButton btnAttack2;
+        private AttackButton btnAttack4;
+        private AttackButton btnAttack3;
         private System.Windows.Forms.Label lblPlayerPkmnLevel;
         private System.Windows.Forms.Label lblEnemyPkmnLevel;
     }

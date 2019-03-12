@@ -15,8 +15,8 @@ namespace Pokemon
 {
     public partial class BattleForm : Form
     {
-        Button[] attackButtons = new Button[4];
-        Battle battle;
+        AttackButton[] attackButtons = new AttackButton[4];
+        IBattle battle;
         PokemonPartyForm pokemonPartyForm = null;
 
         IPokemonParty<IPokemon> _playerParty;
@@ -39,18 +39,12 @@ namespace Pokemon
 
         private void BattleForm_Load(object sender, EventArgs e)
         {
-            CreateBattle(_playerParty.GetFirstAlivePokemon(), _enemyParty.GetFirstAlivePokemon());
-        }
-
-        private void CreateBattle(IPokemon playerPokemon, IPokemon enemyPokemon)
-        {
-            battle = new Battle(playerPokemon, enemyPokemon);
-
-            SetAttackButtons(playerPokemon);
+            battle = BattleFactory.CreateBattle(_playerParty.GetFirstAlivePokemon(), _enemyParty.GetFirstAlivePokemon());
+            SetAttackButtons(battle.Pokemon);
 
             this.Show();
             RedrawUI();
-            tbLog.Text = $"Wild {enemyPokemon.Name} appears!";
+            tbLog.Text = $"Wild {battle.EnemyPokemon.Name} appears!";
         }
 
         private void BattleResult(bool isWin)
@@ -86,7 +80,7 @@ namespace Pokemon
 
         private void SetAttackButtons(IPokemon pokemon)
         {
-            foreach (Button attackButton in attackButtons)
+            foreach (AttackButton attackButton in attackButtons)
             {
                 attackButton.Text = "---";
                 attackButton.Enabled = false;
@@ -95,8 +89,10 @@ namespace Pokemon
             {
                 for (int i = 0; i < pokemon.Attacks.Count; i++)
                 {
-                    attackButtons[i].Text = pokemon.Attacks[i].Name;
-                    if (pokemon.Attacks[i].Name.Length > 9)
+                    attackButtons[i].Attack = pokemon.Attacks[i];
+                    attackButtons[i].Text = attackButtons[i].Attack.Name;
+
+                    if (attackButtons[i].Attack.Name.Length > 9)
                     {
                         attackButtons[i].Font = new System.Drawing.Font("Unispace", 8, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     }
@@ -161,26 +157,27 @@ namespace Pokemon
         }
         private void AfterBattlePokemonSwitch()
         {
-            if (PokemonParty.playerPokemons[1] != null)
-            {
-                if (MessageBox.Show("Switch pokemon?", "Pokemon", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    SwitchPokemon();
-                }
-            }
-            CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
+            //if (PokemonParty.playerPokemons[1] != null)
+            //{
+            //    if (MessageBox.Show("Switch pokemon?", "Pokemon", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //    {
+            //        SwitchPokemon();
+            //    }
+            //}
+            //battle = BattleFactory.CreateBattle(_playerParty.GetFirstAlivePokemon(), _enemyParty.GetFirstAlivePokemon());
+            //CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
         }
 
         private void ShowItemForm()
         {
-            ItemForm playerEquipmentForm = new ItemForm(false, this);
-            if (!StaticMain.openedForms.Where(x => x.Name == playerEquipmentForm.Name).Any())
-            {
-                StaticMain.FormOpened(playerEquipmentForm);
-                playerEquipmentForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
-                playerEquipmentForm.BringToFront();
-                playerEquipmentForm.Show();
-            }
+            //ItemForm playerEquipmentForm = new ItemForm(false, this);
+            //if (!StaticMain.openedForms.Where(x => x.Name == playerEquipmentForm.Name).Any())
+            //{
+            //    StaticMain.FormOpened(playerEquipmentForm);
+            //    playerEquipmentForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+            //    playerEquipmentForm.BringToFront();
+            //    playerEquipmentForm.Show();
+            //}
         }
 
         public void UseItem(int itemID)
@@ -296,30 +293,30 @@ namespace Pokemon
 
         private void BeginAttackPhase(object sender)
         {
-            //bool battleEnded = false;
-            //BattleLog.ClearText();
-            
-            //Attack playerAttack = battle.GeneratePokemonAttack(true, sender);
-            //Attack enemyAttack = battle.GeneratePokemonAttack(false);
+            bool battleEnded = false;
+            BattleLog.ClearText();
 
-            //if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))
-            //{
-            //    battle.PokemonAttack(playerAttack, battle.Pokemon, true);
-            //    if (battle.EnemyPokemon.CheckIfPokemonAlive())
-            //        battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-            //    else
-            //        battleEnded = true;
-            //}
-            //else
-            //{
-            //    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-            //    if (battle.Pokemon.CheckIfPokemonAlive())
-            //        battle.PokemonAttack(playerAttack, battle.Pokemon, true);
-            //    else
-            //        battleEnded = true;
-            //}
-            //RedrawUI();
-            //if (!battleEnded) tbLog.Text = BattleLog.Log;
+            IAttack playerAttack = battle.GeneratePokemonAttack(true, sender);
+            IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0,4)];
+
+            if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))
+            {
+                battle.PokemonAttack(playerAttack, battle.Pokemon, true);
+                if (battle.EnemyPokemon.CheckIfPokemonAlive())
+                    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                else
+                    battleEnded = true;
+            }
+            else
+            {
+                battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                if (battle.Pokemon.CheckIfPokemonAlive())
+                    battle.PokemonAttack(playerAttack, battle.Pokemon, true);
+                else
+                    battleEnded = true;
+            }
+            RedrawUI();
+            if (!battleEnded) tbLog.Text = BattleLog.Log;
 
         }
 

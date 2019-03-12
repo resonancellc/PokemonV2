@@ -17,18 +17,14 @@ namespace Pokemon.Factory
 
         public static IPokemonParty<IPokemon> CreatePokemonParty(bool isPlayerParty, List<IPokemon> pokemons)
         {
-            if (isPlayerParty)
-            {
-                PlayerPokemonParty party = new PlayerPokemonParty();
-                party.Pokemons = pokemons;
-                return party;
-            }
-            else
-            {
-                EnemyPokemonParty party = new EnemyPokemonParty();
-                party.Pokemons = pokemons;
-                return party;
-            }
+            // no need for switch case here because it is not going to be extend, there will never be more than 2 parties at given time
+            IPokemonParty<IPokemon> party;
+
+            if (isPlayerParty) party = new PlayerPokemonParty();
+            else party = new EnemyPokemonParty();
+            
+            party.Pokemons = pokemons;
+            return party;
         }
 
         public static IPokemonParty<IPokemon> CreateEnemyPokemonParty(int teamSize, int level)
