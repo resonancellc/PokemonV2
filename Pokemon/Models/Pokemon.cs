@@ -64,7 +64,7 @@ namespace Pokemon
 
         public object Clone()
         {
-            IPokemon pokemon = new Pokemon(); // PokemonFactory.CreatePokemon();
+            IPokemon pokemon = PokemonFactory.CreatePokemon();
 
             foreach (PropertyInfo property in pokemon.GetType().GetProperties())
             {
