@@ -102,10 +102,11 @@ namespace Pokemon
         }
 
         #region events
-        private void btnAttack_Click(AttackButton sender, EventArgs e)
+        private void btnAttack_Click(object sender, EventArgs e)
         {
+            AttackButton attackButton = sender as AttackButton;
             tbLog.Text = "";
-            BeginAttackPhase(sender);
+            BeginAttackPhase(attackButton.Attack);
         }
         private void btnRun_Click(object sender, EventArgs e)
         {
@@ -228,7 +229,7 @@ namespace Pokemon
 
         private void SetPkmnHealthBars(IPokemon pokemon, IPokemon enemyPokemon)
         {
-            if (pokemon.CheckIfPokemonAlive())
+            if (pokemon.IsPokemonAlive())
             {
                 barPlayerPkmnHealth.Maximum = pokemon.HPMax;
                 barPlayerPkmnHealth.Value = pokemon.HPCurrent;
@@ -240,7 +241,7 @@ namespace Pokemon
                 BlockUI();
                 SwitchPokemon();
             }
-            if (enemyPokemon.CheckIfPokemonAlive())
+            if (enemyPokemon.IsPokemonAlive())
             {
                 barEnemyPkmnHealth.Maximum = enemyPokemon.HPMax;
                 barEnemyPkmnHealth.Value = enemyPokemon.HPCurrent;
@@ -271,14 +272,14 @@ namespace Pokemon
             lblPlayerPkmnLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : (pokemon.Condition).ToString();
             lblPlayerPkmnHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
             lblPlayerPkmnName.Text = pokemon.Name;
-            if (!pokemon.CheckIfPokemonAlive())
+            if (!pokemon.IsPokemonAlive())
             {
                 lblPlayerPkmnHealth.Text = $"0/{pokemon.HPMax}";
             }
             lblEnemyPkmnLevel.Text = enemyPokemon.Condition == 0 ? "L" + enemyPokemon.Level.ToString() : (enemyPokemon.Condition).ToString();
             lblEnemyPkmnHealth.Text = $"{enemyPokemon.HPCurrent}/{enemyPokemon.HPMax}";
             lblEnemyPkmnName.Text = enemyPokemon.Name;
-            if (!enemyPokemon.CheckIfPokemonAlive())
+            if (!enemyPokemon.IsPokemonAlive())
             {
                 lblEnemyPkmnHealth.Text = $"0/{enemyPokemon.HPMax}";
             }
@@ -291,27 +292,28 @@ namespace Pokemon
 
         #endregion
 
-        private void BeginAttackPhase(AttackButton sender)
+        private void BeginAttackPhase(IAttack attack)
         {
             bool battleEnded = false;
             BattleLog.ClearText();
 
-            IAttack playerAttack = sender.Attack;
-            IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0,4)];
+            IAttack playerAttack = attack;
+            IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0,battle.EnemyPokemon.Attacks.Count)];
 
-            if (BattleHelper.IsPlayerPokemonFaster(playerAttack, enemyAttack, battle))
+            if (BattleHelper.IsPlayerPokemonFaster(attack, enemyAttack, battle))
             {
-                battle.PokemonAttack(playerAttack, battle.Pokemon, true);
-                if (battle.EnemyPokemon.CheckIfPokemonAlive())
-                    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                battle.PreparePokemonAttack(attack, battle.Pokemon, true);
+
+                if (battle.EnemyPokemon.IsPokemonAlive())
+                    battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, false);
                 else
                     battleEnded = true;
             }
             else
             {
-                battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-                if (battle.Pokemon.CheckIfPokemonAlive())
-                    battle.PokemonAttack(playerAttack, battle.Pokemon, true);
+                battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                if (battle.Pokemon.IsPokemonAlive())
+                    battle.PreparePokemonAttack(attack, battle.Pokemon, true);
                 else
                     battleEnded = true;
             }

@@ -20,71 +20,76 @@ namespace Pokemon
             this.EnemyPokemon = enemyPokemon;
         }
 
-        public void PokemonAttack(IAttack attack, IPokemon attackingPokemon, bool isPlayerAttack)
+        public void PreparePokemonAttack(IAttack attack, IPokemon attackingPokemon, bool isPlayerAttack)
         {
-            if (!attackingPokemon.IsFlinched)
-            {
-                if (!BattleHelper.IsConfused(attackingPokemon))
-                {
-                    if (BattleHelper.ApplyConditionEffect(attackingPokemon)) // change name for something like // IsImmobilizedByCondition() ?
-                    {
-                        // Checking if not miss
-                        if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack)) BattleLog.AppendText($"{attackingPokemon.Name} missed!");
-                        else
-                        {
-                            if (isPlayerAttack)
-                                BattleLog.AppendText($"Your {attackingPokemon.Name} used {attack.Name}");
-                            else BattleLog.AppendText($"Foe {attackingPokemon.Name} used {attack.Name}");
-
-
-                            Attack(isPlayerAttack, attack);
-
-                            if (attack.BoostStats != string.Empty)
-                                BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
-
-                        }
-                    }
-                }
-                else
-                {
-                    attackingPokemon.Hurt(CalculatorHelper.CalculateAttackPower(!isPlayerAttack, AttackList.Attacks.Where(a => a.Value.Name == "ConfusionHit").First().Value, this));
-                    BattleLog.AppendText($"{attackingPokemon.Name} hurts itself in its confusion");
-                }
-            }
-            else
+            // pokemon is scared to attack
+            if (attackingPokemon.IsFlinched)
             {
                 attackingPokemon.IsFlinched = false;
                 BattleLog.AppendText($"{attackingPokemon.Name} is flinched");
+                return;
             }
+
+            // pokemon is confused and failed confusion test - he damaged himself and is not able to perform given attack
+            if (BattleHelper.IsConfused(attackingPokemon))
+            {
+                int damage = CalculatorHelper.CalculateAttackPower(!isPlayerAttack, AttackList.Attacks.Where(a => a.Value.Name == "ConfusionHit").First().Value, this);
+                attackingPokemon.Hurt(damage);
+                BattleLog.AppendText($"{attackingPokemon.Name} hurts itself in its confusion");
+                return;
+            }
+
+            // pokemon is not able to attack after applying condition effects - sleeping or dead for example
+            if (!BattleHelper.IsAbleToAttackAfterConditionEffect(attackingPokemon)) return;
+
+            // pokemon dind't use attack that always hits and missed
+            if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack))
+            {
+                BattleLog.AppendText($"{attackingPokemon.Name} missed!");
+                return;
+            }
+
+            // If you reached that part that means you succesfully attacked opposite pokemon! :)
+
+            // move those lines to PerformPokemonAttack method
+            if (isPlayerAttack)
+                BattleLog.AppendText($"Your {attackingPokemon.Name} used {attack.Name}");
+            else BattleLog.AppendText($"Foe {attackingPokemon.Name} used {attack.Name}");
+
+            PerformPokemonAttack(attack, isPlayerAttack);
+
+            if (attack.BoostStats != string.Empty)
+                BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
         }
 
-        public void Attack(bool isPlayerAttack, IAttack attack)
+        public void PerformPokemonAttack(IAttack attack, bool isPlayerAttack)
         {
-            //int damage = AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect);
-            //if (damage == 0 && attack.Power.HasValue)
-            //{
-            //    damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
-            //    if (damage < 1) damage = 1;
-            //    if (BattleHelper.IsCritical(attack, isPlayerAttack ? this.Pokemon : this.EnemyPokemon))
-            //    {
-            //        damage *= 2;
-            //        BattleLog.AppendText("Critical hit!");
-            //    }
-            //}
+            int damage = AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect);
 
-            //if (attack.AdditionalEffect != String.Empty)
-            //{
-            //    BattleHelper.IsConditionChange(attack, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
-            //    AdditionalEffectHelper.IsFlinch(attack.AdditionalEffect, isPlayerAttack ? this.EnemyPokemon : this.Pokemon);
-            //    AdditionalEffectHelper.IsCritBoosting(attack.AdditionalEffect, isPlayerAttack ? this.Pokemon : this.EnemyPokemon);
-                
-            //}
+            if (damage == 0 && attack.Power.HasValue)
+            {
+                damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
+                if (damage < 1) damage = 1;
+                if (BattleHelper.IsCritical(attack, isPlayerAttack ? Pokemon : EnemyPokemon))
+                {
+                    damage *= 2;
+                    BattleLog.AppendText("Critical hit!");
+                }
+            }
 
-            //if (damage != 0)
-            //{
-            //    if (isPlayerAttack) EnemyPokemon.Hurt(damage);
-            //    else Pokemon.Hurt(damage);
-            //}
+            if (attack.AdditionalEffect != String.Empty)
+            {
+                // those are all boolean methods, why?
+                BattleHelper.ChangeCondition(attack, isPlayerAttack ? EnemyPokemon : Pokemon);
+                AdditionalEffectHelper.IsFlinch(attack.AdditionalEffect, isPlayerAttack ? EnemyPokemon : Pokemon);
+                AdditionalEffectHelper.IsCritBoosting(attack.AdditionalEffect, isPlayerAttack ? Pokemon : EnemyPokemon);
+            }
+
+            if (damage != 0)
+            {
+                if (isPlayerAttack) EnemyPokemon.Hurt(damage);
+                else Pokemon.Hurt(damage);
+            }
 
         }
     }

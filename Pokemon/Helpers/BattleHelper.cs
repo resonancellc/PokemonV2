@@ -40,7 +40,7 @@ namespace Pokemon
             return CalculatorHelper.ChanceCalculator(50, 100);
         }
 
-        public static bool IsCritical(Attack attack, Pokemon attackingPokemon)
+        public static bool IsCritical(IAttack attack, IPokemon attackingPokemon)
         {
             int boostCrit = attackingPokemon.IsEnergyFocused ? 20 : 0;
             if (attack.AdditionalEffect == "highCrit")
@@ -49,80 +49,74 @@ namespace Pokemon
                 return CalculatorHelper.ChanceCalculator(1 + boostCrit, 255);
         }
 
-        public static bool IsConditionChange(Attack attack, Pokemon targetPokemon)
+        public static bool ChangeCondition(IAttack attack, IPokemon targetPokemon)
         {
-            //string[] attributes = attack.AdditionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
+            string[] attributes = attack.AdditionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
 
-            //if (attributes.Contains("burn"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (ConditionChange(targetPokemon, (int)Condition.BRN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now burning");
-            //        targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] = targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Attack] / 2;
-            //        return true;
-            //    }
-            //}
-            //if (attributes.Contains("freeze"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (ConditionChange(targetPokemon, (int)Condition.FRZ, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now frozen");
-            //        return true;
-            //    }
-            //}
-            //if (attributes.Contains("paralysis"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (ConditionChange(targetPokemon, (int)Condition.PAR, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now paralyzed");
-            //        targetPokemon.Stat.Stats[(int)Stat.Speed] = Convert.ToInt32((float)targetPokemon.Stat.Stats[(int)PokemonEnum.Stat.Speed] / 1.5f);
-            //        return true;
-            //    }
-            //}
-            //if (attributes.Contains("poison"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.PSN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now poisoned");
-            //        return true;
-            //    }
-            //}
-            //if (attributes.Contains("sleep"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (ConditionChange(targetPokemon, (int)PokemonEnum.Condition.SLP, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now sleeping");
-            //        return true;
-            //    }
-            //}
-            //if (attributes.Contains("confusion"))
-            //{
-            //    if (targetPokemon.IsConfused) BattleLog.AppendText($"{targetPokemon.Name} is already confused");
-            //    if (attributes.Length > 2 )
-            //    {
-            //        if (CalculatorHelper.ChanceCalculator(Convert.ToInt32(attributes[2]), 100))
-            //        {
-            //            targetPokemon.IsConfused = true;
-            //            BattleLog.AppendText($"{targetPokemon.Name} is now confused");
-            //            return true;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        targetPokemon.IsConfused = true;
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now confused");
-            //        return true;
-            //    }
-            //}
+            if (attributes.Contains("burn"))
+            {
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (IsConditionChanged(targetPokemon, (int)Condition.BRN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                {
+                    BattleLog.AppendText($"{targetPokemon.Name} is now burning");
+                    targetPokemon.Stats.Attack = targetPokemon.Stats.Attack / 2;
+                    return true;
+                }
+            }
+            if (attributes.Contains("freeze"))
+            {
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (IsConditionChanged(targetPokemon, (int)Condition.FRZ, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                {
+                    BattleLog.AppendText($"{targetPokemon.Name} is now frozen");
+                    return true;
+                }
+            }
+            if (attributes.Contains("paralysis"))
+            {
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (IsConditionChanged(targetPokemon, (int)Condition.PAR, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                {
+                    BattleLog.AppendText($"{targetPokemon.Name} is now paralyzed");
+                    targetPokemon.Stats.Speed = Convert.ToInt32((float)targetPokemon.Stats.Speed / 1.5f);
+                    return true;
+                }
+            }
+            if (attributes.Contains("poison"))
+            {
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (IsConditionChanged(targetPokemon, (int)Condition.PSN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                {
+                    BattleLog.AppendText($"{targetPokemon.Name} is now poisoned");
+                    return true;
+                }
+            }
+            if (attributes.Contains("sleep"))
+            {
+                if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
+                else if (IsConditionChanged(targetPokemon, (int)Condition.SLP, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
+                {
+                    BattleLog.AppendText($"{targetPokemon.Name} is now sleeping");
+                    return true;
+                }
+            }
+            if (attributes.Contains("confusion"))
+            {
+                if (targetPokemon.IsConfused) BattleLog.AppendText($"{targetPokemon.Name} is already confused");
+                else if (attributes.Length > 2)
+                {
+                    if (CalculatorHelper.ChanceCalculator(Convert.ToInt32(attributes[2]), 100))
+                    {
+                        targetPokemon.IsConfused = true;
+                        BattleLog.AppendText($"{targetPokemon.Name} is now confused");
+                        return true;
+                    }
+                }
+            }
             return false;
         }
 
-        public static bool ConditionChange(Pokemon targetPokemon, int newCondition, int effectChance)
+        public static bool IsConditionChanged(IPokemon targetPokemon, int newCondition, int effectChance)
         {
             if (CalculatorHelper.ChanceCalculator(effectChance))
             {
@@ -132,48 +126,47 @@ namespace Pokemon
             return false;            
         }
 
-        public static bool ApplyConditionEffect(IPokemon pokemon)
+        public static bool IsAbleToAttackAfterConditionEffect(IPokemon pokemon)
         {
-            //int damage;
-            //switch (pokemon.Condition)
-            //{
-            //    case 0:
-            //        return true;
+            int damage;
+            switch (pokemon.Condition)
+            {
+                case 0:
+                    return true;
 
-            //    case (int)PokemonEnum.Condition.BRN:
-            //        damage = pokemon.HPMax / 16;
-            //        pokemon.Hurt(damage);
-            //        BattleLog.AppendText($"{pokemon.Name} is burning (Damage: {damage})");
-            //        return pokemon.CheckIfPokemonAlive();
+                case Condition.BRN:
+                    damage = pokemon.HPMax / 16;
+                    pokemon.Hurt(damage);
+                    BattleLog.AppendText($"{pokemon.Name} is burning (Damage: {damage})");
+                    return pokemon.IsPokemonAlive();
 
-            //    case (int)PokemonEnum.Condition.FRZ:
-            //        BattleLog.AppendText($"{pokemon.Name} is frozen");
-            //        return false;
+                case Condition.FRZ:
+                    BattleLog.AppendText($"{pokemon.Name} is frozen");
+                    return false;
 
-            //    case (int)PokemonEnum.Condition.PAR:
-            //        if (CalculatorHelper.ChanceCalculator(50)) return true;
-            //        BattleLog.AppendText($"{pokemon.Name} is unable to move");
-            //        return false;
+                case Condition.PAR:
+                    if (CalculatorHelper.ChanceCalculator(50)) return true;
+                    BattleLog.AppendText($"{pokemon.Name} is unable to move");
+                    return false;
 
-            //    case (int)PokemonEnum.Condition.PSN:
-            //        damage = pokemon.HPMax / 16;
-            //        pokemon.Hurt(damage);
-            //        BattleLog.AppendText($"{pokemon.Name} is hurt by poison (Damage: {damage})");
-            //        return pokemon.CheckIfPokemonAlive();
+                case Condition.PSN:
+                    damage = pokemon.HPMax / 16;
+                    pokemon.Hurt(damage);
+                    BattleLog.AppendText($"{pokemon.Name} is hurt by poison (Damage: {damage})");
+                    return pokemon.IsPokemonAlive();
 
-            //    case (int)PokemonEnum.Condition.SLP:
-            //        if (CalculatorHelper.ChanceCalculator(50))
-            //        {
-            //            BattleLog.AppendText($"{pokemon.Name} woke up");
-            //            pokemon.Condition = 0;
-            //            return true;
-            //        }
-            //        BattleLog.AppendText($"{pokemon.Name} is still sleeping");
-            //        return false;                 
-            //    default:
-            //        return true;
-            //}
-            return false; // i have added this just to avoid error
+                case Condition.SLP:
+                    if (CalculatorHelper.ChanceCalculator(50))
+                    {
+                        BattleLog.AppendText($"{pokemon.Name} woke up");
+                        pokemon.Condition = 0;
+                        return true;
+                    }
+                    BattleLog.AppendText($"{pokemon.Name} is still sleeping");
+                    return false;
+                default:
+                    return true;
+            }
         }
 
         public static void ChangeTempStats(bool isPlayerAttack, IAttack attack, IBattle battle)

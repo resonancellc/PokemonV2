@@ -51,6 +51,10 @@
     <Compile Include="AfterWinForm.Designer.cs">
       <DependentUpon>AfterWinForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AttackButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AttackList.cs" />
     <Compile Include="Controls\ItemPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

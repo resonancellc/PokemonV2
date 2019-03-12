@@ -6,6 +6,7 @@ namespace Pokemon
     {
         IPokemon Pokemon { get; set; }
         IPokemon EnemyPokemon { get; set; }
-        void PokemonAttack(IAttack attack, IPokemon attackingPokemon, bool isPlayerAttack);
+        void PreparePokemonAttack(IAttack attack, IPokemon attackingPokemon, bool isPlayerAttack);
+        void PerformPokemonAttack(IAttack attack, bool isPlayerAttack);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Pokemon
     {
         public static bool IsAlwaysHits(string additionalEffect)
         {
+            if (additionalEffect == string.Empty) return false;
             return additionalEffect.Contains("alwaysHits") ? true : false;
         }
 
@@ -27,7 +29,7 @@ namespace Pokemon
 
         }
 
-        public static bool IsFlinch(string additionalEffect, Pokemon targetPokemon)
+        public static bool IsFlinch(string additionalEffect, IPokemon targetPokemon)
         {
             if (additionalEffect == string.Empty) return false;
 
@@ -41,7 +43,7 @@ namespace Pokemon
             else return false;
         }
 
-        public static bool IsCritBoosting(string additionalEffect, Pokemon targetPokemon)
+        public static bool IsCritBoosting(string additionalEffect, IPokemon targetPokemon)
         {
             if (additionalEffect == string.Empty) return false;
 

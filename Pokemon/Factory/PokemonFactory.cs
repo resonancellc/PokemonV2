@@ -20,21 +20,21 @@ namespace Pokemon.Factory
 
         public static IPokemon CreatePokemon(int level, int id = 0)
         {
-            IPokemon pokemon = new Pokemon();
-
+            IPokemon pokemon; 
             if (id > 0)
             {
                 // obtaining the one specific pokemon
-                pokemon = PokemonList.Pokemons.Where(p => p.Key == id).FirstOrDefault().Value;
+
+                pokemon = (IPokemon)PokemonList.Pokemons.Where(p => p.Key == id).FirstOrDefault().Value.Clone();
             }
             else
             {
                 // filtering the overall list of pokemons by level, we don't want lvl 5 charizard
                 var availablePokemons = PokemonList.Pokemons.Where(p => p.Value.MinimalLevel <= level);
                 // selecting random entry from filtred list
-                pokemon = availablePokemons
+                pokemon = (IPokemon)availablePokemons
                             .ElementAt(GenerateRandomNumber.GetRandomNumber(0, availablePokemons.Count()))
-                            .Value;
+                            .Value.Clone();
             }
 
             pokemon.Level = level;

@@ -54,10 +54,10 @@ namespace Pokemon
                     attack.Name = (string)values[1];
                     attack.Power = values[2] != DBNull.Value ? (int?)values[2] : null;
                     attack.Accuracy = (int)values[3];
-                    attack.BoostStats = values[4] != DBNull.Value ? (string)values[4] : null;
+                    attack.BoostStats = values[4] != DBNull.Value ? (string)values[4] : "";
                     attack.ElementalType = values[5] != DBNull.Value ? (ElementalType)values[5] : 0;
-                    attack.IsSpecial = (bool)values[6]; // == false ? false : true;
-                    attack.AdditionalEffect = values[7] != DBNull.Value ? (string)values[7] : null;
+                    attack.IsSpecial = (bool)values[6];
+                    attack.AdditionalEffect = values[7] != DBNull.Value ? (string)values[7] : "";
                     attack.Level = (int)values[8];
 
                     pokemon.Attacks.Add(attack);

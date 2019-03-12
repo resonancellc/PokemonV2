@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pokemon.Models
 {
-    public interface IPokemon
+    public interface IPokemon : ICloneable
     {
         int ID { get; set; }
         string Name { get; set; }
@@ -28,7 +28,7 @@ namespace Pokemon.Models
         int MinimalLevel { get; set; }
         int[] StatModifierStages { get; set; }
 
-        bool CheckIfPokemonAlive();
+        bool IsPokemonAlive();
         bool Hurt(int value);
     }
 }

@@ -1,8 +1,10 @@
-﻿using Pokemon.Models;
+﻿using Pokemon.Factory;
+using Pokemon.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,10 +41,10 @@ namespace Pokemon
         public bool Hurt(int value)
         {
             HPCurrent -= value;
-            return CheckIfPokemonAlive();
+            return IsPokemonAlive();
         }
 
-        public bool CheckIfPokemonAlive()
+        public bool IsPokemonAlive()
         {
             if (HPCurrent > 0) return true;  
             return false;
@@ -58,6 +60,18 @@ namespace Pokemon
             //IsConfused = false;
             //IsFlinched = false;
             //IsEnergyFocused = false;
+        }
+
+        public object Clone()
+        {
+            IPokemon pokemon = new Pokemon(); // PokemonFactory.CreatePokemon();
+
+            foreach (PropertyInfo property in pokemon.GetType().GetProperties())
+            {
+                property.SetValue(pokemon, property.GetValue(this, null), null);
+            }
+
+            return pokemon;
         }
     }
 }
