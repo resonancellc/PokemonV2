@@ -15,12 +15,23 @@ namespace Pokemon
             return additionalEffect.Contains("alwaysHits") ? true : false;
         }
 
-        public static int IsAlwaysSameDamage(string additionalEffect)
+        public static bool IsAlwaysSameDamage(string additionalEffect)
         {
-            if (additionalEffect == string.Empty) return 0;
+            if (additionalEffect == string.Empty) return false;
 
             string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
+            if (effectSplit[0] == "sameDamage")
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public static int GetAlwaysSameDamage(string additionalEffect)
+        {
+            if (additionalEffect == string.Empty) return 0;
+            string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (effectSplit[0] == "sameDamage")
             {
                 return Convert.ToInt32(effectSplit[1]);

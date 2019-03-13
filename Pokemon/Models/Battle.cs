@@ -64,7 +64,12 @@ namespace Pokemon
 
         public void PerformPokemonAttack(IAttack attack, bool isPlayerAttack)
         {
-            int damage = AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect);
+            int damage = 0;
+            if (AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect))
+            {
+                damage = AdditionalEffectHelper.GetAlwaysSameDamage(attack.AdditionalEffect);
+            }
+            
 
             if (damage == 0 && attack.Power.HasValue)
             {
