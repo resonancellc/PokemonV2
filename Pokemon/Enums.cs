@@ -47,8 +47,9 @@ namespace Pokemon
     public class StringEnums
     {
         public const string
-    SameDamage = "sameDamage",
-    AlwaysHits = "alwaysHits";
+        SameDamage = "Same Damage",
+        AlwaysHits = "alwaysHits",
+        FastAttack = "Fast";
     }
 
 }

@@ -66,10 +66,10 @@ namespace Pokemon
         {
             int damage = 0;
 
-            //if (AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect))
-            //{
-            //    damage = AdditionalEffectHelper.GetAlwaysSameDamage(attack.AdditionalEffect);
-            //}
+            if (AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffects))
+            {
+                damage = AdditionalEffectHelper.GetAlwaysSameDamage(attack.AdditionalEffects.Where(p => p.Name.Contains(StringEnums.SameDamage)).FirstOrDefault());
+            }
 
             if (damage == 0 && attack.Power.HasValue)
             {

@@ -15,26 +15,14 @@ namespace Pokemon
             return additionalEffect.Contains(StringEnums.AlwaysHits) ? true : false;
         }
 
-        public static bool IsAlwaysSameDamage(string additionalEffect)
+        public static bool IsAlwaysSameDamage(List<IAdditionalEffect> additionalEffects)
         {
-            if (additionalEffect == string.Empty || !additionalEffect.Contains(StringEnums.SameDamage)) return false;
-            return true;
+            return additionalEffects.Any(p => p.Name.Contains(StringEnums.SameDamage));
         }
 
-        public static int GetAlwaysSameDamage(string additionalEffect)
+        public static int GetAlwaysSameDamage(IAdditionalEffect additionalEffect)
         {
-            if (additionalEffect == string.Empty || !additionalEffect.Contains(StringEnums.SameDamage)) return 0;
-
-            string[] effects = SplitAdditionalEffects(additionalEffect);
-
-            string effect = (from anyEffect in effects where anyEffect.Contains(StringEnums.SameDamage) select anyEffect).First();
-
-            if (effects.Any(e => e.Contains(StringEnums.SameDamage)))
-            {
-                return Convert.ToInt32(effects.First(e => e.Contains(StringEnums.SameDamage)));
-            }
-            else return 0;
-
+            return (int)additionalEffect.PrimaryValue;
         }
 
         public static void SetFlinch(string additionalEffect, IPokemon targetPokemon)
