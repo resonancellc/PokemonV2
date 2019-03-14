@@ -7,7 +7,7 @@ using Pokemon.Models;
 using Pokemon.Factory;
 using System.Data;
 
-namespace Pokemon
+namespace Pokemon.AdditionalEffects
 {
     public static class AdditionalEffectsList
     {

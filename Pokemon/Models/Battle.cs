@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pokemon.Models;
 using Pokemon.Factory;
+using Pokemon.AdditionalEffects;
 
 namespace Pokemon
 {
@@ -66,9 +67,9 @@ namespace Pokemon
         {
             int damage = 0;
 
-            if (AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffects))
+            if (AdditionalEffects.AlwaysSameDamage.IsAlwaysSameDamage(attack.AdditionalEffects))
             {
-                damage = AdditionalEffectHelper.GetAlwaysSameDamage(attack.AdditionalEffects.Where(p => p.Name.Contains(StringEnums.SameDamage)).FirstOrDefault());
+                damage = AdditionalEffects.AlwaysSameDamage.GetAlwaysSameDamage(attack.AdditionalEffects.Where(p => p.Name.Contains(StringEnums.SameDamage)).FirstOrDefault());
             }
 
             if (damage == 0 && attack.Power.HasValue)
