@@ -12,53 +12,48 @@ namespace Pokemon
         public static bool IsAlwaysHits(string additionalEffect)
         {
             if (additionalEffect == string.Empty) return false;
-            return additionalEffect.Contains("alwaysHits") ? true : false;
+            return additionalEffect.Contains(StringEnums.AlwaysHits) ? true : false;
         }
 
         public static bool IsAlwaysSameDamage(string additionalEffect)
         {
-            if (additionalEffect == string.Empty) return false;
-
-            string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (effectSplit[0] == "sameDamage")
-            {
-                return true;
-            }
-            else return false;
+            if (additionalEffect == string.Empty || !additionalEffect.Contains(StringEnums.SameDamage)) return false;
+            return true;
         }
 
         public static int GetAlwaysSameDamage(string additionalEffect)
         {
-            if (additionalEffect == string.Empty) return 0;
-            string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            if (effectSplit[0] == "sameDamage")
+            if (additionalEffect == string.Empty || !additionalEffect.Contains(StringEnums.SameDamage)) return 0;
+
+            string[] effects = SplitAdditionalEffects(additionalEffect);
+
+            string effect = (from anyEffect in effects where anyEffect.Contains(StringEnums.SameDamage) select anyEffect).First();
+
+            if (effects.Any(e => e.Contains(StringEnums.SameDamage)))
             {
-                return Convert.ToInt32(effectSplit[1]);
+                return Convert.ToInt32(effects.First(e => e.Contains(StringEnums.SameDamage)));
             }
             else return 0;
 
         }
 
-        public static bool IsFlinch(string additionalEffect, IPokemon targetPokemon)
+        public static void SetFlinch(string additionalEffect, IPokemon targetPokemon)
         {
-            if (additionalEffect == string.Empty) return false;
+            //if (additionalEffect == string.Empty) return;
+            //string[] effectSplit = SplitAdditionalEffects(additionalEffect);
 
-            string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (effectSplit[0] == "flinch")
-            {
-                targetPokemon.IsFlinched = CalculatorHelper.ChanceCalculator(Convert.ToInt32(effectSplit[1]), 100);
-                return true;
-            }
-            else return false;
+            //if (effectSplit[0] == "flinch")
+            //{
+            //    targetPokemon.IsFlinched = CalculatorHelper.ChanceCalculator(Convert.ToInt32(effectSplit[1]), 100);
+            //    return true;
+            //}
+            //else return false;
         }
 
         public static bool IsCritBoosting(string additionalEffect, IPokemon targetPokemon)
         {
             if (additionalEffect == string.Empty) return false;
-
-            string[] effectSplit = additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] effectSplit = SplitAdditionalEffects(additionalEffect);
 
             if (effectSplit[0] == "boostCrit")
             {
@@ -66,6 +61,17 @@ namespace Pokemon
             }
 
             return false;
+        }
+
+        private static string[] SplitAdditionalEffects(string additionalEffect)
+        {
+            return additionalEffect.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public static int GetChanceOfAdditionalEffect(string additionalEffect)
+        {
+
+            throw new NotImplementedException();
         }
     }
 }

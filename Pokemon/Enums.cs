@@ -43,4 +43,12 @@ namespace Pokemon
         PSN = 4,
         SLP = 5
     }
+
+    public class StringEnums
+    {
+        public const string
+    SameDamage = "sameDamage",
+    AlwaysHits = "alwaysHits";
+    }
+
 }

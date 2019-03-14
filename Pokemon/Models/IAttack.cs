@@ -1,9 +1,11 @@
-﻿namespace Pokemon.Models
+﻿using System.Collections.Generic;
+
+namespace Pokemon.Models
 {
     public interface IAttack
     {
         int? Accuracy { get; set; }
-        string AdditionalEffect { get; set; }
+        List<IAdditionalEffect> AdditionalEffects { get; set; }
         string BoostStats { get; set; }
         ElementalType ElementalType { get; set; }
         int ID { get; set; }

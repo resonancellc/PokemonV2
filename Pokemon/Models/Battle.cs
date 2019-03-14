@@ -43,11 +43,11 @@ namespace Pokemon
             if (!BattleHelper.IsAbleToAttackAfterConditionEffect(attackingPokemon)) return;
 
             // pokemon dind't use attack that always hits and missed
-            if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack))
-            {
-                BattleLog.AppendText($"{attackingPokemon.Name} missed!");
-                return;
-            }
+            //if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack))
+            //{
+            //    BattleLog.AppendText($"{attackingPokemon.Name} missed!");
+            //    return;
+            //}
 
             // If you reached that part that means you succesfully attacked opposite pokemon! :)
 
@@ -65,11 +65,11 @@ namespace Pokemon
         public void PerformPokemonAttack(IAttack attack, bool isPlayerAttack)
         {
             int damage = 0;
-            if (AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect))
-            {
-                damage = AdditionalEffectHelper.GetAlwaysSameDamage(attack.AdditionalEffect);
-            }
-            
+
+            //if (AdditionalEffectHelper.IsAlwaysSameDamage(attack.AdditionalEffect))
+            //{
+            //    damage = AdditionalEffectHelper.GetAlwaysSameDamage(attack.AdditionalEffect);
+            //}
 
             if (damage == 0 && attack.Power.HasValue)
             {
@@ -82,13 +82,13 @@ namespace Pokemon
                 }
             }
 
-            if (attack.AdditionalEffect != String.Empty)
-            {
-                // those are all boolean methods, why?
-                BattleHelper.ChangeCondition(attack, isPlayerAttack ? EnemyPokemon : Pokemon);
-                AdditionalEffectHelper.IsFlinch(attack.AdditionalEffect, isPlayerAttack ? EnemyPokemon : Pokemon);
-                AdditionalEffectHelper.IsCritBoosting(attack.AdditionalEffect, isPlayerAttack ? Pokemon : EnemyPokemon);
-            }
+            //if (attack.AdditionalEffect != String.Empty)
+            //{
+            //    // those are all boolean methods, why?
+            //    BattleHelper.ChangeCondition(attack, isPlayerAttack ? EnemyPokemon : Pokemon);
+            //    AdditionalEffectHelper.SetFlinch(attack.AdditionalEffect, isPlayerAttack ? EnemyPokemon : Pokemon);
+            //    AdditionalEffectHelper.IsCritBoosting(attack.AdditionalEffect, isPlayerAttack ? Pokemon : EnemyPokemon);
+            //}
 
             if (damage != 0)
             {

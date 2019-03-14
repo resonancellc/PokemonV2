@@ -19,6 +19,7 @@ namespace Pokemon
 
             StaticSQL.SetConnectionString("Server=DESKTOP-6CLE20J\\SQLEXPRESS;Database=Pokemon;Trusted_Connection=true;");
 
+            AdditionalEffectsList.FillAdditionalEffectsList();
             PokemonList.FillPokemonList();
             ItemsList.FillItemsList();
 

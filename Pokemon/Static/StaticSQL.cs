@@ -85,6 +85,33 @@ namespace Pokemon
             }
         }
 
+        public static DataTable GetAdditionalEffects()
+        {
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(@"SELECT 
+                                                               [ID]
+                                                              ,[Name]
+                                                              ,[Description]
+                                                              ,[PrimaryParameter]
+                                                              ,[SecondaryParameter]
+                                                              ,[IsOnSelf]
+                                                          FROM [Pokemon].[dbo].[AdditionalEffects]", con))
+                {
+
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        using (DataSet ds = new DataSet())
+                        {
+                            sda.Fill(ds);
+                            DataTable data = ds.Tables[0];
+                            return data;
+                        }
+                    }
+                }
+            }
+        }
+
         public static DataTable GetPokemonAttacks(int pokemonID)
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
@@ -97,7 +124,7 @@ namespace Pokemon
                                                             Attack.BoostStats,
                                                             Attack.TypeID,
                                                             Attack.IsSpecial,
-                                                            Attack.AdditionalEffect,
+                                                            Attack.AdditionalEffectIDs,
                                                             AttackPool.[Level]
                                                          FROM AttackPool
                                                          INNER JOIN Attack ON AttackPool.AttackID = Attack.ID 

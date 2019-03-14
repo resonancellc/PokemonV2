@@ -18,7 +18,7 @@ namespace Pokemon
         public string BoostStats { get; set; }
         public ElementalType ElementalType { get; set; }
         public bool IsSpecial { get; set; }
-        public string AdditionalEffect { get; set; }
+        public List<IAdditionalEffect> AdditionalEffects { get; set; }
     }
 
     
