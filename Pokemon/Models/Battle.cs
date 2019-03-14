@@ -44,11 +44,12 @@ namespace Pokemon
             if (!BattleHelper.IsAbleToAttackAfterConditionEffect(attackingPokemon)) return;
 
             // pokemon dind't use attack that always hits and missed
-            //if (!AdditionalEffectHelper.IsAlwaysHits(attack.AdditionalEffect) && BattleHelper.IsMiss(attack))
-            //{
-            //    BattleLog.AppendText($"{attackingPokemon.Name} missed!");
-            //    return;
-            //}
+            AlwaysHits alwaysHits = new AlwaysHits();
+            if (alwaysHits.IsAvailable(attack.AdditionalEffects) && BattleHelper.IsMiss(attack))
+            {
+                BattleLog.AppendText($"{attackingPokemon.Name} missed!");
+                return;
+            }
 
             // If you reached that part that means you succesfully attacked opposite pokemon! :)
 
@@ -67,9 +68,11 @@ namespace Pokemon
         {
             int damage = 0;
 
-            if (AdditionalEffects.AlwaysSameDamage.IsAlwaysSameDamage(attack.AdditionalEffects))
+            AlwaysSameDamage alwaysSameDamage = new AlwaysSameDamage();
+
+            if (alwaysSameDamage.IsAvailable(attack.AdditionalEffects))
             {
-                damage = AdditionalEffects.AlwaysSameDamage.GetAlwaysSameDamage(attack.AdditionalEffects.Where(p => p.Name.Contains(StringEnums.SameDamage)).FirstOrDefault());
+                damage = alwaysSameDamage.GetPrimaryValue(attack.AdditionalEffects.Where(p => p.Name.Contains(StringEnums.SameDamage)).FirstOrDefault());
             }
 
             if (damage == 0 && attack.Power.HasValue)

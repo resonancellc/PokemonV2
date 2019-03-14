@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pokemon.AdditionalEffects
 {
-    interface IAdditionalEffectAvailability
+    public interface IAdditionalEffectAvailability
     {
         bool IsAvailable(List<IAdditionalEffect> additionalEffects);
     }

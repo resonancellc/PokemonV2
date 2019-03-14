@@ -16,7 +16,7 @@ namespace Pokemon.Factory
 
         public static IAdditionalEffect GetAdditionalEffect(int id)
         {
-            return AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == id).FirstOrDefault().Value;
+            return AdditionalEffects.AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == id).FirstOrDefault().Value;
         }
 
         public static List<IAdditionalEffect> GetAdditionalEffects(string additionalEffectIDs)
@@ -26,7 +26,7 @@ namespace Pokemon.Factory
             string[] effects = additionalEffectIDs.Trim().Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string effectId in effects)
             {
-                additionalEffects.Add(AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == Convert.ToInt32(effectId)).FirstOrDefault().Value);
+                additionalEffects.Add(AdditionalEffects.AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == Convert.ToInt32(effectId)).FirstOrDefault().Value);
             }
 
             return additionalEffects;

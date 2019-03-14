@@ -48,7 +48,7 @@ namespace Pokemon
     {
         public const string
         SameDamage = "Same Damage",
-        AlwaysHits = "alwaysHits",
+        AlwaysHits = "Always Hits",
         FastAttack = "Fast";
     }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pokemon.AdditionalEffects
 {
-    interface IAdditionalEffectValuesObtainable
+    public interface IAdditionalEffectValuesObtainable
     {
         int GetPrimaryValue(IAdditionalEffect additionalEffect);
         int GetSecondaryValue(IAdditionalEffect additionalEffect);
