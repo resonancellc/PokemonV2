@@ -44,7 +44,7 @@ namespace Pokemon
             if (!BattleHelper.IsAbleToAttackAfterConditionEffect(attackingPokemon)) return;
 
             // pokemon dind't use attack that always hits and missed
-            if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.AlwaysHits) && BattleHelper.IsMiss(attack))
+            if (attack.AdditionalEffects.Any(e => e is AlwaysHits) && BattleHelper.IsMiss(attack))
             {
                 BattleLog.AppendText($"{attackingPokemon.Name} missed!");
                 return;
@@ -67,11 +67,13 @@ namespace Pokemon
         {
             int damage = 0;
 
-            AlwaysSameDamage alwaysSameDamage = new AlwaysSameDamage();
-
-            if (alwaysSameDamage.IsAvailable(attack.AdditionalEffects))
+            if (attack.AdditionalEffects.Any(e => e is AlwaysSameDamage))
             {
-                damage = alwaysSameDamage.GetPrimaryValue(attack.AdditionalEffects.Where(p => p.Name.Contains(StringEnums.SameDamage)).FirstOrDefault());
+                AlwaysSameDamage alwaysSameDamage = attack.AdditionalEffects.First(e => e is AlwaysSameDamage) as AlwaysSameDamage;
+                
+                damage = alwaysSameDamage.IsBasedOnLevel() ?
+                    (isPlayerAttack ? Pokemon.Level : EnemyPokemon.Level) 
+                    : (int)alwaysSameDamage.PrimaryValue;
             }
 
             if (damage == 0 && attack.Power.HasValue)

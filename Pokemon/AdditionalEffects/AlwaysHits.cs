@@ -15,10 +15,5 @@ namespace Pokemon.AdditionalEffects
         public int? PrimaryValue { get; set; }
         public int? SecondaryValue { get; set; }
         public bool IsOnSelf { get; set; }
-
-        public bool IsAvailable(List<IAdditionalEffect> additionalEffects)
-        {
-            return additionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.AlwaysHits);
-        }
     }
 }

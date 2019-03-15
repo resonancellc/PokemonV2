@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pokemon.AdditionalEffects
 {
-    public class AlwaysSameDamage : IAdditionalEffectAvailability, IAdditionalEffect
+    public class AlwaysSameDamage : IAdditionalEffect
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -16,24 +16,10 @@ namespace Pokemon.AdditionalEffects
         public int? SecondaryValue { get; set; }
         public bool IsOnSelf { get; set; }
 
-        public int GetPrimaryValue(IAdditionalEffect additionalEffect)
+        public bool IsBasedOnLevel()
         {
-            return (int)additionalEffect.PrimaryValue;
+            return PrimaryValue == 0;
         }
 
-        public int GetSecondaryValue(IAdditionalEffect additionalEffect)
-        {
-            return (int)additionalEffect.SecondaryValue;
-        }
-
-        public bool IsAvailable(List<IAdditionalEffect> additionalEffects)
-        {
-            return additionalEffects.Any(p => p.Name.Contains(StringEnums.SameDamage));
-        }
-
-        public string Test()
-        {
-            return "I'm not an abstraction anymore, i have hands and body! I'm something you can touch!";
-        }
     }
 }
