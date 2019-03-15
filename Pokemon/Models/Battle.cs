@@ -44,12 +44,12 @@ namespace Pokemon
             if (!BattleHelper.IsAbleToAttackAfterConditionEffect(attackingPokemon)) return;
 
             // pokemon dind't use attack that always hits and missed
-            if (attack.AdditionalEffects.Any(e => e is AlwaysHits) && BattleHelper.IsMiss(attack))
+            if(attack.AdditionalEffects.ContainsEffectType(typeof(AlwaysHits)) && BattleHelper.IsMiss(attack))
             {
                 BattleLog.AppendText($"{attackingPokemon.Name} missed!");
                 return;
             }
-
+            
             // If you reached that part that means you succesfully attacked opposite pokemon! :)
 
             // move those lines to PerformPokemonAttack method
@@ -67,7 +67,7 @@ namespace Pokemon
         {
             int damage = 0;
 
-            if (attack.AdditionalEffects.Any(e => e is AlwaysSameDamage))
+            if (attack.AdditionalEffects.ContainsEffectType(typeof(AlwaysSameDamage)))
             {
                 AlwaysSameDamage alwaysSameDamage = attack.AdditionalEffects.First(e => e is AlwaysSameDamage) as AlwaysSameDamage;
                 

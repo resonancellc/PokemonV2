@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdditionalEffects\AdditionalEffectAvailability.cs" />
     <Compile Include="AdditionalEffects\AdditionalEffectsList.cs" />
     <Compile Include="AdditionalEffects\AlwaysHits.cs" />
     <Compile Include="AdditionalEffects\AlwaysSameDamage.cs" />

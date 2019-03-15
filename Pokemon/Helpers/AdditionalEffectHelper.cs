@@ -9,12 +9,6 @@ namespace Pokemon
 {
     public static class AdditionalEffectHelper
     {
-        public static bool IsAlwaysHits(string additionalEffect)
-        {
-            if (additionalEffect == string.Empty) return false;
-            return additionalEffect.Contains(StringEnums.AlwaysHits) ? true : false;
-        }
-
         public static void SetFlinch(string additionalEffect, IPokemon targetPokemon)
         {
             //if (additionalEffect == string.Empty) return;

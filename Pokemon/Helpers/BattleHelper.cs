@@ -1,4 +1,6 @@
-﻿using Pokemon.Models;
+﻿using Pokemon.AdditionalEffects;
+using Pokemon.Factory;
+using Pokemon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,23 +11,22 @@ namespace Pokemon
 {
     public static class BattleHelper
     {
-        public static bool IsPlayerPokemonFaster(IAttack playerAttack, IAttack enemyAttack, IBattle battle)
+        public static bool IsPlayerPokemonFaster(List<IAdditionalEffect> playerAttackEffects, List<IAdditionalEffect> enemyAttackEffects, IBattle battle)
         {
-            if (enemyAttack.AdditionalEffects.Any(e => e.Name == StringEnums.FastAttack) != playerAttack.AdditionalEffects.Any(e => e.Name == StringEnums.FastAttack))
+            bool playerAttackIsFast = playerAttackEffects.ContainsEffectType(typeof(FastAttack));
+            bool enemyAttackIsFast = enemyAttackEffects.ContainsEffectType(typeof(FastAttack));
+
+            if (playerAttackIsFast != enemyAttackIsFast)
             {
                 if (battle.Pokemon.Stats.Speed > battle.EnemyPokemon.Stats.Speed)
                     return true;
                 else
                     return false;
             }
-            else if (playerAttack.AdditionalEffects.Any(e => e.Name == StringEnums.FastAttack))
-            {
-                return true;
-            }
-            else if (enemyAttack.AdditionalEffects.Any(e => e.Name == StringEnums.FastAttack))
-            {
-                return false;
-            }
+
+            else if (playerAttackIsFast) return true;
+            else if (enemyAttackIsFast) return false;
+
             return true;
         }
 
