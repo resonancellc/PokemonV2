@@ -18,18 +18,7 @@ namespace Pokemon.AdditionalEffects
             DataRowCollection additionalEffectDataRows = StaticSQL.GetAdditionalEffects().Rows;
             foreach (DataRow additionalEffectRow in additionalEffectDataRows)
             {
-                var values = additionalEffectRow.ItemArray;
-                IAdditionalEffect additionalEffect = AdditionalEffectFactory.CreateAdditionalEffect();
-
-                additionalEffect.ID = (int)values[0];
-                additionalEffect.Name = (string)values[1];
-                additionalEffect.Description = values[2] != DBNull.Value ? (string)values[2] : "";
-
-                additionalEffect.PrimaryValue = values[3] != DBNull.Value ? (int?)values[3] : null;
-                additionalEffect.SecondaryValue = values[4] != DBNull.Value ? (int?)values[4] : null;
-
-                additionalEffect.IsOnSelf = values[5] != DBNull.Value ? (bool)values[5] : false;
-
+                IAdditionalEffect additionalEffect = AdditionalEffectFactory.CreateAdditionalEffect(additionalEffectRow.ItemArray);
                 AdditionalEffects.Add(additionalEffect.ID, additionalEffect);
             }
         }

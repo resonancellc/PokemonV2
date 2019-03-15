@@ -9,6 +9,5 @@ namespace Pokemon.AdditionalEffects
 {
     public interface IAdditionalEffectAvailability
     {
-        bool IsAvailable(List<IAdditionalEffect> additionalEffects);
     }
 }

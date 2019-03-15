@@ -1,4 +1,6 @@
-﻿namespace Pokemon.Models
+﻿using System.Collections.Generic;
+
+namespace Pokemon.Models
 {
     public interface IAdditionalEffect
     {

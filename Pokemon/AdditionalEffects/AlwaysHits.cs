@@ -7,11 +7,18 @@ using Pokemon.Models;
 
 namespace Pokemon.AdditionalEffects
 {
-    public class AlwaysHits : IAdditionalEffectAvailability
+    public class AlwaysHits : IAdditionalEffect
     {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int? PrimaryValue { get; set; }
+        public int? SecondaryValue { get; set; }
+        public bool IsOnSelf { get; set; }
+
         public bool IsAvailable(List<IAdditionalEffect> additionalEffects)
         {
-            return additionalEffects.Any(e => e.Name == StringEnums.AlwaysHits);
+            return additionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.AlwaysHits);
         }
     }
 }

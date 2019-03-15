@@ -44,6 +44,41 @@ namespace Pokemon
         SLP = 5
     }
 
+    public enum AdditionalEffectEnum
+    {
+        SameDamageLow = 1,
+        SameDamageHigh = 2,
+        SameDamageLevel = 3,
+        DrainLife = 10,
+        LeechLife = 19,
+        Fast = 20,
+        AlwaysHits = 21,
+        HighCriticalChance = 50,
+        BoostCriticalSelf = 51,
+        BoostCriticalTarget = 52,
+        ChargeLow = 60,
+        ChargeHigh = 61,
+        RechargeLow = 69,
+        RechargeHigh = 68,
+        TwoToFiveHits = 70,
+        SwapPokemonMax = 84,
+        PoisonWeak = 1001,
+        PoisonMid = 1002,
+        PoisonHigh = 1003,
+        PoisonMax = 1004,
+        BurnWeak = 1010,
+        BurnMaxSelf = 1019,
+        ParalysisWeak = 1020,
+        ParalysisMax = 1024,
+        ParalysisMaxWeak = 1028,
+        ParalysisMaxSelf = 1029,
+        SleepMax = 1054,
+        SleepMaxSelf = 1059,
+        FlinchWeak = 1060,
+        ConfusionWeak = 1070,
+        ConfusionMax = 1074
+    }
+
     public class StringEnums
     {
         public const string

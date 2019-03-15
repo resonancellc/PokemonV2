@@ -44,8 +44,7 @@ namespace Pokemon
             if (!BattleHelper.IsAbleToAttackAfterConditionEffect(attackingPokemon)) return;
 
             // pokemon dind't use attack that always hits and missed
-            AlwaysHits alwaysHits = new AlwaysHits();
-            if (alwaysHits.IsAvailable(attack.AdditionalEffects) && BattleHelper.IsMiss(attack))
+            if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.AlwaysHits) && BattleHelper.IsMiss(attack))
             {
                 BattleLog.AppendText($"{attackingPokemon.Name} missed!");
                 return;
