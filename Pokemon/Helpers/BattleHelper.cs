@@ -11,7 +11,7 @@ namespace Pokemon
 {
     public static class BattleHelper
     {
-        public static bool IsPlayerPokemonFaster(List<IAdditionalEffect> playerAttackEffects, List<IAdditionalEffect> enemyAttackEffects, IBattle battle)
+        public static bool IsPlayerPokemonFaster(ICollection<IAdditionalEffect> playerAttackEffects, ICollection<IAdditionalEffect> enemyAttackEffects, IBattle battle)
         {
             bool playerAttackIsFast = playerAttackEffects.ContainsEffectType(typeof(FastAttack));
             bool enemyAttackIsFast = enemyAttackEffects.ContainsEffectType(typeof(FastAttack));

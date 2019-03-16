@@ -14,12 +14,12 @@ namespace Pokemon.Factory
             return new Attack();
         }
 
-        public static List<IAttack> CreateAttacks()
+        public static IList<IAttack> CreateAttacks()
         {
             return new List<IAttack>();
         }
 
-        public static List<IAttack> GetAttacks(IPokemon pokemon)
+        public static IList<IAttack> GetAttacks(IPokemon pokemon)
         {           
             return pokemon.Attacks.Where(a => a.Level <= pokemon.Level).OrderByDescending(a => a.Level).Take(4).ToList();
         }

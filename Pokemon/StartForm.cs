@@ -14,9 +14,10 @@ namespace Pokemon
 {
     public partial class StartForm : Form
     {
-        List<PictureBox> pictures = new List<PictureBox>();
-        List<IPokemon> pokemonList = new List<IPokemon>();
+        IList<PictureBox> pictures = new List<PictureBox>();
+        IList<IPokemon> pokemonList = new List<IPokemon>();
         int teamSize = 1;
+
         public StartForm()
         {
             InitializeComponent();
@@ -29,7 +30,7 @@ namespace Pokemon
             teamSize = pokeNumber;
             if (ValidateLevel())
             {
-                pokemonList.Clear();
+                pokemonList.ToList().Clear();
                 foreach (PictureBox pictureBox in pictures)
                 {
                     pictureBox.Image = null;

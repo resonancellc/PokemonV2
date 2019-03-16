@@ -22,7 +22,7 @@ namespace Pokemon
         IPokemonParty<IPokemon> _playerParty;
         IPokemonParty<IPokemon> _enemyParty;
 
-        public BattleForm(List<IPokemon> pokemonList, int teamSize)
+        public BattleForm(IList<IPokemon> pokemonList, int teamSize)
         {
             InitializeComponent();
             PlayerEquipment.InitPlayerEquipment();
@@ -300,7 +300,7 @@ namespace Pokemon
             IAttack playerAttack = attack;
             IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0,battle.EnemyPokemon.Attacks.Count)];
 
-            if (BattleHelper.IsPlayerPokemonFaster(attack, enemyAttack, battle))
+            if (BattleHelper.IsPlayerPokemonFaster(attack.AdditionalEffects, enemyAttack.AdditionalEffects, battle))
             {
                 battle.PreparePokemonAttack(attack, battle.Pokemon, true);
 

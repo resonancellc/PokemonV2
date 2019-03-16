@@ -9,7 +9,7 @@ namespace Pokemon
 {
     public static class StaticMain
     {
-        public static List<Form> openedForms = new List<Form>();
+        public static ICollection<Form> openedForms = new List<Form>();
 
         public static void FormOpened(Form form)
         {

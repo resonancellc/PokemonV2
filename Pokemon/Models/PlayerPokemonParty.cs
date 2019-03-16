@@ -8,7 +8,7 @@ namespace Pokemon.Models
 {
     public class PlayerPokemonParty : IPokemonParty<IPokemon>
     {
-        public List<IPokemon> Pokemons { get; set; }
+        public IList<IPokemon> Pokemons { get; set; }
 
         public PlayerPokemonParty()
         {

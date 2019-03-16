@@ -20,7 +20,7 @@ namespace Pokemon
         public int Level { get; set; }
 
         public IPokemonStats Stats { get; set; }
-        public List<IAttack> Attacks { get; set; }
+        public IList<IAttack> Attacks { get; set; }
 
         public Condition Condition { get; set; }
         public bool IsFlinched { get; set; }

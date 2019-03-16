@@ -136,9 +136,9 @@ namespace Pokemon.Factory
             return AdditionalEffects.AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == id).FirstOrDefault().Value;
         }
 
-        public static List<IAdditionalEffect> GetAdditionalEffects(string additionalEffectIDs)
+        public static ICollection<IAdditionalEffect> GetAdditionalEffects(string additionalEffectIDs)
         {
-            List<IAdditionalEffect> additionalEffects = new List<IAdditionalEffect>();
+            ICollection<IAdditionalEffect> additionalEffects = new List<IAdditionalEffect>();
 
             string[] effects = additionalEffectIDs.Trim().Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string effectId in effects)

@@ -5,7 +5,7 @@ namespace Pokemon.Models
     public interface IAttack
     {
         int? Accuracy { get; set; }
-        List<IAdditionalEffect> AdditionalEffects { get; set; }
+        ICollection<IAdditionalEffect> AdditionalEffects { get; set; }
         string BoostStats { get; set; }
         ElementalType ElementalType { get; set; }
         int ID { get; set; }

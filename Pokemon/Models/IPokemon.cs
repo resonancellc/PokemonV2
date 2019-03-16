@@ -16,7 +16,7 @@ namespace Pokemon.Models
         int Level { get; set; }
 
         IPokemonStats Stats { get; set; }
-        List<IAttack> Attacks { get; set; }
+        IList<IAttack> Attacks { get; set; }
 
         Condition Condition { get; set; }
         bool IsFlinched { get; set; }
