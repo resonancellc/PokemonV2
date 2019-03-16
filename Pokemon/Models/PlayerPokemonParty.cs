@@ -20,9 +20,14 @@ namespace Pokemon.Models
             return Pokemons.First(p => p.HPCurrent > 0);
         }
 
-        public IPokemon GetPokemon()
+        public IPokemon GetPokemonByIndex(int index)
         {
-            throw new NotImplementedException();
+            return Pokemons[index];
+        }
+
+        public bool IsAnyPokemonAlive()
+        {
+            return Pokemons.Any(p => p.HPCurrent > 0)
         }
     }
 }

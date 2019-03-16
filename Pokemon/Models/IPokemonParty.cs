@@ -6,6 +6,7 @@ namespace Pokemon.Models
     {
         IList<IPokemon> Pokemons { get; set; }
         IPokemon GetFirstAlivePokemon();
-        IPokemon GetPokemon();
+        IPokemon GetPokemonByIndex(int index);
+        bool IsAnyPokemonAlive();
     }
 }
