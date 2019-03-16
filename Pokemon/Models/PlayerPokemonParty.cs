@@ -27,7 +27,7 @@ namespace Pokemon.Models
 
         public bool IsAnyPokemonAlive()
         {
-            return Pokemons.Any(p => p.HPCurrent > 0)
+            return Pokemons.Any(p => p.HPCurrent > 0);
         }
     }
 }

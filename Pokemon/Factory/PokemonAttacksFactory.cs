@@ -20,8 +20,8 @@ namespace Pokemon.Factory
         }
 
         public static IList<IAttack> GetAttacks(IPokemon pokemon)
-        {           
-            return pokemon.Attacks.Where(a => a.Level <= pokemon.Level).OrderByDescending(a => a.Level).Take(4).ToList();
+        {
+            return pokemon.Attacks.Where(a => a.Level <= pokemon.Level).OrderByDescending(a => a.Level).Take(4).ToList(); ;
         }
 
         

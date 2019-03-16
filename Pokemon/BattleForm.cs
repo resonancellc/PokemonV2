@@ -135,26 +135,28 @@ namespace Pokemon
         }
         private void SwitchPokemon()
         {
-            //pokemonPartyForm = new PokemonPartyForm(this);
-            //pokemonPartyForm.BringToFront();
+            pokemonPartyForm = new PokemonPartyForm(this, _playerParty);
+            pokemonPartyForm.BringToFront();
 
-            //if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
-            //{
-            //    Pokemon pokemon = pokemonPartyForm.PickedPokemon;
-            //    if (pokemon != battle.Pokemon)
-            //    {
-            //        BattleLog.ClearText();
-            //        tbLog.Text = string.Empty;
-            //        pokemon.ResetStats();
-            //        this.battle.Pokemon = pokemon;
-            //        SetAttackButtons(pokemon);
-            //        BattleLog.AppendText($"Go {pokemon.Name}!");
-            //        Attack enemyAttack = battle.GeneratePokemonAttack(false);
-            //        battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-            //        RedrawUI();
-            //        tbLog.Text = BattleLog.Log;
-            //    }
-            //}
+            if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
+            {
+                IPokemon pokemon = pokemonPartyForm.PickedPokemon;
+                if (pokemon != battle.Pokemon)
+                {
+                    BattleLog.ClearText();
+                    tbLog.Text = string.Empty;
+                    pokemon.ResetStats();
+                    this.battle.Pokemon = pokemon;
+                    SetAttackButtons(pokemon);
+                    BattleLog.AppendText($"Go {pokemon.Name}!");
+
+                    IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, battle.EnemyPokemon.Attacks.Count)];
+                    battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+
+                    RedrawUI();
+                    tbLog.Text = BattleLog.Log;
+                }
+            }
         }
         private void AfterBattlePokemonSwitch()
         {
@@ -253,14 +255,14 @@ namespace Pokemon
                 BlockUI();
 
 
-                if (!PokemonParty.CheckIfAnyPokemonAlive(false))
+                if (!_enemyParty.IsAnyPokemonAlive())
                 {
                     BattleResult(true);
                 }
                 else
                 {
 
-                    tbLog.AppendText($"Next pokemon: {PokemonParty.GetFirstPokemonAlive(false).Name}");
+                    tbLog.AppendText($"Next pokemon: {_enemyParty.GetFirstAlivePokemon().Name}");
                     AfterBattlePokemonSwitch();
                 }
                 

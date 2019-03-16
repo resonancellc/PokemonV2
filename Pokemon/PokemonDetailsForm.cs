@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,7 @@ namespace Pokemon
             InitializeComponent();
         }
 
-        public PokemonDetailsForm(Pokemon pokemon)
+        public PokemonDetailsForm(IPokemon pokemon)
         {
             InitializeComponent();
             statsLabel[0] = lblAtkValue;
@@ -31,24 +32,25 @@ namespace Pokemon
             SetUI(pokemon);
         }
 
-        public void UpdateData(Pokemon pokemon)
+        public void UpdateData(IPokemon pokemon)
         {
             SetUI(pokemon);
         }
 
-        private void SetUI(Pokemon pokemon)
+        private void SetUI(IPokemon pokemon)
         {
-            //for (int i = 0; i < statsLabel.Length; i++)
-            //{
-            //    statsLabel[i].Text = pokemon.StartStats.Stats[i].ToString();
-            //}
+            statsLabel[0].Text = pokemon.Stats.Attack.ToString();
+            statsLabel[1].Text = pokemon.Stats.Defence.ToString();
+            statsLabel[2].Text = pokemon.Stats.SpecialAttack.ToString();
+            statsLabel[3].Text = pokemon.Stats.SpecialDefence.ToString();
+            statsLabel[4].Text = pokemon.Stats.Speed.ToString();
 
-            //lblName.Text = pokemon.Name;
-            //lblLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : ((PokemonEnum.Condition)pokemon.Condition).ToString();
-            //lblHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
-            //progressBar1.Maximum = pokemon.HPMax;
-            //progressBar1.Value = pokemon.HPCurrent;
-            //pictureBox1.Image = ImageHelper.GetImageById(false, pokemon.ID);
+            lblName.Text = pokemon.Name;
+            lblLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : (pokemon.Condition).ToString();
+            lblHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
+            progressBar1.Maximum = pokemon.HPMax;
+            progressBar1.Value = pokemon.HPCurrent;
+            pictureBox1.Image = ImageHelper.GetImageById(false, pokemon.ID);
         }
 
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)

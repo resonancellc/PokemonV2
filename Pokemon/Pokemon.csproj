@@ -124,7 +124,6 @@
     <Compile Include="PokemonPartyForm.Designer.cs">
       <DependentUpon>PokemonPartyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PokemonParty\PokemonParty.cs" />
     <Compile Include="ItemForm.cs">
       <SubType>Form</SubType>
     </Compile>

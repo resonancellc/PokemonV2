@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Pokemon.Models;
 
 namespace Pokemon
 {
@@ -14,7 +15,7 @@ namespace Pokemon
     {
         public int Index { get; set; }
         public bool Selected { get; set; }
-        public Pokemon Pokemon { get; set; }
+        public IPokemon Pokemon { get; set; }
         PokemonPartyForm parentForm;
 
         public PokemonPanel()
@@ -22,7 +23,7 @@ namespace Pokemon
             InitializeComponent();
         }
 
-        public PokemonPanel(Pokemon pokemon)
+        public PokemonPanel(IPokemon pokemon)
         {
             InitializeComponent();
 
@@ -54,7 +55,7 @@ namespace Pokemon
             }
             parentForm = (PokemonPartyForm)this.Parent;
             parentForm.UnselectAll();
-            MakePanelSelected(true);  
+            MakePanelSelected(true);
         }
 
         private void PokemonPanel_DoubleClick(object sender, EventArgs e)
@@ -62,7 +63,7 @@ namespace Pokemon
             Selected = true;
             parentForm = (PokemonPartyForm)this.Parent;
             this.BackColor = Color.FromArgb(255, 200, 200);
-            PokemonParty.ActivePokemonIndex = ((PokemonPanel)sender).Index;
+            //PokemonParty.ActivePokemonIndex = ((PokemonPanel)sender).Index;
             parentForm.PokemonPicked(Pokemon);
 
             PokemonDetailsForm pokemonDetailsForm = new PokemonDetailsForm();
@@ -80,7 +81,7 @@ namespace Pokemon
             else this.BackColor = Color.FromArgb(150, 200, 200);
         }
 
-        private void ShowDetails(Pokemon pokemon)
+        private void ShowDetails(IPokemon pokemon)
         {
             parentForm = (PokemonPartyForm)this.Parent;
             PokemonDetailsForm pokemonDetailsForm = new PokemonDetailsForm(pokemon);

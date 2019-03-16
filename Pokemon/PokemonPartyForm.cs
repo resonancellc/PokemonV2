@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,22 +13,22 @@ namespace Pokemon
 {
     public partial class PokemonPartyForm : Form
     {
-        public Pokemon PickedPokemon { get; set; }
+        public IPokemon PickedPokemon { get; set; }
         public int ActivePokemonIndex { get; set; }
         Form parentForm;
 
-
-        public PokemonPartyForm(Form parent)
+        public PokemonPartyForm(Form parent, IPokemonParty<IPokemon> playerPokemonParty)
         {
             parentForm = parent;
             InitializeComponent();
             this.StartPosition = FormStartPosition.Manual;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new Point(parent.Location.X + parent.Size.Width, parent.Location.Y);
-            this.PickedPokemon = PokemonParty.playerPokemons.First();
+
+            this.PickedPokemon = playerPokemonParty.GetFirstAlivePokemon();
             int offset = 0;
             int index = 0;
-            foreach (Pokemon pokemon in PokemonParty.playerPokemons)
+            foreach (IPokemon pokemon in playerPokemonParty.Pokemons)
             {
                 if (pokemon != null)
                 {
@@ -51,7 +52,7 @@ namespace Pokemon
             }
         }
 
-        public void PokemonPicked(Pokemon pokemon)
+        public void PokemonPicked(IPokemon pokemon)
         {
             this.PickedPokemon = pokemon;
             this.DialogResult = DialogResult.OK;

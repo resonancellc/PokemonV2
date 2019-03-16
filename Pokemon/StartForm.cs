@@ -30,7 +30,7 @@ namespace Pokemon
             teamSize = pokeNumber;
             if (ValidateLevel())
             {
-                pokemonList.ToList().Clear();
+                pokemonList.Clear();
                 foreach (PictureBox pictureBox in pictures)
                 {
                     pictureBox.Image = null;

@@ -21,7 +21,6 @@ namespace Pokemon.Factory
         public static IPokemon CreatePokemon(int level, int id = 0)
         {
             IPokemon pokemon;
-            id = 1;
             if (id > 0)
             {
                 // obtaining the one specific pokemon
