@@ -18,8 +18,9 @@ namespace Pokemon
         public int HPCurrent { get; set; }
         public int HPMax { get; set; }
         public int Level { get; set; }
-
+        
         public IPokemonStats Stats { get; set; }
+
         public IList<IAttack> Attacks { get; set; }
 
         public Condition Condition { get; set; }
@@ -52,14 +53,14 @@ namespace Pokemon
 
         public void ResetStats()
         {
-            //for (int i = 0; i < Stat.Stats.Length; i++)
-            //{
-            //    this.statModifierStages[i] = 0;
-            //    this.Stat.Stats[i] = this.StartStats.Stats[i];
-            //}
-            //IsConfused = false;
-            //IsFlinched = false;
-            //IsEnergyFocused = false;
+            for (int i = 0; i < StatModifierStages.Length; i++)
+            {
+                StatModifierStages[i] = 0;
+            }
+
+            IsConfused = false;
+            IsFlinched = false;
+            IsEnergyFocused = false;
         }
 
         public object Clone()
