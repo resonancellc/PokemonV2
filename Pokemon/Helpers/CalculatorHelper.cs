@@ -25,65 +25,25 @@ namespace Pokemon
                                                 * ((float)(targetSecondaryType.HasValue ? AttackEffectivenessHelper.GetMultipler((int)attackType, (int)targetSecondaryType) : 1d));
         }
 
-        private static int CalculateOverallDamage(int baseDamage, int attackPower, float attackDefenceRatio, float multipler)
-        {
-            return Convert.ToInt32(baseDamage * attackPower * attackDefenceRatio * multipler / 50);
-        }
-
-        public static int CalculateAttackPower(bool isPlayerAttack, IAttack attack, IBattle battle)
+        public static int CalculateAttackDamage(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
         {
             int damage = 0;
-            if (isPlayerAttack)
+            if (attack.Power.HasValue)
             {
-                if (attack.Power.HasValue)
-                {
-                    int baseDamage = CalculateBaseDamage(battle.Pokemon.Level);
+                int baseDamage = CalculateBaseDamage(attackingPokemon.Level);
 
-                    float attackDefenceRatio;
-                    if (!attack.IsSpecial)
-                    {
-                        attackDefenceRatio = CalculateAttackDefenceRatio(battle.Pokemon.Stats.Attack, battle.EnemyPokemon.Stats.Defence);
-                    }
-                    else
-                    {
-                        attackDefenceRatio = CalculateAttackDefenceRatio(battle.Pokemon.Stats.SpecialAttack, battle.EnemyPokemon.Stats.SpecialDefence);
-                    }
-                    
-                    float multipler = CalculateMultipler(battle.EnemyPokemon.PrimaryTypeID, (int)attack.ElementalType, battle.EnemyPokemon.SecondaryTypeID);
+                float attackDefenceRatio = attack.IsSpecial != true ? CalculateAttackDefenceRatio(attackingPokemon.Stats.Attack, targetPokemon.Stats.Defence)
+                                                                    : CalculateAttackDefenceRatio(attackingPokemon.Stats.SpecialAttack, targetPokemon.Stats.SpecialDefence);
 
-                    if (multipler > 1) BattleLog.AppendText("It's super effective!");
-                    else if (multipler < 1) BattleLog.AppendText("It's not very effective!");
+                float multipler = CalculateMultipler(targetPokemon.PrimaryTypeID, (int)attack.ElementalType, targetPokemon.SecondaryTypeID);
 
-                    damage = CalculateOverallDamage(baseDamage, (int)attack.Power, attackDefenceRatio, multipler);                      
-                }
+                if (multipler > 1) BattleLog.AppendText("It's super effective!");
+                else if (multipler < 1) BattleLog.AppendText("It's not very effective!");
 
-                return damage;
+                damage = Convert.ToInt32(baseDamage * (int)attack.Power * attackDefenceRatio * multipler / 50);
             }
-            else
-            {            
-                if (attack.Power.HasValue)
-                {
-                    int baseDamage = CalculateBaseDamage(battle.EnemyPokemon.Level);
 
-                    float attackDefenceRatio;
-                    if (!attack.IsSpecial)
-                    {
-                        attackDefenceRatio = CalculateAttackDefenceRatio(battle.EnemyPokemon.Stats.Attack, battle.Pokemon.Stats.Defence);
-                    }
-                    else
-                    {
-                        attackDefenceRatio = CalculateAttackDefenceRatio(battle.EnemyPokemon.Stats.SpecialAttack, battle.Pokemon.Stats.SpecialDefence);
-                    }
-
-                    float multipler = CalculateMultipler(battle.Pokemon.PrimaryTypeID, (int)attack.ElementalType, battle.Pokemon.SecondaryTypeID);
-
-                    if (multipler > 1) BattleLog.AppendText("It's super effective!");
-                    else if (multipler < 1) BattleLog.AppendText("It's not very effective!");
-                    damage = CalculateOverallDamage(baseDamage, (int)attack.Power, attackDefenceRatio, multipler);
-                }
-
-                return damage;
-            }
+            return damage;
         }     
 
 

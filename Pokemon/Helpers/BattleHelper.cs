@@ -16,9 +16,9 @@ namespace Pokemon
             bool playerAttackIsFast = playerAttackEffects.ContainsEffectType(typeof(FastAttack));
             bool enemyAttackIsFast = enemyAttackEffects.ContainsEffectType(typeof(FastAttack));
 
-            if (playerAttackIsFast != enemyAttackIsFast)
+            if (playerAttackIsFast == enemyAttackIsFast)
             {
-                if (battle.Pokemon.Stats.Speed > battle.EnemyPokemon.Stats.Speed)
+                if (battle.PlayerPokemon.Stats.Speed > battle.EnemyPokemon.Stats.Speed)
                     return true;
                 else
                     return false;
@@ -43,12 +43,11 @@ namespace Pokemon
 
         public static bool IsCritical(IAttack attack, IPokemon attackingPokemon)
         {
-            return true;
-            //int boostCrit = attackingPokemon.IsEnergyFocused ? 20 : 0;
-            //if (attack.AdditionalEffect == "highCrit")
-            //    return CalculatorHelper.ChanceCalculator(21 + boostCrit, 255);
-            //else
-            //    return CalculatorHelper.ChanceCalculator(1 + boostCrit, 255);
+            int boostCrit = attackingPokemon.IsEnergyFocused ? 20 : 0;
+            if (AdditionalEffectAvailability.ContainsEffectType(attack.AdditionalEffects, typeof(HighCriticalRatio)))
+                return CalculatorHelper.ChanceCalculator(21 + boostCrit, 255);
+            else
+                return CalculatorHelper.ChanceCalculator(1 + boostCrit, 255);
         }
 
         public static void ChangeCondition(IAttack attack, IPokemon targetPokemon)

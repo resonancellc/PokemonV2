@@ -12,16 +12,16 @@ namespace Pokemon
 {
     public class Battle : IBattle
     {
-        public IPokemon Pokemon { get; set; }
+        public IPokemon PlayerPokemon { get; set; }
         public IPokemon EnemyPokemon { get; set; }
 
         public Battle(IPokemon pokemon, IPokemon enemyPokemon)
         {
-            this.Pokemon = pokemon;
+            this.PlayerPokemon = pokemon;
             this.EnemyPokemon = enemyPokemon;
         }
 
-        public void PreparePokemonAttack(IAttack attack, IPokemon attackingPokemon, bool isPlayerAttack)
+        public void PreparePokemonAttack(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
         {
             // pokemon is scared to attack
             if (attackingPokemon.IsFlinched)
@@ -34,7 +34,7 @@ namespace Pokemon
             // pokemon is confused and failed confusion test - he damaged himself and is not able to perform given attack
             if (BattleHelper.IsConfused(attackingPokemon))
             {
-                int damage = CalculatorHelper.CalculateAttackPower(!isPlayerAttack, AttackList.Attacks.Where(a => a.Value.Name == "ConfusionHit").First().Value, this);
+                int damage = CalculatorHelper.CalculateAttackDamage(AttackList.Attacks.Where(a => a.Value.Name == "ConfusionHit").First().Value, attackingPokemon, attackingPokemon);
                 attackingPokemon.Hurt(damage);
                 BattleLog.AppendText($"{attackingPokemon.Name} hurts itself in its confusion");
                 return;
@@ -49,41 +49,57 @@ namespace Pokemon
                 BattleLog.AppendText($"{attackingPokemon.Name} missed!");
                 return;
             }
-            
+
             // If you reached that part that means you succesfully attacked opposite pokemon! :)
 
             // move those lines to PerformPokemonAttack method
-            if (isPlayerAttack)
-                BattleLog.AppendText($"Your {attackingPokemon.Name} used {attack.Name}");
-            else BattleLog.AppendText($"Foe {attackingPokemon.Name} used {attack.Name}");
+            BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
 
-            PerformPokemonAttack(attack, isPlayerAttack);
+            PerformPokemonAttack(attack, attackingPokemon, targetPokemon);
 
-            if (attack.BoostStats != string.Empty)
-                BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
+
+
+            //if (attack.BoostStats != string.Empty)
+                //BattleHelper.ChangeTempStats(isPlayerAttack, attack, this);
         }
 
-        public void PerformPokemonAttack(IAttack attack, bool isPlayerAttack)
+        public void PerformPokemonAttack(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
         {
             int damage = 0;
 
             if (attack.AdditionalEffects.ContainsEffectType(typeof(AlwaysSameDamage)))
             {
                 AlwaysSameDamage alwaysSameDamage = attack.AdditionalEffects.First(e => e is AlwaysSameDamage) as AlwaysSameDamage;
-                
-                damage = alwaysSameDamage.IsBasedOnLevel() ?
-                    (isPlayerAttack ? Pokemon.Level : EnemyPokemon.Level) 
-                    : (int)alwaysSameDamage.PrimaryValue;
+                damage = alwaysSameDamage.IsBasedOnLevel() ? attackingPokemon.Level : (int)alwaysSameDamage.PrimaryValue;
             }
 
             if (damage == 0 && attack.Power.HasValue)
             {
-                damage = CalculatorHelper.CalculateAttackPower(isPlayerAttack, attack, this);
+                damage = CalculatorHelper.CalculateAttackDamage(attack, attackingPokemon, targetPokemon);
                 if (damage < 1) damage = 1;
-                if (BattleHelper.IsCritical(attack, isPlayerAttack ? Pokemon : EnemyPokemon))
+                if (BattleHelper.IsCritical(attack, attackingPokemon))
                 {
                     damage *= 2;
                     BattleLog.AppendText("Critical hit!");
+                }
+            }
+
+            // post attack effects
+            if (AdditionalEffectAvailability.ContainsEffectType(attack.AdditionalEffects, typeof(CritBoosting)))
+            {
+                if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.BoostCriticalSelf))
+                {
+                    CritBoosting critBoosting = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.BoostCriticalSelf) as CritBoosting;
+                    critBoosting.SetPokemonFocus(attackingPokemon);
+                }
+                else if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.BoostCriticalTarget))
+                {
+                    CritBoosting critBoosting = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.BoostCriticalTarget) as CritBoosting;
+                    if (true)
+                    {
+
+                    }
+                    critBoosting.SetPokemonFocus(attackingPokemon);
                 }
             }
 
@@ -97,10 +113,14 @@ namespace Pokemon
 
             if (damage != 0)
             {
-                if (isPlayerAttack) EnemyPokemon.Hurt(damage);
-                else Pokemon.Hurt(damage);
+                targetPokemon.Hurt(damage);
             }
 
+        }
+
+        public void PerformPokemonAttack(IAttack attack, bool isPlayerAttack)
+        {
+            throw new NotImplementedException();
         }
     }
 }

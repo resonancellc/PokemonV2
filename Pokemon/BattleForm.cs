@@ -40,7 +40,7 @@ namespace Pokemon
         private void BattleForm_Load(object sender, EventArgs e)
         {
             battle = BattleFactory.CreateBattle(_playerParty.GetFirstAlivePokemon(), _enemyParty.GetFirstAlivePokemon());
-            SetAttackButtons(battle.Pokemon);
+            SetAttackButtons(battle.PlayerPokemon);
 
             this.Show();
             RedrawUI();
@@ -141,17 +141,17 @@ namespace Pokemon
             if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
             {
                 IPokemon pokemon = pokemonPartyForm.PickedPokemon;
-                if (pokemon != battle.Pokemon)
+                if (pokemon != battle.PlayerPokemon)
                 {
                     BattleLog.ClearText();
                     tbLog.Text = string.Empty;
                     pokemon.ResetStats();
-                    this.battle.Pokemon = pokemon;
+                    this.battle.PlayerPokemon = pokemon;
                     SetAttackButtons(pokemon);
                     BattleLog.AppendText($"Go {pokemon.Name}!");
 
                     IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, battle.EnemyPokemon.Attacks.Count)];
-                    battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                    battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
 
                     RedrawUI();
                     tbLog.Text = BattleLog.Log;
@@ -211,9 +211,9 @@ namespace Pokemon
 
         private void RedrawUI()
         {
-            SetPokemonImages(battle.Pokemon.ID, battle.EnemyPokemon.ID);
-            SetPkmnLabels(battle.Pokemon, battle.EnemyPokemon);
-            SetPkmnHealthBars(battle.Pokemon, battle.EnemyPokemon);
+            SetPokemonImages(battle.PlayerPokemon.ID, battle.EnemyPokemon.ID);
+            SetPkmnLabels(battle.PlayerPokemon, battle.EnemyPokemon);
+            SetPkmnHealthBars(battle.PlayerPokemon, battle.EnemyPokemon);
             tbLog.Refresh();
         }
 
@@ -304,18 +304,18 @@ namespace Pokemon
 
             if (BattleHelper.IsPlayerPokemonFaster(attack.AdditionalEffects, enemyAttack.AdditionalEffects, battle))
             {
-                battle.PreparePokemonAttack(attack, battle.Pokemon, true);
+                battle.PreparePokemonAttack(attack, battle.PlayerPokemon, battle.EnemyPokemon);
 
                 if (battle.EnemyPokemon.IsPokemonAlive())
-                    battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, false);
+                    battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
                 else
                     battleEnded = true;
             }
             else
             {
-                battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-                if (battle.Pokemon.IsPokemonAlive())
-                    battle.PreparePokemonAttack(attack, battle.Pokemon, true);
+                battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
+                if (battle.PlayerPokemon.IsPokemonAlive())
+                    battle.PreparePokemonAttack(attack, battle.PlayerPokemon, battle.EnemyPokemon);
                 else
                     battleEnded = true;
             }
