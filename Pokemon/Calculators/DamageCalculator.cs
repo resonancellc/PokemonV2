@@ -16,7 +16,7 @@ namespace Pokemon.Calculators
             {
                 int baseDamage = CalculateBaseDamage(attackingPokemon.Level);
 
-                float attackDefenceRatio = attack.IsSpecial != true ? CalculateAttackDefenceRatio(attackingPokemon.Stats.Attack, targetPokemon.Stats.Defence)
+                float attackDefenceRatio = attack.IsSpecial != true ? CalculateAttackDefenceRatio(TempStatsCalculator.GetAttack(attackingPokemon), targetPokemon.Stats.Defence)
                                                                     : CalculateAttackDefenceRatio(attackingPokemon.Stats.SpecialAttack, targetPokemon.Stats.SpecialDefence);
 
                 float multipler = CalculateMultipler(targetPokemon.PrimaryTypeID, (int)attack.ElementalType, targetPokemon.SecondaryTypeID);

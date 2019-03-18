@@ -65,6 +65,9 @@
     <Compile Include="AttackList.cs" />
     <Compile Include="Calculators\ChanceCalculator.cs" />
     <Compile Include="Calculators\DamageCalculator.cs" />
+    <Compile Include="Calculators\StatsCalculator.cs" />
+    <Compile Include="Calculators\TempStatsCalculator.cs" />
+    <Compile Include="Calculators\WinningsCalculator.cs" />
     <Compile Include="Controls\ItemPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -95,7 +98,6 @@
     <Compile Include="Models\AdditionalEffect.cs" />
     <Compile Include="Models\Attack.cs" />
     <Compile Include="Models\Battle.cs" />
-    <Compile Include="Helpers\CalculatorHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="BattleForm.cs">

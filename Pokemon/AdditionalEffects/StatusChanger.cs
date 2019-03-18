@@ -19,12 +19,6 @@ namespace Pokemon.AdditionalEffects
 
         public void ChangeStatus(IPokemon pokemon)
         {
-            if (pokemon.Condition != 0) 
-            {
-                BattleLog.AppendText($"{pokemon.Name} is unaffected");
-                return;
-            }
-
             if (Name.Contains("Poison"))
             {
                 if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
@@ -43,6 +37,11 @@ namespace Pokemon.AdditionalEffects
             }
             if (Name.Contains("Paralysis"))
             {
+                if(pokemon.Condition != 0)
+                {
+                    BattleLog.AppendText($"{pokemon.Name} is unaffected");
+                    return;
+                }
                 if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now paralysed");
@@ -51,6 +50,11 @@ namespace Pokemon.AdditionalEffects
             }
             if (Name.Contains("Sleep"))
             {
+                if (pokemon.Condition != 0)
+                {
+                    BattleLog.AppendText($"{pokemon.Name} is unaffected");
+                    return;
+                }
                 if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now asleep");

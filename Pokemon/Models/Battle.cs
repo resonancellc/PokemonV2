@@ -122,7 +122,11 @@ namespace Pokemon
                     StatusChanger statusChanger = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.PoisonMax) as StatusChanger;
                     statusChanger.ChangeStatus(targetPokemon);
                 }
-
+                if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.BurnWeak))
+                {
+                    StatusChanger statusChanger = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.BurnWeak) as StatusChanger;
+                    statusChanger.ChangeStatus(targetPokemon);
+                }
 
             }
 
