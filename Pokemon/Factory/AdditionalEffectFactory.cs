@@ -39,13 +39,13 @@ namespace Pokemon.Factory
                     additionalEffect = new AlwaysHits();
                     break;
                 case (int)AdditionalEffectEnum.HighCriticalChance:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new HighCriticalRatio();
                     break;
                 case (int)AdditionalEffectEnum.BoostCriticalSelf:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new CritBoosting();
                     break;
                 case (int)AdditionalEffectEnum.BoostCriticalTarget:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new CritBoosting();
                     break;
                 case (int)AdditionalEffectEnum.ChargeLow:
                     additionalEffect = new AdditionalEffect();
