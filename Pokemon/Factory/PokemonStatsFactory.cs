@@ -20,10 +20,10 @@ namespace Pokemon.Factory
             {
                 Health = ((10 + pokemonStat.Health + GenerateRandomNumber.GetRandomNumber(0, 20) + 50) * level) / 50 + 10,
                 Attack = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5,
-                Defence = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5,
-                SpecialAttack = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5,
-                SpecialDefence = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5,
-                Speed = (((10 + pokemonStat.Attack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5,
+                Defence = (((10 + pokemonStat.Defence + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5,
+                SpecialAttack = (((10 + pokemonStat.SpecialAttack + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5,
+                SpecialDefence = (((10 + pokemonStat.SpecialDefence + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5,
+                Speed = (((10 + pokemonStat.Speed + GenerateRandomNumber.GetRandomNumber(0, 20)) * 2) * level) / 100 + 5,
             };
 
             return pokemonStats;
