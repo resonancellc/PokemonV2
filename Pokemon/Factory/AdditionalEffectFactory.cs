@@ -66,49 +66,49 @@ namespace Pokemon.Factory
                     additionalEffect = new AdditionalEffect();
                     break;
                 case (int)AdditionalEffectEnum.PoisonWeak:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.PoisonMid:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.PoisonHigh:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.PoisonMax:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.BurnWeak:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.BurnMaxSelf:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.ParalysisWeak:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.ParalysisMax:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.ParalysisMaxWeak:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.ParalysisMaxSelf:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.SleepMax:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.SleepMaxSelf:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.FlinchWeak:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.ConfusionWeak:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 case (int)AdditionalEffectEnum.ConfusionMax:
-                    additionalEffect = new AdditionalEffect();
+                    additionalEffect = new StatusChanger();
                     break;
                 default:
                     additionalEffect = new AdditionalEffect();

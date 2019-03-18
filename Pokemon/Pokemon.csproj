@@ -49,6 +49,7 @@
     <Compile Include="AdditionalEffects\AdditionalEffectsList.cs" />
     <Compile Include="AdditionalEffects\AlwaysHits.cs" />
     <Compile Include="AdditionalEffects\AlwaysSameDamage.cs" />
+    <Compile Include="AdditionalEffects\StatusChanger.cs" />
     <Compile Include="AdditionalEffects\CritBoosting.cs" />
     <Compile Include="AdditionalEffects\FastAttack.cs" />
     <Compile Include="AdditionalEffects\HighCriticalRatio.cs" />

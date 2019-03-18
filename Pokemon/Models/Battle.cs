@@ -95,12 +95,34 @@ namespace Pokemon
                 else if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.BoostCriticalTarget))
                 {
                     CritBoosting critBoosting = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.BoostCriticalTarget) as CritBoosting;
-                    if (true)
-                    {
-
-                    }
-                    critBoosting.SetPokemonFocus(attackingPokemon);
+                    critBoosting.SetPokemonFocus(targetPokemon);
                 }
+            }
+
+            if (AdditionalEffectAvailability.ContainsEffectType(attack.AdditionalEffects, typeof(StatusChanger)))
+            {
+                if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.PoisonWeak))
+                {
+                    StatusChanger statusChanger = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.PoisonWeak) as StatusChanger;
+                    statusChanger.ChangeStatus(targetPokemon);
+                }
+                if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.PoisonMid))
+                {
+                    StatusChanger statusChanger = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.PoisonMid) as StatusChanger;
+                    statusChanger.ChangeStatus(targetPokemon);
+                }
+                if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.PoisonHigh))
+                {
+                    StatusChanger statusChanger = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.PoisonHigh) as StatusChanger;
+                    statusChanger.ChangeStatus(targetPokemon);
+                }
+                if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.PoisonMax))
+                {
+                    StatusChanger statusChanger = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.PoisonMax) as StatusChanger;
+                    statusChanger.ChangeStatus(targetPokemon);
+                }
+
+
             }
 
             //if (attack.AdditionalEffect != String.Empty)
