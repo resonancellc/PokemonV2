@@ -38,11 +38,12 @@ namespace Pokemon
                     PlayerEquipment.playerItems[2]--;
                     return true;
                 case 3: // Attack X
-                    if (!BattleHelper.ChangeTempPokemonStats(pokemon, 0, 2)) return false;
-                    {
-                        PlayerEquipment.playerItems[3]--;
-                        return true;
-                    }
+                    //if (!BattleHelper.ChangeTempPokemonStats(pokemon, 0, 2)) return false;
+                    //{
+                    //    PlayerEquipment.playerItems[3]--;
+                    //    return true;
+                    //}
+                    return false;
                 default:
                     return false;
             }

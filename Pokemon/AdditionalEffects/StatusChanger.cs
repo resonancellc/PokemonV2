@@ -61,69 +61,26 @@ namespace Pokemon.AdditionalEffects
                     pokemon.Condition = Condition.SLP;
                 }
             }
-
-            //if (attributes.Contains("burn"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (IsConditionChanged(targetPokemon, (int)Condition.BRN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now burning");
-            //        targetPokemon.Stats.Attack = targetPokemon.Stats.Attack / 2;
-            //        return;
-            //    }
-            //}
-            //if (attributes.Contains("freeze"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (IsConditionChanged(targetPokemon, (int)Condition.FRZ, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now frozen");
-            //        return;
-            //    }
-            //}
-            //if (attributes.Contains("paralysis"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (IsConditionChanged(targetPokemon, (int)Condition.PAR, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now paralyzed");
-            //        targetPokemon.Stats.Speed = Convert.ToInt32((float)targetPokemon.Stats.Speed / 1.5f);
-            //        return;
-            //    }
-            //}
-            //if (attributes.Contains("poison"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (IsConditionChanged(targetPokemon, (int)Condition.PSN, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now poisoned");
-            //        return;
-            //    }
-            //}
-            //if (attributes.Contains("sleep"))
-            //{
-            //    if (targetPokemon.Condition != 0) BattleLog.AppendText($"{targetPokemon.Name} is unaffected");
-            //    else if (IsConditionChanged(targetPokemon, (int)Condition.SLP, attributes.Length > 2 ? Convert.ToInt32(attributes[2]) : 100))
-            //    {
-            //        BattleLog.AppendText($"{targetPokemon.Name} is now sleeping");
-            //        return;
-            //    }
-            //}
-            //if (attributes.Contains("confusion"))
-            //{
-            //    if (targetPokemon.IsConfused) BattleLog.AppendText($"{targetPokemon.Name} is already confused");
-            //    else if (attributes.Length > 2)
-            //    {
-            //        if (CalculatorHelper.ChanceCalculator(Convert.ToInt32(attributes[2]), 100))
-            //        {
-            //            targetPokemon.IsConfused = true;
-            //            BattleLog.AppendText($"{targetPokemon.Name} is now confused");
-            //            return;
-            //        }
-            //    }
-            //}
+            if (Name.Contains("Confusion"))
+            {
+                if (pokemon.Condition == Condition.SLP || pokemon.IsConfused)
+                {
+                    BattleLog.AppendText($"{pokemon.Name} is unaffected");
+                    return;
+                }
+                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
+                {
+                    BattleLog.AppendText($"{pokemon.Name} is now confused");
+                    pokemon.IsConfused = true;
+                }
+            }
+            if (Name.Contains("Flinch"))
+            {
+                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
+                {
+                    pokemon.IsFlinched = true;
+                }
+            }
         }
-
-
     }
 }
