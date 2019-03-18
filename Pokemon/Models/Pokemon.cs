@@ -39,10 +39,9 @@ namespace Pokemon
             StatModifierStages = new int[5] { 0,0,0,0,0};
         }
 
-        public bool Hurt(int value)
+        public void Hurt(int value)
         {
             HPCurrent -= value;
-            return IsPokemonAlive();
         }
 
         public bool IsPokemonAlive()

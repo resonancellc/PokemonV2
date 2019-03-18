@@ -29,7 +29,7 @@ namespace Pokemon.Models
         int[] StatModifierStages { get; set; }
 
         bool IsPokemonAlive();
-        bool Hurt(int value);
+        void Hurt(int value);
         void ResetStats();
     }
 }
