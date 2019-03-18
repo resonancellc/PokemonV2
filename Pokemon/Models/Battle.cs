@@ -8,6 +8,7 @@ using Pokemon.Models;
 using Pokemon.Factory;
 using Pokemon.AdditionalEffects;
 using Pokemon.Calculators;
+using Pokemon.Helpers;
 
 namespace Pokemon
 {
@@ -58,10 +59,8 @@ namespace Pokemon
 
             PerformPokemonAttack(attack, attackingPokemon, targetPokemon);
 
-
-
             if (attack.BoostStats != string.Empty)
-                BattleHelper.ChangeTempStats(attack, attackingPokemon, targetPokemon);
+                StatsChanger.ChangeTempStats(attack, attackingPokemon, targetPokemon);
         }
 
         public void PerformPokemonAttack(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
