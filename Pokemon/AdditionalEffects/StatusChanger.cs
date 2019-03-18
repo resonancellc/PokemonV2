@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pokemon.Models;
+using Pokemon.Calculators;
 
 namespace Pokemon.AdditionalEffects
 {
@@ -26,7 +27,7 @@ namespace Pokemon.AdditionalEffects
 
             if (Name.Contains("Poison"))
             {
-                if (CalculatorHelper.ChanceCalculator((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now poisoned");
                     pokemon.Condition = Condition.PSN;
@@ -34,7 +35,7 @@ namespace Pokemon.AdditionalEffects
             }
             if (Name.Contains("Burn"))
             {
-                if (CalculatorHelper.ChanceCalculator((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now burning");
                     pokemon.Condition = Condition.BRN;
@@ -42,7 +43,7 @@ namespace Pokemon.AdditionalEffects
             }
             if (Name.Contains("Paralysis"))
             {
-                if (CalculatorHelper.ChanceCalculator((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now paralysed");
                     pokemon.Condition = Condition.PAR;
@@ -50,7 +51,7 @@ namespace Pokemon.AdditionalEffects
             }
             if (Name.Contains("Sleep"))
             {
-                if (CalculatorHelper.ChanceCalculator((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now asleep");
                     pokemon.Condition = Condition.SLP;

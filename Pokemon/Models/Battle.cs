@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Pokemon.Models;
 using Pokemon.Factory;
 using Pokemon.AdditionalEffects;
+using Pokemon.Calculators;
 
 namespace Pokemon
 {
@@ -34,7 +35,7 @@ namespace Pokemon
             // pokemon is confused and failed confusion test - he damaged himself and is not able to perform given attack
             if (BattleHelper.IsConfused(attackingPokemon))
             {
-                int damage = CalculatorHelper.CalculateAttackDamage(AttackList.Attacks.Where(a => a.Value.Name == "ConfusionHit").First().Value, attackingPokemon, attackingPokemon);
+                int damage = DamageCalculator.CalculateAttackDamage(AttackList.Attacks.Where(a => a.Value.Name == "ConfusionHit").First().Value, attackingPokemon, attackingPokemon);
                 attackingPokemon.Hurt(damage);
                 BattleLog.AppendText($"{attackingPokemon.Name} hurts itself in its confusion");
                 return;
@@ -75,7 +76,7 @@ namespace Pokemon
 
             if (damage == 0 && attack.Power.HasValue)
             {
-                damage = CalculatorHelper.CalculateAttackDamage(attack, attackingPokemon, targetPokemon);
+                damage = DamageCalculator.CalculateAttackDamage(attack, attackingPokemon, targetPokemon);
                 if (damage < 1) damage = 1;
                 if (BattleHelper.IsCritical(attack, attackingPokemon))
                 {

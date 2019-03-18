@@ -1,4 +1,5 @@
 ﻿using Pokemon.AdditionalEffects;
+using Pokemon.Calculators;
 using Pokemon.Factory;
 using Pokemon.Models;
 using System;
@@ -32,22 +33,22 @@ namespace Pokemon
 
         public static bool IsMiss(IAttack attack)
         {
-            return !CalculatorHelper.ChanceCalculator(attack.Accuracy.Value);
+            return !ChanceCalculator.CalculateChance(attack.Accuracy.Value);
         }
 
         public static bool IsConfused(IPokemon attackingPokemon)
         {
             if (!attackingPokemon.IsConfused) return false;
-            return CalculatorHelper.ChanceCalculator(50, 100);
+            return ChanceCalculator.CalculateChance(50, 100);
         }
 
         public static bool IsCritical(IAttack attack, IPokemon attackingPokemon)
         {
             int boostCrit = attackingPokemon.IsEnergyFocused ? 20 : 0;
             if (AdditionalEffectAvailability.ContainsEffectType(attack.AdditionalEffects, typeof(HighCriticalRatio)))
-                return CalculatorHelper.ChanceCalculator(21 + boostCrit, 255);
+                return ChanceCalculator.CalculateChance(21 + boostCrit, 255);
             else
-                return CalculatorHelper.ChanceCalculator(1 + boostCrit, 255);
+                return ChanceCalculator.CalculateChance(1 + boostCrit, 255);
         }
 
         public static void ChangeCondition(IAttack attack, IPokemon targetPokemon)
@@ -118,7 +119,7 @@ namespace Pokemon
 
         public static bool IsConditionChanged(IPokemon targetPokemon, int newCondition, int effectChance)
         {
-            if (CalculatorHelper.ChanceCalculator(effectChance))
+            if (ChanceCalculator.CalculateChance(effectChance))
             {
                 targetPokemon.Condition = (Condition)newCondition;
                 return true;
@@ -145,7 +146,7 @@ namespace Pokemon
                     return false;
 
                 case Condition.PAR:
-                    if (CalculatorHelper.ChanceCalculator(50)) return true;
+                    if (ChanceCalculator.CalculateChance(50)) return true;
                     BattleLog.AppendText($"{pokemon.Name} is unable to move");
                     return false;
 
@@ -156,7 +157,7 @@ namespace Pokemon
                     return pokemon.IsPokemonAlive();
 
                 case Condition.SLP:
-                    if (CalculatorHelper.ChanceCalculator(50))
+                    if (ChanceCalculator.CalculateChance(50))
                     {
                         BattleLog.AppendText($"{pokemon.Name} woke up");
                         pokemon.Condition = 0;

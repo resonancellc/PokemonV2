@@ -63,6 +63,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AttackList.cs" />
+    <Compile Include="Calculators\ChanceCalculator.cs" />
+    <Compile Include="Calculators\DamageCalculator.cs" />
     <Compile Include="Controls\ItemPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
