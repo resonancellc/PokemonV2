@@ -23,6 +23,8 @@ namespace Pokemon
             PokemonList.FillPokemonList();
             ItemsList.FillItemsList();
 
+
+
             Application.Run(new StartForm());
         }
     }

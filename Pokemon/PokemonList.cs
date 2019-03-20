@@ -57,8 +57,9 @@ namespace Pokemon
                     attack.BoostStats = values[4] != DBNull.Value ? (string)values[4] : "";
                     attack.ElementalType = values[5] != DBNull.Value ? (ElementalType)values[5] : 0;
                     attack.IsSpecial = (bool)values[6];
-                    attack.AdditionalEffects = AdditionalEffectFactory.GetAdditionalEffects(values[7] != DBNull.Value ? (string)values[7] : "");
-                    attack.Level = (int)values[8];
+                    attack.Level = (int)values[7];
+
+                    attack.AdditionalEffects = AdditionalEffectFactory.GetAdditionalEffects(attack.ID);
 
                     pokemon.Attacks.Add(attack);
                 }

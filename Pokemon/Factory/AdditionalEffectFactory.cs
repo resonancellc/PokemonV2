@@ -2,6 +2,7 @@
 using Pokemon.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -136,18 +137,18 @@ namespace Pokemon.Factory
             return AdditionalEffects.AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == id).FirstOrDefault().Value;
         }
 
-        public static ICollection<IAdditionalEffect> GetAdditionalEffects(string additionalEffectIDs)
+        public static ICollection<IAdditionalEffect> GetAdditionalEffects(int attackID)
         {
+            DataRowCollection additionalEffectDataRows = StaticSQL.GetAttackAdditionalEffectIDs(attackID).Rows;
             ICollection<IAdditionalEffect> additionalEffects = new List<IAdditionalEffect>();
 
-            string[] effects = additionalEffectIDs.Trim().Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string effectId in effects)
+            foreach (DataRow additionalEffectRow in additionalEffectDataRows)
             {
-                additionalEffects.Add(AdditionalEffects.AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == Convert.ToInt32(effectId)).FirstOrDefault().Value);
+                int id = (int)additionalEffectRow.ItemArray[0];
+                additionalEffects.Add(AdditionalEffects.AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == id).FirstOrDefault().Value);
             }
 
             return additionalEffects;
         }
-
     }
 }

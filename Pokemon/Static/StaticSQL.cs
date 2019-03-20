@@ -67,8 +67,7 @@ namespace Pokemon
                                                             Attacks.Accuracy,
                                                             Attacks.BoostStats,
                                                             Attacks.TypeID,
-                                                            Attacks.IsSpecial,
-                                                            Attacks.AdditionalEffect
+                                                            Attacks.IsSpecial
                                                          FROM Attacks", con))
                 {
 
@@ -124,7 +123,6 @@ namespace Pokemon
                                                             Attacks.BoostStats,
                                                             Attacks.TypeID,
                                                             Attacks.IsSpecial,
-                                                            Attacks.AdditionalEffectIDs,
                                                             AttackPools.[Level]
                                                          FROM AttackPools
                                                          INNER JOIN Attacks ON AttackPools.AttackID = Attacks.ID 
@@ -132,6 +130,31 @@ namespace Pokemon
                 {
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@ID", pokemonID);
+
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        using (DataSet ds = new DataSet())
+                        {
+                            sda.Fill(ds);
+                            DataTable data = ds.Tables[0];
+                            return data;
+                        }
+                    }
+                }
+            }
+        }
+
+        public static DataTable GetAttackAdditionalEffectIDs(int attackID)
+        {
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(@"SELECT 
+                                                            AdditionalEffectID
+                                                         FROM Attacks_AdditionalEffects 
+                                                         WHERE AttackId = @ID", con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@ID", attackID);
 
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
                     {
