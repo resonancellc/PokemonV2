@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    static class StaticSQL
+    public static class StaticSQL
     {
         public static string ConnectionString { get; set; }
 

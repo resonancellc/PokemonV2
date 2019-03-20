@@ -7,5 +7,6 @@
         int ID { get; set; }
         string Name { get; set; }
         void Use();
+        string Test();
     }
 }

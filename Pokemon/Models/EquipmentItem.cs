@@ -17,5 +17,10 @@ namespace Pokemon
         {
             throw new NotImplementedException();
         }
+
+        public string Test()
+        {
+            return "tested";
+        }
     }
 }
