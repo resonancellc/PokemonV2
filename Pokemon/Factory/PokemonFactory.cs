@@ -22,7 +22,6 @@ namespace Pokemon.Factory
         {
             IPokemon pokemon;
             //PlayerID
-            id = 13;
             if (id > 0)
             {
                 // obtaining the one specific pokemon
