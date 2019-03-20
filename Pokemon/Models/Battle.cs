@@ -36,7 +36,8 @@ namespace Pokemon
             // pokemon is confused and failed confusion test - he damaged himself and is not able to perform given attack
             if (BattleHelper.HasFailedConfusion(attackingPokemon))
             {
-                int damage = DamageCalculator.CalculateAttackDamage(AttackList.Attacks.Where(a => a.Value.Name == "ConfusionHit").First().Value, attackingPokemon, attackingPokemon);
+                IAttack confusionHit = PokemonAttacksFactory.CreateAttack("ConfusionHit");
+                int damage = DamageCalculator.CalculateAttackDamage(confusionHit, attackingPokemon, attackingPokemon);
                 attackingPokemon.Hurt(damage);
                 BattleLog.AppendText($"{attackingPokemon.Name} hurts itself in its confusion");
                 return;

@@ -14,6 +14,17 @@ namespace Pokemon.Factory
             return new Attack();
         }
 
+        public static IAttack CreateAttack(string attackName)
+        {
+            IAttack attack = CreateAttack();
+
+            attack.Power = 40;
+            attack.Accuracy = 100;
+            attack.ElementalType = 0;
+
+            return new Attack();
+        }
+
         public static IList<IAttack> CreateAttacks()
         {
             return new List<IAttack>();
