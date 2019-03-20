@@ -40,8 +40,8 @@ namespace Pokemon
         public static DataTable GetPokemons()
         {
             return ExecuteSQLQuery(@"SELECT 
-                                        Pokemon.ID, 
-                                        Pokemon.Name, 
+                                        Pokemons.ID, 
+                                        Pokemons.Name, 
                                         BaseStats.Health, 
                                         BaseStats.Attack,
                                         BaseStats.Defence,
@@ -51,9 +51,9 @@ namespace Pokemon
                                         BaseStats.PrimaryTypeID,
                                         BaseStats.SecondaryTypeID,
                                         BaseStats.MinimalLevel
-                                     FROM Pokemon 
-                                     INNER JOIN BaseStats ON Pokemon.ID = BaseStats.ID 
-                                     ORDER BY Pokemon.ID ASC");
+                                     FROM Pokemons 
+                                     INNER JOIN BaseStats ON Pokemons.ID = BaseStats.ID 
+                                     ORDER BY Pokemons.ID ASC");
         }
 
         public static DataTable GetAttacks()
@@ -61,15 +61,15 @@ namespace Pokemon
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(@"SELECT 
-                                                            Attack.ID,
-                                                            Attack.[Name],
-                                                            Attack.[Power],
-                                                            Attack.Accuracy,
-                                                            Attack.BoostStats,
-                                                            Attack.TypeID,
-                                                            Attack.IsSpecial,
-                                                            Attack.AdditionalEffect
-                                                         FROM Attack", con))
+                                                            Attacks.ID,
+                                                            Attacks.[Name],
+                                                            Attacks.[Power],
+                                                            Attacks.Accuracy,
+                                                            Attacks.BoostStats,
+                                                            Attacks.TypeID,
+                                                            Attacks.IsSpecial,
+                                                            Attacks.AdditionalEffect
+                                                         FROM Attacks", con))
                 {
 
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
@@ -117,17 +117,17 @@ namespace Pokemon
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(@"SELECT 
-                                                            Attack.ID,
-                                                            Attack.[Name],
-                                                            Attack.[Power],
-                                                            Attack.Accuracy,
-                                                            Attack.BoostStats,
-                                                            Attack.TypeID,
-                                                            Attack.IsSpecial,
-                                                            Attack.AdditionalEffectIDs,
-                                                            AttackPool.[Level]
-                                                         FROM AttackPool
-                                                         INNER JOIN Attack ON AttackPool.AttackID = Attack.ID 
+                                                            Attacks.ID,
+                                                            Attacks.[Name],
+                                                            Attacks.[Power],
+                                                            Attacks.Accuracy,
+                                                            Attacks.BoostStats,
+                                                            Attacks.TypeID,
+                                                            Attacks.IsSpecial,
+                                                            Attacks.AdditionalEffectIDs,
+                                                            AttackPools.[Level]
+                                                         FROM AttackPools
+                                                         INNER JOIN Attacks ON AttackPools.AttackID = Attacks.ID 
                                                          WHERE PokemonID = @ID", con))
                 {
                     cmd.CommandType = CommandType.Text;
