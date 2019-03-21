@@ -27,7 +27,7 @@ namespace Pokemon.AdditionalEffects
                     pokemon.Condition = Condition.PSN;
                 }
             }
-            if (Name.Contains("Burn"))
+            else if (Name.Contains("Burn"))
             {
                 if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
                 {
@@ -35,7 +35,7 @@ namespace Pokemon.AdditionalEffects
                     pokemon.Condition = Condition.BRN;
                 }
             }
-            if (Name.Contains("Paralysis"))
+            else if(Name.Contains("Paralysis"))
             {
                 if(pokemon.Condition != 0)
                 {
@@ -48,7 +48,7 @@ namespace Pokemon.AdditionalEffects
                     pokemon.Condition = Condition.PAR;
                 }
             }
-            if (Name.Contains("Sleep"))
+            else if (Name.Contains("Sleep"))
             {
                 if (pokemon.Condition != 0)
                 {
@@ -61,7 +61,7 @@ namespace Pokemon.AdditionalEffects
                     pokemon.Condition = Condition.SLP;
                 }
             }
-            if (Name.Contains("Confusion"))
+            else if(Name.Contains("Confusion"))
             {
                 if (pokemon.Condition == Condition.SLP || pokemon.IsConfused)
                 {
@@ -74,7 +74,7 @@ namespace Pokemon.AdditionalEffects
                     pokemon.IsConfused = true;
                 }
             }
-            if (Name.Contains("Flinch"))
+            else if(Name.Contains("Flinch"))
             {
                 if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
                 {
