@@ -22,7 +22,7 @@ namespace Pokemon.Factory
             attack.Accuracy = 100;
             attack.ElementalType = 0;
 
-            return new Attack();
+            return attack;
         }
 
         public static IList<IAttack> CreateAttacks()

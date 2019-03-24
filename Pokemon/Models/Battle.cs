@@ -127,7 +127,16 @@ namespace Pokemon
                     StatusChanger statusChanger = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.BurnWeak) as StatusChanger;
                     statusChanger.ChangeStatus(targetPokemon);
                 }
-
+                if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.ConfusionWeak))
+                {
+                    StatusChanger statusChanger = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.ConfusionWeak) as StatusChanger;
+                    statusChanger.ChangeStatus(targetPokemon);
+                }
+                if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.ConfusionMax))
+                {
+                    StatusChanger statusChanger = attack.AdditionalEffects.First(e => e.ID == (int)AdditionalEffectEnum.ConfusionMax) as StatusChanger;
+                    statusChanger.ChangeStatus(targetPokemon);
+                }
             }
 
             //if (attack.AdditionalEffect != String.Empty)

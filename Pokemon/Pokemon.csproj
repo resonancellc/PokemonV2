@@ -88,7 +88,6 @@
     <Compile Include="Factory\PokemonFactory.cs" />
     <Compile Include="Factory\PokemonStatsFactory.cs" />
     <Compile Include="GenerateRandomNumber.cs" />
-    <Compile Include="Helpers\AdditionalEffectHelper.cs" />
     <Compile Include="Helpers\AttackEffectivenessHelper.cs" />
     <Compile Include="Helpers\BattleHelper.cs" />
     <Compile Include="Helpers\ItemHelper.cs" />
