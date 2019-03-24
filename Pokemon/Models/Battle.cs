@@ -64,7 +64,7 @@ namespace Pokemon
                 StatsChanger.ChangeTempStats(attack, attackingPokemon, targetPokemon);
         }
 
-        public void PerformPokemonAttack(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
+        private void PerformPokemonAttack(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
         {
             int damage = 0;
 

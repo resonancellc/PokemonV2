@@ -43,6 +43,13 @@ namespace Pokemon
         {
             HPCurrent -= value;
         }
+        public void Heal(int value)
+        {
+            if (HPCurrent + value > HPMax)
+                HPCurrent = HPMax;
+            else
+                HPCurrent += value;
+        }
 
         public bool IsPokemonAlive()
         {

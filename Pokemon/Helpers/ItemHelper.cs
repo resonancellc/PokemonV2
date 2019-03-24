@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,51 +9,59 @@ namespace Pokemon
 {
     public static class ItemHelper
     {
-        public static bool UseItem(Pokemon pokemon, int itemId)
+        public static bool CanUseItem(IPokemon pokemon, int itemId)
         {
             switch (itemId)
             {
-                case 0: //potion
+                case 0: // Potion
                     if (pokemon.HPCurrent <= 0) return false;
                     if (pokemon.HPCurrent == pokemon.HPMax) return false;
 
-                    if (pokemon.HPCurrent + 20 > pokemon.HPMax)
-                        pokemon.HPCurrent = pokemon.HPMax;
-                    else
-                        pokemon.HPCurrent += 20;
-                    PlayerEquipment.playerItems[0]--;
+                    UseItem(pokemon, itemId);
                     return true;
-
                 case 1: // FullHeal
                     if (pokemon.Condition == 0) return false;
-                    pokemon.Condition = 0;
-                    PlayerEquipment.playerItems[1]--; return true;
-
-                case 2:
+                    UseItem(pokemon, itemId);
+                    return true;
+                case 2: // Super Potion
+                    if (pokemon.HPCurrent <= 0) return false;
                     if (pokemon.HPCurrent == pokemon.HPMax) return false;
 
-                    if (pokemon.HPCurrent + 50 > pokemon.HPMax)
-                        pokemon.HPCurrent = pokemon.HPMax;
-                    else
-                        pokemon.HPCurrent += 50;
-                    PlayerEquipment.playerItems[2]--;
+                    UseItem(pokemon, itemId);
                     return true;
-                case 3: // Attack X
-                    //if (!BattleHelper.ChangeTempPokemonStats(pokemon, 0, 2)) return false;
-                    //{
-                    //    PlayerEquipment.playerItems[3]--;
-                    //    return true;
-                    //}
-                    return false;
+                case 3: // AttackX
+                    if (pokemon.StatModifierStages[0] > 4) return false;
+
+                    UseItem(pokemon, itemId);
+                    return true;
                 default:
                     return false;
             }
         }
 
+        public static void UseItem(IPokemon pokemon, int itemId)
+        {
+            PlayerEquipment.playerItems[itemId]--;
+            switch (itemId)
+            {
+                case 0: //potion
+                    pokemon.Heal(20);
+                    break;
+                case 1: // FullHeal
+                    pokemon.Condition = 0;
+                    break;
+                case 2: // super potion
+                    pokemon.Heal(50);
+                    break;
+                case 3: // Attack X
+                    pokemon.StatModifierStages[0] += 2;      
+                    break;
+            }
+        }
+
         public static string GetItemNameByID(int ID)
         {
-            return "";
-           //return StaticTypes.equipmentItemList.Where(i => i.ID == ID).First().Name;
+           return ItemsList.Items.Where(i => i.Key == ID).First().Value.Name;
         }
 
 

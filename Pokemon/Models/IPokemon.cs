@@ -30,6 +30,7 @@ namespace Pokemon.Models
 
         bool IsPokemonAlive();
         void Hurt(int value);
+        void Heal(int value);
         void ResetStats();
     }
 }

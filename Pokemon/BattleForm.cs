@@ -173,28 +173,31 @@ namespace Pokemon
 
         private void ShowItemForm()
         {
-            //ItemForm playerEquipmentForm = new ItemForm(false, this);
-            //if (!StaticMain.openedForms.Where(x => x.Name == playerEquipmentForm.Name).Any())
-            //{
-            //    StaticMain.FormOpened(playerEquipmentForm);
-            //    playerEquipmentForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
-            //    playerEquipmentForm.BringToFront();
-            //    playerEquipmentForm.Show();
-            //}
+            ItemForm playerEquipmentForm = new ItemForm(false, this);
+            if (!StaticMain.openedForms.Where(x => x.Name == playerEquipmentForm.Name).Any())
+            {
+                StaticMain.FormOpened(playerEquipmentForm);
+                playerEquipmentForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+                playerEquipmentForm.BringToFront();
+                playerEquipmentForm.Show();
+            }
         }
 
+        // this has to be moved
         public void UseItem(int itemID)
         {
-            //BattleLog.ClearText();
-            //if (ItemHelper.UseItem(battle.Pokemon, itemID))
-            //{
-            //    BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID+1)} on {battle.Pokemon.Name}");
-            //    Attack enemyAttack = battle.GeneratePokemonAttack(false);
-            //    battle.PokemonAttack(enemyAttack, battle.EnemyPokemon, false);
-            //    RedrawUI();
-            //    tbLog.Text = BattleLog.Log;
-            //}
-            //else tbLog.Text = "It's not the time to use this item";
+            BattleLog.ClearText();
+            if (ItemHelper.CanUseItem(battle.PlayerPokemon, itemID))
+            {
+                BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID + 1)} on {battle.PlayerPokemon.Name}");
+
+                IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, battle.EnemyPokemon.Attacks.Count)];
+                battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
+
+                RedrawUI();
+                tbLog.Text = BattleLog.Log;
+            }
+            else tbLog.Text = "It's not the time to use this item";
 
         }
 
