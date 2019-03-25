@@ -15,6 +15,7 @@ namespace Pokemon
     {
         //Form parent;
         IPokemonParty<IPokemon> _pokemonParty;
+        IEquipment _equipment;
         BattleForm _battleForm;
 
         public ItemForm(IEquipment equipment, IPokemonParty<IPokemon> pokemonParty, BattleForm battleForm)
@@ -24,6 +25,7 @@ namespace Pokemon
             //    this.parent = parent as AfterWinForm;
             //else
             //    this.parent = parent as BattleForm;
+            _equipment = equipment;
             _battleForm = battleForm;
             _pokemonParty = pokemonParty;
             this.Text = "Items";
@@ -59,6 +61,7 @@ namespace Pokemon
                 if (ItemHelper.CanUseItem(pokemon, id))
                 {
                     ItemHelper.UseItem(pokemon, id);
+                    _equipment.UseItem(id);
                     BattleLog.AppendText($"Used {ItemHelper.GetItemNameByID(id)} on {pokemon.Name}!");
 
                 }

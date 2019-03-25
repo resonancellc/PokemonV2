@@ -20,7 +20,6 @@ namespace Pokemon.Models
         {
             int quantity = EquipmentList.Where(i => i.Key.ID == id).FirstOrDefault().Value;
             EquipmentList[EquipmentList.Where(i => i.Key.ID == id).FirstOrDefault().Key] = quantity - 1;
-            //ItemHelper.CanUseItem
         }
     }
 }
