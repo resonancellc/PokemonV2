@@ -2,7 +2,7 @@
 
 namespace Pokemon.Models
 {
-    public interface IPokemonParty<T>
+    public interface IPokemonParty<T> : IEnumerable<T>
     {
         IList<IPokemon> Pokemons { get; set; }
         IPokemon GetFirstAlivePokemon();
