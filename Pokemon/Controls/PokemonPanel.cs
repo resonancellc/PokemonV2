@@ -33,7 +33,7 @@ namespace Pokemon
             this.BackColor = Color.FromArgb(150, 200, 200);
 
             this.lblName.Text = pokemon.Name;
-            this.lblLevel.Text = pokemon.Level.ToString() + "lvl";
+            this.lblLevel.Text = pokemon.Condition == 0 ? pokemon.Level.ToString() + "lvl" : pokemon.Condition.ToString();
             this.lblHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
             this.barPkmnHealth.Maximum = pokemon.HPMax;
             this.barPkmnHealth.Value =  pokemon.HPCurrent > 0 ? pokemon.HPCurrent : 0;
