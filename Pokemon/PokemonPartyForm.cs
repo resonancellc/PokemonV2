@@ -17,9 +17,25 @@ namespace Pokemon
         public int ActivePokemonIndex { get; set; }
         Form parentForm;
 
-        public PokemonPartyForm(IPokemonParty<IPokemon> playerPokemonParty)
+        public PokemonPartyForm()
         {
             InitializeComponent();
+        }
+
+        public PokemonPartyForm(IPokemonParty<IPokemon> playerPokemonParty) : base()
+        {
+            
+            PreparePartyForm(playerPokemonParty);
+        }
+
+        public PokemonPartyForm(Form parent, IPokemonParty<IPokemon> playerPokemonParty) : base()
+        {
+            this.Location = new Point(parent.Location.X + parent.Size.Width, parent.Location.Y);
+            PreparePartyForm(playerPokemonParty);
+        }
+
+        private void PreparePartyForm(IPokemonParty<IPokemon> playerPokemonParty)
+        {
             this.StartPosition = FormStartPosition.Manual;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 
@@ -33,32 +49,6 @@ namespace Pokemon
                     PokemonPanel pokemonPanel = new PokemonPanel(pokemon);
                     //pokemonPanel.Dock = DockStyle.Top;
                     pokemonPanel.Location = new Point(0, offset);
-                    pokemonPanel.Index = index;
-                    this.Controls.Add(pokemonPanel);
-                    offset += pokemonPanel.Size.Height;
-                    index++;
-                }
-            }
-        }
-
-        public PokemonPartyForm(Form parent, IPokemonParty<IPokemon> playerPokemonParty)
-        {
-            parentForm = parent;
-            InitializeComponent();
-            this.StartPosition = FormStartPosition.Manual;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Location = new Point(parent.Location.X + parent.Size.Width, parent.Location.Y);
-
-            this.PickedPokemon = playerPokemonParty.GetFirstAlivePokemon();
-            int offset = 0;
-            int index = 0;
-            foreach (IPokemon pokemon in playerPokemonParty.Pokemons)
-            {
-                if (pokemon != null)
-                {
-                    PokemonPanel pokemonPanel = new PokemonPanel(pokemon);
-                    //pokemonPanel.Dock = DockStyle.Top;
-                    pokemonPanel.Location = new Point(0,offset);
                     pokemonPanel.Index = index;
                     this.Controls.Add(pokemonPanel);
                     offset += pokemonPanel.Size.Height;
