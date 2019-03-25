@@ -12,5 +12,6 @@ namespace Pokemon.Models
         Dictionary<IEquipmentItem, int> EquipmentList { get; set; }
 
         void ChangeMoneyQuantity(int value);
+        void UseItem(int id);
     }
 }

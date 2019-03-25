@@ -13,26 +13,19 @@ namespace Pokemon
         {
             switch (itemId)
             {
-                case 0: // Potion
+                case 1: // Potion
                     if (pokemon.HPCurrent <= 0) return false;
                     if (pokemon.HPCurrent == pokemon.HPMax) return false;
-
-                    UseItem(pokemon, itemId);
                     return true;
-                case 1: // FullHeal
+                case 2: // FullHeal
                     if (pokemon.Condition == 0) return false;
-                    UseItem(pokemon, itemId);
                     return true;
-                case 2: // Super Potion
+                case 3: // Super Potion
                     if (pokemon.HPCurrent <= 0) return false;
                     if (pokemon.HPCurrent == pokemon.HPMax) return false;
-
-                    UseItem(pokemon, itemId);
                     return true;
-                case 3: // AttackX
+                case 4: // AttackX
                     if (pokemon.StatModifierStages[0] > 4) return false;
-
-                    UseItem(pokemon, itemId);
                     return true;
                 default:
                     return false;
@@ -44,16 +37,16 @@ namespace Pokemon
             //Equipment.playerItems[itemId]--;
             switch (itemId)
             {
-                case 0: //potion
+                case 1: //potion
                     pokemon.Heal(20);
                     break;
-                case 1: // FullHeal
+                case 2: // FullHeal
                     pokemon.Condition = 0;
                     break;
-                case 2: // super potion
+                case 3: // super potion
                     pokemon.Heal(50);
                     break;
-                case 3: // Attack X
+                case 4: // Attack X
                     pokemon.StatModifierStages[0] += 2;      
                     break;
             }

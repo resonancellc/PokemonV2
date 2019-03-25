@@ -173,7 +173,7 @@ namespace Pokemon
 
         private void ShowItemForm()
         {
-            ItemForm playerEquipmentForm = new ItemForm(_equipment);
+            ItemForm playerEquipmentForm = new ItemForm(_equipment, _playerParty, this);
             if (!StaticMain.openedForms.Where(x => x.Name == playerEquipmentForm.Name).Any())
             {
                 StaticMain.FormOpened(playerEquipmentForm);
@@ -183,23 +183,30 @@ namespace Pokemon
             }
         }
 
-        // this has to be moved
-        public void UseItem(int itemID)
+        public void AfterItemPickAction()
         {
-            BattleLog.ClearText();
-            if (ItemHelper.CanUseItem(battle.PlayerPokemon, itemID))
-            {
-                BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID + 1)} on {battle.PlayerPokemon.Name}");
+            this.BringToFront();
 
-                IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, battle.EnemyPokemon.Attacks.Count)];
-                battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
+            IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, battle.EnemyPokemon.Attacks.Count)];
+            battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
 
-                RedrawUI();
-                tbLog.Text = BattleLog.Log;
-            }
-            else tbLog.Text = "It's not the time to use this item";
-
+            RedrawUI();
+            tbLog.Text = BattleLog.Log;
         }
+
+        // this has to be moved
+        //public void UseItem(int itemID)
+        //{
+        //    BattleLog.ClearText();
+        //    if (ItemHelper.CanUseItem(battle.PlayerPokemon, itemID))
+        //    {
+        //        BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID + 1)} on {battle.PlayerPokemon.Name}");
+
+                
+        //    }
+        //    else tbLog.Text = "It's not the time to use this item";
+
+        //}
 
         #endregion
 

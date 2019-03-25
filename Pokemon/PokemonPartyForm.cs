@@ -17,6 +17,30 @@ namespace Pokemon
         public int ActivePokemonIndex { get; set; }
         Form parentForm;
 
+        public PokemonPartyForm(IPokemonParty<IPokemon> playerPokemonParty)
+        {
+            InitializeComponent();
+            this.StartPosition = FormStartPosition.Manual;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+
+            this.PickedPokemon = playerPokemonParty.GetFirstAlivePokemon();
+            int offset = 0;
+            int index = 0;
+            foreach (IPokemon pokemon in playerPokemonParty.Pokemons)
+            {
+                if (pokemon != null)
+                {
+                    PokemonPanel pokemonPanel = new PokemonPanel(pokemon);
+                    //pokemonPanel.Dock = DockStyle.Top;
+                    pokemonPanel.Location = new Point(0, offset);
+                    pokemonPanel.Index = index;
+                    this.Controls.Add(pokemonPanel);
+                    offset += pokemonPanel.Size.Height;
+                    index++;
+                }
+            }
+        }
+
         public PokemonPartyForm(Form parent, IPokemonParty<IPokemon> playerPokemonParty)
         {
             parentForm = parent;

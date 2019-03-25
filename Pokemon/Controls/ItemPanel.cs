@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Pokemon.Models;
 
 namespace Pokemon
 {
@@ -14,10 +15,11 @@ namespace Pokemon
     {
         public int ID { get; set; }
         public int ItemValue { get; set; }
+        IPokemonParty<IPokemon> _pokemonParty;
         //BattleForm parent;
-        //ItemForm formParent;
+        ItemForm _parentForm;
 
-        public ItemPanel(IEquipmentItem item, int quantity)
+        public ItemPanel(IEquipmentItem item, int quantity, ItemForm parentForm)
         {
             InitializeComponent();
             this.pictureBox1.Image = ImageHelper.GetItemImageById(item.ID);
@@ -25,6 +27,7 @@ namespace Pokemon
             this.lblDescription.Text = item.Description;
             this.btnAction.Text = $"{quantity.ToString()}x";
             this.ID = item.ID;
+            _parentForm = parentForm;
         }
 
 
@@ -49,9 +52,9 @@ namespace Pokemon
 
         private void btnAction_Click(object sender, EventArgs e)
         {
-
+            UseItem();
             
-
+            
 
 
             //if (((Button)sender).Text.Contains("$")) // znaczy kupujemy
@@ -73,10 +76,13 @@ namespace Pokemon
             //        parent.UseItem(this.ID - 1);
             //    }
             //}
-            
+
         }
 
-
+        public void UseItem()
+        {
+            _parentForm.ItemPicked(this.ID);
+        }
 
 
     }
