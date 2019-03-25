@@ -15,7 +15,7 @@ namespace Pokemon
     {
         public int Index { get; set; }
         public bool Selected { get; set; }
-        public IPokemon Pokemon { get; set; }
+        IPokemon _pokemon;
         PokemonPartyForm parentForm;
 
         public PokemonPanel()
@@ -27,7 +27,7 @@ namespace Pokemon
         {
             InitializeComponent();
 
-            this.Pokemon = pokemon;
+            _pokemon = pokemon;
             parentForm = (PokemonPartyForm)this.Parent;
 
             this.BackColor = Color.FromArgb(150, 200, 200);
@@ -51,7 +51,7 @@ namespace Pokemon
             MouseEventArgs me = (MouseEventArgs)e;
             if (me.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                ShowDetails(((PokemonPanel)sender).Pokemon);
+                ShowDetails(((PokemonPanel)sender)._pokemon);
             }
             parentForm = (PokemonPartyForm)this.Parent;
             parentForm.UnselectAll();
@@ -64,7 +64,7 @@ namespace Pokemon
             parentForm = (PokemonPartyForm)this.Parent;
             this.BackColor = Color.FromArgb(255, 200, 200);
             //PokemonParty.ActivePokemonIndex = ((PokemonPanel)sender).Index;
-            parentForm.PokemonPicked(Pokemon);
+            parentForm.PokemonPicked(_pokemon);
 
             PokemonDetailsForm pokemonDetailsForm = new PokemonDetailsForm();
             if (StaticMain.openedForms.Where(x => x.Name == pokemonDetailsForm.Name).Any())

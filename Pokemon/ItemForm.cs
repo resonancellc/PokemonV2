@@ -59,8 +59,7 @@ namespace Pokemon
                 IPokemon pokemon = _pokemonParty.ActivePokemon;
                 if (ItemHelper.CanUseItem(pokemon, id))
                 {
-                    ItemHelper.UseItem(pokemon, id);
-                    _equipment.UseItem(id);
+                    _equipment.UseItem(pokemon, id);
                     itemUsed = true;
                     BattleLog.AppendText($"Used {ItemHelper.GetItemNameByID(id)} on {pokemon.Name}!");
                 } 

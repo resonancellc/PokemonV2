@@ -14,8 +14,6 @@ namespace Pokemon
     public partial class PokemonPartyForm : Form
     {
         public IPokemon PickedPokemon { get; set; }
-        public int ActivePokemonIndex { get; set; }
-        Form parentForm;
 
         public PokemonPartyForm()
         {
