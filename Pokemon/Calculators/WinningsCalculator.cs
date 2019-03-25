@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,21 +9,20 @@ namespace Pokemon.Calculators
 {
     public static class WinningsCalculator
     {
-        public static int CalculateWinnings()
+        public static int CalculateWinnings(IPokemonParty<IPokemon> pokemonParty, IEquipment equipment)
         {
-            //float sum = 0;
-            //int pokemonCount = 0;
-            //int winnings = 0;
-            //foreach (Pokemon pokemon in PokemonParty.playerPokemons)
-            //{
-            //    if (pokemon == null) break;
-            //    pokemonCount++;
-            //    sum += (float)pokemon.HPCurrent / (float)pokemon.HPMax;
-            //}
-            //winnings = Convert.ToInt32(sum * 100 / pokemonCount);
-            //PlayerEquipment.Money += winnings;
-            //return winnings;
-            return 100;
+            float sum = 0;
+            int winnings = 0;
+
+            foreach (Pokemon pokemon in pokemonParty)
+            {
+                if (pokemon == null) break;
+                sum += (float)pokemon.HPCurrent / (float)pokemon.HPMax;
+            }
+
+            winnings = Convert.ToInt32(sum * 100 / pokemonParty.Count());
+            equipment.ChangeMoneyQuantity(winnings);
+            return winnings;
         }
     }
 }

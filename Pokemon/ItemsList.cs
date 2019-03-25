@@ -18,13 +18,7 @@ namespace Pokemon
             foreach (DataRow itemRow in itemDataRows)
             {
                 var values = itemRow.ItemArray;
-                IEquipmentItem item = EquipmentItemFactory.CreateItem();
-
-                item.ID = (int)values[0];
-                item.Name = (string)values[1];
-                item.Description = (string)values[2];
-                item.Cost = (int)values[3];
-
+                IEquipmentItem item = EquipmentItemFactory.CreateItem(values);
                 Items.Add(item.ID, item);
             }
         }

@@ -8,5 +8,6 @@ namespace Pokemon.Models
         IPokemon GetFirstAlivePokemon();
         IPokemon GetPokemonByIndex(int index);
         bool IsAnyPokemonAlive();
+        void ResetParty();
     }
 }

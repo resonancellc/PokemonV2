@@ -9,7 +9,7 @@ namespace Pokemon.Models
     public class Equipment : IEquipment
     {
         public int Money { get; set; }
-        public List<IEquipmentItem> EquipmentList { get; set; }
+        public Dictionary<IEquipmentItem, int> EquipmentList { get; set; }
 
         public void ChangeMoneyQuantity(int value)
         {

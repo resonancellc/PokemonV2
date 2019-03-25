@@ -19,9 +19,9 @@ namespace Pokemon
 
         public AfterWinForm(int winnings)
         {
-            InitializeComponent();
-            this.rbWinnings.Text = $"You've earned {winnings} coins";
-            this.rbWinnings.AppendText($"{Environment.NewLine} Current money: {PlayerEquipment.Money}");
+            //InitializeComponent();
+            //this.rbWinnings.Text = $"You've earned {winnings} coins";
+            //this.rbWinnings.AppendText($"{Environment.NewLine} Current money: {PlayerEquipment.Money}");
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
@@ -31,23 +31,23 @@ namespace Pokemon
 
         private void btnGoToShop_Click(object sender, EventArgs e)
         {
-            ItemForm shopForm = new ItemForm(true, this);
-            if (!StaticMain.openedForms.Where(x => x.Name == shopForm.Name).Any())
-            {
-                StaticMain.FormOpened(shopForm);
-                shopForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
-                shopForm.BringToFront();
-                shopForm.Show();
-            }
-            else
-            {
+            //ItemForm shopForm = new ItemForm(true, this);
+            //if (!StaticMain.openedForms.Where(x => x.Name == shopForm.Name).Any())
+            //{
+            //    StaticMain.FormOpened(shopForm);
+            //    shopForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+            //    shopForm.BringToFront();
+            //    shopForm.Show();
+            //}
+            //else
+            //{
 
-            }
+            //}
         }
 
         public void RefreshBalance()
         {
-            this.rbWinnings.Text = $"Current money: {PlayerEquipment.Money}";
+            //this.rbWinnings.Text = $"Current money: {PlayerEquipment.Money}";
         }
     }
 }

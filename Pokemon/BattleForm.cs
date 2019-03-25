@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Pokemon.Calculators;
 
 namespace Pokemon
 {
@@ -21,12 +22,11 @@ namespace Pokemon
 
         IPokemonParty<IPokemon> _playerParty;
         IPokemonParty<IPokemon> _enemyParty;
+        IEquipment _equipment;
 
         public BattleForm(IList<IPokemon> pokemonList, int teamSize)
         {
             InitializeComponent();
-            PlayerEquipment.InitPlayerEquipment();
-
 
             attackButtons[0] = btnAttack1;
             attackButtons[1] = btnAttack2;
@@ -35,6 +35,7 @@ namespace Pokemon
 
             _playerParty = PokemonPartyFactory.CreatePokemonParty(true, pokemonList);
             _enemyParty = PokemonPartyFactory.CreateEnemyPokemonParty(teamSize, pokemonList.First().Level);
+            _equipment = EquipmentFactory.CreateEquipment();
         }
 
         private void BattleForm_Load(object sender, EventArgs e)
@@ -56,22 +57,21 @@ namespace Pokemon
         }
         private void BattleWon()
         {
-            
-            //AfterWinForm afterWinForm = new AfterWinForm(CalculatorHelper.CalculateWinnings());
+            //AfterWinForm afterWinForm = new AfterWinForm(WinningsCalculator.CalculateWinnings(_playerParty, _equipment));
             ////afterWinForm.Show();
             //this.Hide();
 
             //if (afterWinForm.ShowDialog() == DialogResult.OK)
             //{
-            //    PokemonParty.ResetParty();
-            //    PokemonParty.ClearEnemyParty();
+            //    _playerParty.ResetParty();
+            //    _enemyParty.ClearEnemyParty();
 
-            //    for (int i = 0; i < PokemonParty.playerPokemons.Length; i++)
+            //    for (int i = 0; i < _playerParty.Count(); i++)
             //    {
             //        if (PokemonParty.playerPokemons[i] == null) break;
             //        PokemonParty.AddToParty(PokemonGenerator.GetPokemon(PokemonParty.GetPokemon(0, true).Level), false);
             //    }
-                
+
             //    afterWinForm.Dispose();
             //    //AfterBattlePokemonSwitch();
             //    CreateBattle(PokemonParty.GetPokemon(PokemonParty.ActivePokemonIndex, true), PokemonParty.GetFirstPokemonAlive(false));
@@ -173,7 +173,7 @@ namespace Pokemon
 
         private void ShowItemForm()
         {
-            ItemForm playerEquipmentForm = new ItemForm(false, this);
+            ItemForm playerEquipmentForm = new ItemForm(_equipment);
             if (!StaticMain.openedForms.Where(x => x.Name == playerEquipmentForm.Name).Any())
             {
                 StaticMain.FormOpened(playerEquipmentForm);

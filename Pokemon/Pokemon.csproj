@@ -82,6 +82,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Factory\AdditionalEffectFactory.cs" />
     <Compile Include="Factory\BattleFactory.cs" />
+    <Compile Include="Factory\EquipmentFactory.cs" />
     <Compile Include="Factory\EquipmentItemFactory.cs" />
     <Compile Include="Factory\PokemonPartyFactory.cs" />
     <Compile Include="Factory\PokemonAttacksFactory.cs" />
@@ -106,17 +107,18 @@
       <DependentUpon>BattleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\EnemyPokemonParty.cs" />
+    <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\EquipmentItem.cs" />
     <Compile Include="Models\IAdditionalEffect.cs" />
     <Compile Include="Models\IAttack.cs" />
     <Compile Include="Models\IBattle.cs" />
+    <Compile Include="Models\IEquipment.cs" />
     <Compile Include="Models\IEquipmentItem.cs" />
     <Compile Include="Models\IPokemon.cs" />
     <Compile Include="Models\IPokemonParty.cs" />
     <Compile Include="Models\IPokemonStats.cs" />
     <Compile Include="Models\PlayerPokemonParty.cs" />
     <Compile Include="Models\Pokemon.cs" />
-    <Compile Include="Player\PlayerEquipment.cs" />
     <Compile Include="PokemonDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>

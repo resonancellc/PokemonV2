@@ -30,5 +30,24 @@ namespace Pokemon.Models
         {
             return Pokemons.Any(p => p.HPCurrent > 0);
         }
+
+        public void ResetParty()
+        {
+            foreach (IPokemon pokemon in Pokemons)
+            {
+                pokemon.ResetStats();
+                pokemon.HPCurrent = pokemon.HPMax;
+            }
+        }
+
+        public IEnumerator<IPokemon> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

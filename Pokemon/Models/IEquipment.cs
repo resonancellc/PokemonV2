@@ -9,7 +9,7 @@ namespace Pokemon.Models
     public interface IEquipment
     {
         int Money { get; set; }
-        List<IEquipmentItem> EquipmentList { get; set; }
+        Dictionary<IEquipmentItem, int> EquipmentList { get; set; }
 
         void ChangeMoneyQuantity(int value);
     }

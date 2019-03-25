@@ -41,7 +41,7 @@ namespace Pokemon
 
         public static void UseItem(IPokemon pokemon, int itemId)
         {
-            PlayerEquipment.playerItems[itemId]--;
+            //Equipment.playerItems[itemId]--;
             switch (itemId)
             {
                 case 0: //potion

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,29 +13,26 @@ namespace Pokemon
 {
     public partial class ItemForm : Form
     {
-        Form parent;
+        //Form parent;
 
-        public ItemForm(bool isShopForm, Form parent)
+        public ItemForm(IEquipment equipment)
         {
             InitializeComponent();
-            if (isShopForm)
-                this.parent = parent as AfterWinForm;
-            else
-                this.parent = parent as BattleForm;
+            //if (isShopForm)
+            //    this.parent = parent as AfterWinForm;
+            //else
+            //    this.parent = parent as BattleForm;
 
-            this.Text = isShopForm ? "Shop" : "Items";
+            this.Text = "Items";
+            //this.Text = isShopForm ? "Shop" : "Items";
             int offset = 0;
-            foreach (EquipmentItem item in ItemsList.Items.Values)
+            foreach (KeyValuePair<IEquipmentItem,int> item in equipment.EquipmentList)
             {
-                if (item != null)
-                {
-                    ItemPanel itemPanel = null;
-                    itemPanel = parent is BattleForm ? new ItemPanel(item, isShopForm, this, parent as BattleForm) : new ItemPanel(item, isShopForm, this);
-                    itemPanel.Location = new Point(0,offset);
-
-                    this.Controls.Add(itemPanel);
-                    offset += itemPanel.Size.Height;
-                }
+                // quantity = item.Value ;
+                ItemPanel itemPanel = new ItemPanel(item.Key, item.Value);
+                itemPanel.Location = new Point(0, offset);
+                this.Controls.Add(itemPanel);
+                offset += itemPanel.Size.Height;
             }
         }
 
@@ -42,7 +40,7 @@ namespace Pokemon
 
         private void ItemForm_FormClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (parent is AfterWinForm) ((AfterWinForm)parent).RefreshBalance();
+            //if (parent is AfterWinForm) ((AfterWinForm)parent).RefreshBalance();
 
             StaticMain.FormClosed(this);
         }
@@ -50,3 +48,17 @@ namespace Pokemon
 
     }
 }
+
+
+//foreach (EquipmentItem item in ItemsList.Items.Values)
+//            {
+//                if (item != null)
+//                {
+//                    ItemPanel itemPanel = null;
+//itemPanel = parent is BattleForm? new ItemPanel(item, isShopForm, this, parent as BattleForm) : new ItemPanel(item, isShopForm, this);
+//itemPanel.Location = new Point(0, offset);
+
+//                    this.Controls.Add(itemPanel);
+//                    offset += itemPanel.Size.Height;
+//                }
+//            }
