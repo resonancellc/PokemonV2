@@ -52,26 +52,48 @@ namespace Pokemon
 
         public void ItemPicked(int id)
         {
-            PokemonPartyForm pokemonPartyForm = new PokemonPartyForm(_pokemonParty);
-            pokemonPartyForm.BringToFront();
-
-            if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
+            BattleLog.ClearText();
+            bool itemUsed = false;
+            if (id == 4)
             {
-                IPokemon pokemon = pokemonPartyForm.PickedPokemon;
+                IPokemon pokemon = _pokemonParty.ActivePokemon;
                 if (ItemHelper.CanUseItem(pokemon, id))
                 {
                     ItemHelper.UseItem(pokemon, id);
                     _equipment.UseItem(id);
+                    itemUsed = true;
                     BattleLog.AppendText($"Used {ItemHelper.GetItemNameByID(id)} on {pokemon.Name}!");
-
+                } 
+                else
+                {
+                    BattleLog.AppendText($"It is not the right moment to use this");
                 }
+            } 
+            else
+            {
+                PokemonPartyForm pokemonPartyForm = new PokemonPartyForm(_pokemonParty);
+                pokemonPartyForm.BringToFront();
 
-                this.Close();
-                _battleForm.AfterItemPickAction();
+                if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
+                {
+                    IPokemon pokemon = pokemonPartyForm.PickedPokemon;
+                    if (ItemHelper.CanUseItem(pokemon, id))
+                    {
+                        ItemHelper.UseItem(pokemon, id);
+                        _equipment.UseItem(id);
+                        itemUsed = true;
+                        BattleLog.AppendText($"Used {ItemHelper.GetItemNameByID(id)} on {pokemon.Name}!");
+                    }
+                    else
+                    {
+                        BattleLog.AppendText($"It is not the right moment to use this");
+                    }
+                }
             }
+
+            this.Close();
+            _battleForm.AfterItemPickAction(itemUsed);
         }
-
-
     }
 }
 

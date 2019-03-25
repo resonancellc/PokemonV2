@@ -147,6 +147,7 @@ namespace Pokemon
                     tbLog.Text = string.Empty;
                     pokemon.ResetStats();
                     this.battle.PlayerPokemon = pokemon;
+                    _playerParty.ActivePokemon = pokemon;
                     SetAttackButtons(pokemon);
                     BattleLog.AppendText($"Go {pokemon.Name}!");
 
@@ -183,12 +184,14 @@ namespace Pokemon
             }
         }
 
-        public void AfterItemPickAction()
+        public void AfterItemPickAction(bool hasItemBeenUsed)
         {
             this.BringToFront();
-
-            IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, battle.EnemyPokemon.Attacks.Count)];
-            battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
+            if (hasItemBeenUsed)
+            {
+                IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, battle.EnemyPokemon.Attacks.Count)];
+                battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
+            }
 
             RedrawUI();
             tbLog.Text = BattleLog.Log;

@@ -10,6 +10,7 @@ namespace Pokemon.Models
     public class PlayerPokemonParty : IPokemonParty<IPokemon>
     {
         public IList<IPokemon> Pokemons { get; set; }
+        public IPokemon ActivePokemon { get; set; }
 
         public PlayerPokemonParty()
         {
@@ -18,7 +19,9 @@ namespace Pokemon.Models
 
         public IPokemon GetFirstAlivePokemon()
         {
-            return Pokemons.First(p => p.HPCurrent > 0);
+            IPokemon pokemon = Pokemons.First(p => p.HPCurrent > 0);
+            ActivePokemon = pokemon;
+            return pokemon;
         }
 
         public IPokemon GetPokemonByIndex(int index)
