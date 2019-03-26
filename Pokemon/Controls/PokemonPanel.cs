@@ -16,7 +16,7 @@ namespace Pokemon
         public int Index { get; set; }
         public bool Selected { get; set; }
         IPokemon _pokemon;
-        PokemonPartyForm parentForm;
+        PokemonPartyForm _parentForm;
 
         public PokemonPanel()
         {
@@ -28,7 +28,7 @@ namespace Pokemon
             InitializeComponent();
 
             _pokemon = pokemon;
-            parentForm = (PokemonPartyForm)this.Parent;
+            _parentForm = (PokemonPartyForm)this.Parent;
 
             this.BackColor = Color.FromArgb(150, 200, 200);
 
@@ -53,18 +53,18 @@ namespace Pokemon
             {
                 ShowDetails(((PokemonPanel)sender)._pokemon);
             }
-            parentForm = (PokemonPartyForm)this.Parent;
-            parentForm.UnselectAll();
+            _parentForm = (PokemonPartyForm)this.Parent;
+            _parentForm.UnselectAll();
             MakePanelSelected(true);
         }
 
         private void PokemonPanel_DoubleClick(object sender, EventArgs e)
         {
             Selected = true;
-            parentForm = (PokemonPartyForm)this.Parent;
+            _parentForm = (PokemonPartyForm)this.Parent;
             this.BackColor = Color.FromArgb(255, 200, 200);
             //PokemonParty.ActivePokemonIndex = ((PokemonPanel)sender).Index;
-            parentForm.PokemonPicked(_pokemon);
+            _parentForm.PokemonPicked(_pokemon);
 
             PokemonDetailsForm pokemonDetailsForm = new PokemonDetailsForm();
             if (StaticMain.openedForms.Where(x => x.Name == pokemonDetailsForm.Name).Any())
@@ -83,12 +83,12 @@ namespace Pokemon
 
         private void ShowDetails(IPokemon pokemon)
         {
-            parentForm = (PokemonPartyForm)this.Parent;
+            _parentForm = (PokemonPartyForm)this.Parent;
             PokemonDetailsForm pokemonDetailsForm = new PokemonDetailsForm(pokemon);
             if (!StaticMain.openedForms.Where(x=>x.Name == pokemonDetailsForm.Name).Any())
             {
                 pokemonDetailsForm.Show();
-                pokemonDetailsForm.Location = new Point(parentForm.Location.X + parentForm.Width, parentForm.Location.Y);
+                pokemonDetailsForm.Location = new Point(_parentForm.Location.X + _parentForm.Width, _parentForm.Location.Y);
                 StaticMain.FormOpened(pokemonDetailsForm);
             }
             else

@@ -54,10 +54,7 @@ namespace Pokemon
             }
 
             // If you reached that part that means you succesfully attacked opposite pokemon! :)
-
-            // move those lines to PerformPokemonAttack method
             BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
-
             PerformPokemonAttack(attack, attackingPokemon, targetPokemon);
 
             if (attack.BoostStats != string.Empty)
@@ -139,24 +136,10 @@ namespace Pokemon
                 }
             }
 
-            //if (attack.AdditionalEffect != String.Empty)
-            //{
-            //    // those are all boolean methods, why?
-            //    BattleHelper.ChangeCondition(attack, isPlayerAttack ? EnemyPokemon : Pokemon);
-            //    AdditionalEffectHelper.SetFlinch(attack.AdditionalEffect, isPlayerAttack ? EnemyPokemon : Pokemon);
-            //    AdditionalEffectHelper.IsCritBoosting(attack.AdditionalEffect, isPlayerAttack ? Pokemon : EnemyPokemon);
-            //}
-
             if (damage != 0)
             {
                 targetPokemon.Hurt(damage);
             }
-
-        }
-
-        public void PerformPokemonAttack(IAttack attack, bool isPlayerAttack)
-        {
-            throw new NotImplementedException();
         }
     }
 }

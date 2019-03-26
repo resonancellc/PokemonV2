@@ -41,8 +41,6 @@ namespace Pokemon
             }
         }
 
-
-
         private void ItemForm_FormClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //if (parent is AfterWinForm) ((AfterWinForm)parent).RefreshBalance();
@@ -57,16 +55,7 @@ namespace Pokemon
             if (id == 4)
             {
                 IPokemon pokemon = _pokemonParty.ActivePokemon;
-                if (ItemHelper.CanUseItem(pokemon, id))
-                {
-                    _equipment.UseItem(pokemon, id);
-                    itemUsed = true;
-                    BattleLog.AppendText($"Used {ItemHelper.GetItemNameByID(id)} on {pokemon.Name}!");
-                } 
-                else
-                {
-                    BattleLog.AppendText($"It is not the right moment to use this");
-                }
+                itemUsed = IsItemUsageSuccesful(id, pokemon);
             } 
             else
             {
@@ -76,36 +65,29 @@ namespace Pokemon
                 if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
                 {
                     IPokemon pokemon = pokemonPartyForm.PickedPokemon;
-                    if (ItemHelper.CanUseItem(pokemon, id))
-                    {
-                        ItemHelper.UseItem(pokemon, id);
-                        _equipment.UseItem(id);
-                        itemUsed = true;
-                        BattleLog.AppendText($"Used {ItemHelper.GetItemNameByID(id)} on {pokemon.Name}!");
-                    }
-                    else
-                    {
-                        BattleLog.AppendText($"It is not the right moment to use this");
-                    }
+                    itemUsed = IsItemUsageSuccesful(id, pokemon);
                 }
             }
 
             this.Close();
             _battleForm.AfterItemPickAction(itemUsed);
         }
+
+        private bool IsItemUsageSuccesful(int id, IPokemon pokemon)
+        {
+            bool itemUsed = false;
+            if (ItemHelper.CanUseItem(pokemon, id))
+            {
+                _equipment.UseItem(pokemon, id);
+                itemUsed = true;
+                BattleLog.AppendText($"Used {ItemHelper.GetItemNameByID(id)} on {pokemon.Name}!");
+            }
+            else
+            {
+                BattleLog.AppendText($"It is not the right moment to use this");
+            }
+
+            return itemUsed;
+        }
     }
 }
-
-
-//foreach (EquipmentItem item in ItemsList.Items.Values)
-//            {
-//                if (item != null)
-//                {
-//                    ItemPanel itemPanel = null;
-//itemPanel = parent is BattleForm? new ItemPanel(item, isShopForm, this, parent as BattleForm) : new ItemPanel(item, isShopForm, this);
-//itemPanel.Location = new Point(0, offset);
-
-//                    this.Controls.Add(itemPanel);
-//                    offset += itemPanel.Size.Height;
-//                }
-//            }

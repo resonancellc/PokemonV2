@@ -16,10 +16,11 @@ namespace Pokemon.Models
             Money += value;
         }
 
-        public void UseItem(int id)
+        public void UseItem(IPokemon pokemon, int id)
         {
             int quantity = EquipmentList.Where(i => i.Key.ID == id).FirstOrDefault().Value;
             EquipmentList[EquipmentList.Where(i => i.Key.ID == id).FirstOrDefault().Key] = quantity - 1;
+            ItemHelper.UseItem(pokemon, id);
         }
     }
 }

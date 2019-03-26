@@ -18,7 +18,6 @@ namespace Pokemon
     {
         AttackButton[] attackButtons = new AttackButton[4];
         IBattle battle;
-        PokemonPartyForm pokemonPartyForm = null;
 
         IPokemonParty<IPokemon> _playerParty;
         IPokemonParty<IPokemon> _enemyParty;
@@ -135,7 +134,7 @@ namespace Pokemon
         }
         private void SwitchPokemon()
         {
-            pokemonPartyForm = new PokemonPartyForm(this, _playerParty);
+            PokemonPartyForm pokemonPartyForm = new PokemonPartyForm(this, _playerParty);
             pokemonPartyForm.BringToFront();
 
             if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
@@ -196,21 +195,6 @@ namespace Pokemon
             RedrawUI();
             tbLog.Text = BattleLog.Log;
         }
-
-        // this has to be moved
-        //public void UseItem(int itemID)
-        //{
-        //    BattleLog.ClearText();
-        //    if (ItemHelper.CanUseItem(battle.PlayerPokemon, itemID))
-        //    {
-        //        BattleLog.AppendText($"You used {ItemHelper.GetItemNameByID(itemID + 1)} on {battle.PlayerPokemon.Name}");
-
-                
-        //    }
-        //    else tbLog.Text = "It's not the time to use this item";
-
-        //}
-
         #endregion
 
         #region UI etc
@@ -327,6 +311,7 @@ namespace Pokemon
             else
             {
                 battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
+
                 if (battle.PlayerPokemon.IsPokemonAlive())
                     battle.PreparePokemonAttack(attack, battle.PlayerPokemon, battle.EnemyPokemon);
                 else
@@ -334,13 +319,6 @@ namespace Pokemon
             }
             RedrawUI();
             if (!battleEnded) tbLog.Text = BattleLog.Log;
-
-        }
-
-
-
-        
-
-        
+        }  
     }
 }

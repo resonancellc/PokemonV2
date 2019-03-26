@@ -15,7 +15,6 @@ namespace Pokemon
     {
         public int ID { get; set; }
         public int ItemValue { get; set; }
-        IPokemonParty<IPokemon> _pokemonParty;
         //BattleForm parent;
         ItemForm _parentForm;
 
@@ -53,30 +52,6 @@ namespace Pokemon
         private void btnAction_Click(object sender, EventArgs e)
         {
             UseItem();
-            
-            
-
-
-            //if (((Button)sender).Text.Contains("$")) // znaczy kupujemy
-            //{
-            //    if (PlayerEquipment.Money < this.ItemValue) MessageBox.Show("Not enough money to buy this item");
-            //    else
-            //    {
-            //        PlayerEquipment.Money -= this.ItemValue;
-            //        PlayerEquipment.playerItems[this.ID - 1]++;
-            //        MessageBox.Show($"Bought {this.lblItemName.Text} for {((Button)sender).Text}. Actual balance: {PlayerEquipment.Money}");
-            //    }
-            //}
-            //else // znaczy uzywamy
-            //{
-            //    if (PlayerEquipment.playerItems[this.ID - 1] == 0) MessageBox.Show("You don't have this item");
-            //    else
-            //    {
-            //        formParent.Close();
-            //        parent.UseItem(this.ID - 1);
-            //    }
-            //}
-
         }
 
         public void UseItem()
