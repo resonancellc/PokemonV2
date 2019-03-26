@@ -21,11 +21,12 @@ namespace Pokemon.Factory
         public static IPokemon CreatePokemon(int level, int id = 0)
         {
             IPokemon pokemon;
+            level = level < 1 || level > 100 ? 5 : level;
             //PlayerID
-            if (id > 0)
+            if (id != 0)
             {
                 // obtaining the one specific pokemon
-
+                id = PokemonList.Pokemons.Any(p => p.Key == id) ? id : 1;
                 pokemon = (IPokemon)PokemonList.Pokemons.Where(p => p.Key == id).FirstOrDefault().Value.Clone();
             }
             else
@@ -53,8 +54,10 @@ namespace Pokemon.Factory
             if (id > 0)
             {
                 // obtaining the one specific pokemon
-
+                id = PokemonList.Pokemons.Any(p => p.Key != id) ? 1 : id;
+                
                 pokemon = (IPokemon)PokemonList.Pokemons.Where(p => p.Key == id).FirstOrDefault().Value.Clone();
+                
             }
             else
             {

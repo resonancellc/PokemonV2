@@ -33,7 +33,7 @@ namespace Pokemon.Factory
             for (int i = 0; i < teamSize; i++)
             {
                 // EnemyID
-                IPokemon pokemon = PokemonFactory.CreatePokemon(level, 5, true);
+                IPokemon pokemon = PokemonFactory.CreatePokemon(level, 35, true);
                 party.Pokemons.Add(pokemon);
             }
             return party;

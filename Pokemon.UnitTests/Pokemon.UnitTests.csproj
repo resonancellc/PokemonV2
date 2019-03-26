@@ -59,8 +59,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attack_UnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringCalculator_UnitTests.cs" />
+    <Compile Include="CreatePokemon_UnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
