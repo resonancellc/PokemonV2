@@ -77,7 +77,7 @@ namespace Pokemon
             {
                 property.SetValue(pokemon, property.GetValue(this, null), null);
             }
-
+            pokemon.ResetStats();
             return pokemon;
         }
     }

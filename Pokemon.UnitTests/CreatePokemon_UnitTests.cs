@@ -43,6 +43,29 @@ namespace Pokemon.UnitTests
             Assert.AreEqual(expectedLevel, pokemon.Level);
         }
 
+        [TestCase(20,1,false)]
+        [TestCase(-100,1,false)]
+        [TestCase(20,1000,false)]
+        public void CreatePokemon_GivenIdAndLevel_ReturnsPokemonWithoutSpecialStatus(int level, int id, bool expectedResult)
+        {
+            Prepare();
+            IPokemon pokemon = PokemonFactory.CreatePokemon(level, id);
+
+            Assert.AreEqual(expectedResult, pokemon.IsFlinched);
+            Assert.AreEqual(expectedResult, pokemon.IsConfused);
+            Assert.AreEqual(expectedResult, pokemon.IsEnergyFocused);
+            Assert.AreEqual(expectedResult, pokemon.Condition != 0);
+        }
+
+        [TestCase(1,1)]
+        public void CreatePokemon_GivenIdAndLevel_ReturnsHealthyPokemon(int level, int id)
+        {
+            Prepare();
+            IPokemon pokemon = PokemonFactory.CreatePokemon(level, id);
+
+            Assert.AreEqual(pokemon.HPCurrent, pokemon.HPMax);
+        }
+
 
         [Test]
         public void CreatePokemon_NoParameters_EmptyPokemon()

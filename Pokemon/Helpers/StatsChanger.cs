@@ -25,7 +25,8 @@ namespace Pokemon.Helpers
 
         public static void ChangeTempPokemonStats(IPokemon affectedPokemon, int statType, int stageValue)
         {
-            if (affectedPokemon.StatModifierStages[statType] <= 6 - stageValue && affectedPokemon.StatModifierStages[statType] >= -6 + stageValue)
+            if (affectedPokemon.StatModifierStages[statType] <= 6 - stageValue 
+                && affectedPokemon.StatModifierStages[statType] + stageValue >= -6 )
             {
                 affectedPokemon.StatModifierStages[statType] += stageValue;
             }
