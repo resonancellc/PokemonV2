@@ -1,9 +1,5 @@
 ﻿using Pokemon.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon.Helpers
 {
@@ -11,10 +7,10 @@ namespace Pokemon.Helpers
     {
         public static void ChangeTempStats(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
         {
-            string[] boosts = attack.BoostStats.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] boosts = attack.BoostStats.SplitBoosts();
             foreach (string boost in boosts)
             {
-                string[] attributes = boost.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); //AttackBoostStatsSplitter();
+                string[] attributes = boost.SplitAttributes();
                 if (attributes.Length > 0)
                 {
 

@@ -80,6 +80,7 @@
       <DependentUpon>PokemonPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Enums.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Factory\AdditionalEffectFactory.cs" />
     <Compile Include="Factory\BattleFactory.cs" />
     <Compile Include="Factory\EquipmentFactory.cs" />
