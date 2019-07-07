@@ -14,22 +14,30 @@ namespace Pokemon.Helpers
                 if (attributes.Length > 0)
                 {
 
-                    ChangeTempPokemonStats(attributes[0] == "enemy" ? targetPokemon : attackingPokemon, Int32.Parse(attributes[1]), Int32.Parse(attributes[2]));
+                    StatsChange statsChange = new StatsChange()
+                    {
+                        AffectedPokemon = attributes[0] == "enemy" ? targetPokemon : attackingPokemon,
+                        StatType = (StatType)Int32.Parse(attributes[1]),
+                        StageValue = Int32.Parse(attributes[2])
+                    };
+
+                    StatsChangeValidator statsChangeValidator = new StatsChangeValidator(statsChange);
+
+                    if (statsChangeValidator.StatChangePossible())
+                    {
+                        ChangeTempPokemonStats(statsChange);
+                    }
+                    else
+                    {
+                        BattleLog.AppendText($"{statsChange.AffectedPokemon.Name} {statsChange.StatType.ToString()} cannot go any higher");
+                    }
                 }
             }
         }
 
-        public static void ChangeTempPokemonStats(IPokemon affectedPokemon, int statType, int stageValue)
+        public static void ChangeTempPokemonStats(StatsChange statsChange)
         {
-            if (affectedPokemon.StatModifierStages[statType] <= 6 - stageValue 
-                && affectedPokemon.StatModifierStages[statType] + stageValue >= -6 )
-            {
-                affectedPokemon.StatModifierStages[statType] += stageValue;
-            }
-            else
-            {
-                BattleLog.AppendText($"{affectedPokemon.Name} {((StatType)statType).ToString()} cannot go any higher");
-            }
+            statsChange.AffectedPokemon.StatModifierStages[(int)statsChange.StatType] += statsChange.StageValue;
         }
     }
 }

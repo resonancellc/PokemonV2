@@ -120,6 +120,8 @@
     <Compile Include="Models\IPokemonStats.cs" />
     <Compile Include="Models\PlayerPokemonParty.cs" />
     <Compile Include="Models\Pokemon.cs" />
+    <Compile Include="Models\StatsChange.cs" />
+    <Compile Include="Models\StatsChangeValidator.cs" />
     <Compile Include="PokemonDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
