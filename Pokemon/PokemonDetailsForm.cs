@@ -1,4 +1,5 @@
-﻿using Pokemon.Models;
+﻿using Pokemon.Calculators;
+using Pokemon.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +14,6 @@ namespace Pokemon
 {
     public partial class PokemonDetailsForm : Form
     {
-        Label[] statsLabel = new Label[5];
-
         public PokemonDetailsForm()
         {
             InitializeComponent();
@@ -23,11 +22,6 @@ namespace Pokemon
         public PokemonDetailsForm(IPokemon pokemon)
         {
             InitializeComponent();
-            statsLabel[0] = lblAtkValue;
-            statsLabel[1] = lblDefValue;
-            statsLabel[2] = lblSpAtkValue;
-            statsLabel[3] = lblSpDefValue;
-            statsLabel[4] = lblSpeedValue;
 
             SetUI(pokemon);
         }
@@ -39,11 +33,29 @@ namespace Pokemon
 
         private void SetUI(IPokemon pokemon)
         {
-            statsLabel[0].Text = pokemon.Stats.Attack.ToString();
-            statsLabel[1].Text = pokemon.Stats.Defence.ToString();
-            statsLabel[2].Text = pokemon.Stats.SpecialAttack.ToString();
-            statsLabel[3].Text = pokemon.Stats.SpecialDefence.ToString();
-            statsLabel[4].Text = pokemon.Stats.Speed.ToString();
+            lblAtkValue.Text = pokemon.Stats.Attack.ToString();
+            lblDefValue.Text = pokemon.Stats.Defence.ToString();
+            lblSpAtkValue.Text = pokemon.Stats.SpecialAttack.ToString();
+            lblSpDefValue.Text = pokemon.Stats.SpecialDefence.ToString();
+            lblSpeedValue.Text = pokemon.Stats.Speed.ToString();
+
+            var actualAttack = TempStatsCalculator.GetAttack(pokemon);
+            var actualDefence = TempStatsCalculator.GetDefence(pokemon);
+            var actualSpAttack = TempStatsCalculator.GetSpecialAttack(pokemon);
+            var actualSpDefence = TempStatsCalculator.GetSpecialDefence(pokemon);
+            var actualSpeed = TempStatsCalculator.GetSpeed(pokemon);
+
+            lblCurrentAttackValue.Text = $"({actualAttack.ToString()})";
+            lblCurrentDefenceValue.Text = $"({actualDefence.ToString()})";
+            lblCurrentSpAttackValue.Text = $"({actualSpAttack.ToString()})";
+            lblCurrentSpDefenceValue.Text = $"({actualSpDefence.ToString()})";
+            lblCurrentSpeedValue.Text = $"({actualSpeed.ToString()})";
+
+            lblCurrentAttackValue.ForeColor = GetColorBasedOnValueDiffrence(actualAttack, pokemon.Stats.Attack);
+            lblCurrentDefenceValue.ForeColor = GetColorBasedOnValueDiffrence(actualDefence, pokemon.Stats.Defence);
+            lblCurrentSpAttackValue.ForeColor = GetColorBasedOnValueDiffrence(actualSpAttack, pokemon.Stats.SpecialAttack);
+            lblCurrentSpDefenceValue.ForeColor = GetColorBasedOnValueDiffrence(actualSpDefence, pokemon.Stats.SpecialDefence);
+            lblCurrentSpeedValue.ForeColor = GetColorBasedOnValueDiffrence(actualSpeed, pokemon.Stats.Speed);
 
             lblName.Text = pokemon.Name;
             lblLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : (pokemon.Condition).ToString();
@@ -57,7 +69,13 @@ namespace Pokemon
         {
             StaticMain.FormClosed(this);
         }
+
+        private Color GetColorBasedOnValueDiffrence(int currentValue, int defaultValue)
+        {
+            if (currentValue == defaultValue) return Color.Black;
+            return currentValue > defaultValue
+                ? Color.Green
+                : Color.Red; 
+        }
     }
-
-
 }

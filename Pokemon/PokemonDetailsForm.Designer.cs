@@ -43,6 +43,11 @@
             this.lblSpAtkValue = new System.Windows.Forms.Label();
             this.lblSpDefValue = new System.Windows.Forms.Label();
             this.lblSpeedValue = new System.Windows.Forms.Label();
+            this.lblCurrentAttackValue = new System.Windows.Forms.Label();
+            this.lblCurrentDefenceValue = new System.Windows.Forms.Label();
+            this.lblCurrentSpAttackValue = new System.Windows.Forms.Label();
+            this.lblCurrentSpDefenceValue = new System.Windows.Forms.Label();
+            this.lblCurrentSpeedValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,6 +202,61 @@
             this.lblSpeedValue.TabIndex = 3;
             this.lblSpeedValue.Text = "100";
             // 
+            // lblCurrentAttackValue
+            // 
+            this.lblCurrentAttackValue.AutoSize = true;
+            this.lblCurrentAttackValue.Font = new System.Drawing.Font("Unispace", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentAttackValue.Location = new System.Drawing.Point(252, 153);
+            this.lblCurrentAttackValue.Name = "lblCurrentAttackValue";
+            this.lblCurrentAttackValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblCurrentAttackValue.Size = new System.Drawing.Size(77, 25);
+            this.lblCurrentAttackValue.TabIndex = 3;
+            this.lblCurrentAttackValue.Text = "(100)";
+            // 
+            // lblCurrentDefenceValue
+            // 
+            this.lblCurrentDefenceValue.AutoSize = true;
+            this.lblCurrentDefenceValue.Font = new System.Drawing.Font("Unispace", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentDefenceValue.Location = new System.Drawing.Point(252, 190);
+            this.lblCurrentDefenceValue.Name = "lblCurrentDefenceValue";
+            this.lblCurrentDefenceValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblCurrentDefenceValue.Size = new System.Drawing.Size(77, 25);
+            this.lblCurrentDefenceValue.TabIndex = 3;
+            this.lblCurrentDefenceValue.Text = "(100)";
+            // 
+            // lblCurrentSpAttackValue
+            // 
+            this.lblCurrentSpAttackValue.AutoSize = true;
+            this.lblCurrentSpAttackValue.Font = new System.Drawing.Font("Unispace", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentSpAttackValue.Location = new System.Drawing.Point(252, 225);
+            this.lblCurrentSpAttackValue.Name = "lblCurrentSpAttackValue";
+            this.lblCurrentSpAttackValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblCurrentSpAttackValue.Size = new System.Drawing.Size(77, 25);
+            this.lblCurrentSpAttackValue.TabIndex = 3;
+            this.lblCurrentSpAttackValue.Text = "(100)";
+            // 
+            // lblCurrentSpDefenceValue
+            // 
+            this.lblCurrentSpDefenceValue.AutoSize = true;
+            this.lblCurrentSpDefenceValue.Font = new System.Drawing.Font("Unispace", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentSpDefenceValue.Location = new System.Drawing.Point(252, 262);
+            this.lblCurrentSpDefenceValue.Name = "lblCurrentSpDefenceValue";
+            this.lblCurrentSpDefenceValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblCurrentSpDefenceValue.Size = new System.Drawing.Size(77, 25);
+            this.lblCurrentSpDefenceValue.TabIndex = 3;
+            this.lblCurrentSpDefenceValue.Text = "(100)";
+            // 
+            // lblCurrentSpeedValue
+            // 
+            this.lblCurrentSpeedValue.AutoSize = true;
+            this.lblCurrentSpeedValue.Font = new System.Drawing.Font("Unispace", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentSpeedValue.Location = new System.Drawing.Point(252, 297);
+            this.lblCurrentSpeedValue.Name = "lblCurrentSpeedValue";
+            this.lblCurrentSpeedValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblCurrentSpeedValue.Size = new System.Drawing.Size(77, 25);
+            this.lblCurrentSpeedValue.TabIndex = 3;
+            this.lblCurrentSpeedValue.Text = "(100)";
+            // 
             // PokemonDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,6 +270,11 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblDefValue);
             this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblCurrentSpeedValue);
+            this.Controls.Add(this.lblCurrentSpDefenceValue);
+            this.Controls.Add(this.lblCurrentSpAttackValue);
+            this.Controls.Add(this.lblCurrentDefenceValue);
+            this.Controls.Add(this.lblCurrentAttackValue);
             this.Controls.Add(this.lblAtkValue);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.progressBar1);
@@ -245,5 +310,10 @@
         private System.Windows.Forms.Label lblSpAtkValue;
         private System.Windows.Forms.Label lblSpDefValue;
         private System.Windows.Forms.Label lblSpeedValue;
+        private System.Windows.Forms.Label lblCurrentAttackValue;
+        private System.Windows.Forms.Label lblCurrentDefenceValue;
+        private System.Windows.Forms.Label lblCurrentSpAttackValue;
+        private System.Windows.Forms.Label lblCurrentSpDefenceValue;
+        private System.Windows.Forms.Label lblCurrentSpeedValue;
     }
 }
