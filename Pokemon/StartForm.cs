@@ -137,7 +137,12 @@ namespace Pokemon
                     var isExportSuccessful = pokemonExporter.Export();
                     if (isExportSuccessful)
                     {
-                        MessageBox.Show("Export", "Export successful", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                        MessageBox.Show(
+                            "Export",
+                            "Export successful",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information,
+                            MessageBoxDefaultButton.Button1);
                     }
                 }
             }
