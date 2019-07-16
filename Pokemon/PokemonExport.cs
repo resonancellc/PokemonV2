@@ -10,12 +10,12 @@ using System.Web.Script.Serialization;
 
 namespace Pokemon
 {
-    public class PokemonExporter
+    public class PokemonExport
     {
         IEnumerable<IPokemon> _pokemonsToExport;
         string _filePath;
 
-        public PokemonExporter(IEnumerable<IPokemon> pokemonsToExport, string filePath)
+        public PokemonExport(IEnumerable<IPokemon> pokemonsToExport, string filePath)
         {
             _pokemonsToExport = pokemonsToExport;
             _filePath = filePath;
