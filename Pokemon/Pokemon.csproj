@@ -127,13 +127,17 @@
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="Models\StatsChange.cs" />
     <Compile Include="Models\StatsChangeValidator.cs" />
+    <Compile Include="ObjectMappers\AttackMapper.cs" />
+    <Compile Include="ObjectMappers\PokemonMapper.cs" />
+    <Compile Include="ObjectMappers\StatsMapper.cs" />
     <Compile Include="PokemonDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PokemonDetailsForm.Designer.cs">
       <DependentUpon>PokemonDetailsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PokemonExporter.cs" />
+    <Compile Include="PokemonExport.cs" />
+    <Compile Include="PokemonImport.cs" />
     <Compile Include="PokemonList.cs" />
     <Compile Include="PokemonPartyForm.cs">
       <SubType>Form</SubType>
@@ -397,6 +401,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\ExportedObjects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dtos\Dtos.csproj">
+      <Project>{018D350B-FEE9-4D7E-BC18-854173A25C58}</Project>
+      <Name>Dtos</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
