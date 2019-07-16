@@ -133,7 +133,22 @@ namespace Pokemon
             {
                 if (pokemonList[0] != null)
                 {
-                    PokemonExporter pokemonExporter = new PokemonExporter(pokemonList);
+                    SaveFileDialog saveFileDialog = new SaveFileDialog()
+                    {
+                        Filter = "Text Files (*.txt)|*.txt",
+                        DefaultExt = "txt",
+                        AddExtension = true,
+                        FileName = $"PokemonExport_{DateTime.Now.ToShortDateString()}",
+                        RestoreDirectory = true,
+                        InitialDirectory = $"{Environment.CurrentDirectory}\\ExportedObjects\\"
+                    };
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+
+                    PokemonExporter pokemonExporter = new PokemonExporter(pokemonList, saveFileDialog.FileName);
                     var isExportSuccessful = pokemonExporter.Export();
                     if (isExportSuccessful)
                     {
