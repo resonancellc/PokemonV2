@@ -40,6 +40,8 @@
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.btnStart = new System.Windows.Forms.Button();
             this.tbLevel = new System.Windows.Forms.TextBox();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -162,7 +164,7 @@
             // 
             // tbLevel
             // 
-            this.tbLevel.Location = new System.Drawing.Point(119, 40);
+            this.tbLevel.Location = new System.Drawing.Point(119, 41);
             this.tbLevel.Name = "tbLevel";
             this.tbLevel.Size = new System.Drawing.Size(100, 20);
             this.tbLevel.TabIndex = 3;
@@ -171,11 +173,31 @@
             this.tbLevel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbLevel_KeyPress);
             this.tbLevel.Validated += new System.EventHandler(this.tbLevel_Validated);
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(225, 282);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(100, 23);
+            this.btnExport.TabIndex = 0;
+            this.btnExport.Text = "Export Party";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Location = new System.Drawing.Point(225, 309);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(100, 23);
+            this.btnImport.TabIndex = 0;
+            this.btnImport.Text = "Import Party";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
             // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 287);
+            this.ClientSize = new System.Drawing.Size(337, 344);
             this.Controls.Add(this.tbLevel);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox5);
@@ -187,6 +209,8 @@
             this.Controls.Add(this.rbThreePoke);
             this.Controls.Add(this.rbOnePoke);
             this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.btnImport);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnRandomize);
             this.Name = "StartForm";
             this.ShowIcon = false;
@@ -217,5 +241,7 @@
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.TextBox tbLevel;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnImport;
     }
 }

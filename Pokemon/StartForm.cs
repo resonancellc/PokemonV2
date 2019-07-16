@@ -126,5 +126,30 @@ namespace Pokemon
             }
             return true;
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (pokemonList[0] != null)
+                {
+                    PokemonExporter pokemonExporter = new PokemonExporter(pokemonList);
+                    var isExportSuccessful = pokemonExporter.Export();
+                    if (isExportSuccessful)
+                    {
+                        MessageBox.Show("Export", "Export successful", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
