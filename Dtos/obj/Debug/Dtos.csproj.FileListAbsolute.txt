@@ -1,0 +1,6 @@
+D:\Git\Pokemon\Dtos\bin\Debug\Dtos.dll
+D:\Git\Pokemon\Dtos\bin\Debug\Dtos.pdb
+D:\Git\Pokemon\Dtos\obj\Debug\Dtos.csprojResolveAssemblyReference.cache
+D:\Git\Pokemon\Dtos\obj\Debug\Dtos.csproj.CoreCompileInputs.cache
+D:\Git\Pokemon\Dtos\obj\Debug\Dtos.dll
+D:\Git\Pokemon\Dtos\obj\Debug\Dtos.pdb
