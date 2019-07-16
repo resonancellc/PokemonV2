@@ -1,4 +1,5 @@
-﻿using Pokemon.Models;
+﻿using Dtos;
+using Pokemon.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,12 +18,12 @@ namespace Pokemon
             _filePath = filePath;
         }
 
-        public IEnumerable<IPokemon> Import()
+        public IEnumerable<PokemonDto> Import()
         {
             try
             {
                 string importJson = File.ReadAllText(_filePath);
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<IPokemon>>(importJson);
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<PokemonDto>>(importJson);
             }
             catch (Exception)
             {

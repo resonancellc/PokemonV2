@@ -1,4 +1,5 @@
-﻿using Pokemon.Factory;
+﻿using Dtos;
+using Pokemon.Factory;
 using Pokemon.Models;
 using System;
 using System.Collections.Generic;
@@ -148,7 +149,7 @@ namespace Pokemon
                         return;
                     }
 
-                    PokemonExporter pokemonExporter = new PokemonExporter(pokemonList, saveFileDialog.FileName);
+                    PokemonExport pokemonExporter = new PokemonExport(pokemonList, saveFileDialog.FileName);
                     var isExportSuccessful = pokemonExporter.Export();
                     if (isExportSuccessful)
                     {
@@ -169,7 +170,31 @@ namespace Pokemon
 
         private void btnImport_Click(object sender, EventArgs e)
         {
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog()
+                {
+                    Filter = "Text Files (*.txt)|*.txt",
+                    DefaultExt = "txt",
+                    AddExtension = true,
+                    RestoreDirectory = true,
+                    InitialDirectory = $"{Environment.CurrentDirectory}\\ExportedObjects\\"
+                };
 
+                if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                PokemonImport pokemonImport = new PokemonImport(openFileDialog.FileName);
+
+                IEnumerable<PokemonDto> foo = pokemonImport.Import();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -115,3 +115,7 @@ D:\Git\Pokemon\Pokemon.UnitTests\obj\Debug\Pokemon.UnitTests.csprojResolveAssemb
 D:\Git\Pokemon\Pokemon.UnitTests\obj\Debug\Pokemon.UnitTests.csproj.CoreCompileInputs.cache
 D:\Git\Pokemon\Pokemon.UnitTests\obj\Debug\Pokemon.UnitTests.dll
 D:\Git\Pokemon\Pokemon.UnitTests\obj\Debug\Pokemon.UnitTests.pdb
+D:\Git\Pokemon\Pokemon.UnitTests\bin\Debug\Dtos.dll
+D:\Git\Pokemon\Pokemon.UnitTests\bin\Debug\Newtonsoft.Json.dll
+D:\Git\Pokemon\Pokemon.UnitTests\bin\Debug\Dtos.pdb
+D:\Git\Pokemon\Pokemon.UnitTests\bin\Debug\Newtonsoft.Json.xml

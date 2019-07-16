@@ -27,3 +27,5 @@ D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.ItemPanel.resources
 D:\Git\Pokemon\Pokemon\obj\Debug\Pokemon.ItemForm.resources
 D:\Git\Pokemon\Pokemon\bin\Debug\Newtonsoft.Json.dll
 D:\Git\Pokemon\Pokemon\bin\Debug\Newtonsoft.Json.xml
+D:\Git\Pokemon\Pokemon\bin\Debug\Dtos.dll
+D:\Git\Pokemon\Pokemon\bin\Debug\Dtos.pdb
