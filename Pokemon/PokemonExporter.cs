@@ -21,7 +21,6 @@ namespace Pokemon
 
         public bool Export()
         {
-            //var json = new JavaScriptSerializer().Serialize(_pokemonsToExport);
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(_pokemonsToExport);
             return true;
         }
