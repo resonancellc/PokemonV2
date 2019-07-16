@@ -51,7 +51,7 @@ namespace Pokemon.UnitTests
 
             for (int i = 0; i < pokemon.StatModifierStages.Length; i++)
             {
-                StatsChanger.ChangeTempPokemonStats(pokemon, i, changeValueBy);
+                //StatsChanger.ChangeTempPokemonStats(pokemon, i, changeValueBy);
             }
 
             for (int i = 0; i < pokemon.StatModifierStages.Length; i++)
@@ -74,7 +74,7 @@ namespace Pokemon.UnitTests
 
             for (int i = 0; i < pokemon.StatModifierStages.Length; i++)
             {
-                StatsChanger.ChangeTempPokemonStats(pokemon, i, changeValueBy);
+                //StatsChanger.ChangeTempPokemonStats(pokemon, i, changeValueBy);
             }
 
             for (int i = 0; i < pokemon.StatModifierStages.Length; i++)

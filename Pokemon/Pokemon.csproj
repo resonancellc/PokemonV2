@@ -395,5 +395,8 @@
   <ItemGroup>
     <None Include="Resources\item_xAttack.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\ExportedObjects\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
