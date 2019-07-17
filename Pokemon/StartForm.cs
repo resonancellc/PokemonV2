@@ -197,6 +197,16 @@ namespace Pokemon
                     {
                         pokemonList.Add(importedPokemon.ToDomainObject());
                     }
+
+                    foreach (PictureBox pictureBox in pictures)
+                    {
+                        pictureBox.Image = null;
+                    }
+
+                    for (int i = 0; i < pokemonList.Count; i++)
+                    {
+                        pictures[i].Image = ImageHelper.GetImageById(false, pokemonList[i].ID);
+                    }
                 }
             }
             catch (Exception)
