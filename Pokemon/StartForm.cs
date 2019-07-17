@@ -33,24 +33,32 @@ namespace Pokemon
             if (ValidateLevel())
             {
                 pokemonList.Clear();
-                foreach (PictureBox pictureBox in pictures)
-                {
-                    pictureBox.Image = null;
-                }
+
+                int level = Convert.ToInt32(tbLevel.Text);
 
                 for (int i = 0; i < pokeNumber; i++)
                 {
-                    int level = Convert.ToInt32(tbLevel.Text);
-                    IPokemon pokemon = PokemonFactory.CreatePokemon(level);
-                    pokemonList.Add(pokemon);
-                    pictures[i].Image = ImageHelper.GetImageById(false, pokemon.ID);
+                    pokemonList.Add(PokemonFactory.CreatePokemon(level));
                 }
+
+                PrepareImages();
             }
             else
             {
                 MessageBox.Show("Please insert level of generated pokemon first");
             }
+        }
 
+        private void PrepareImages()
+        {
+            foreach (PictureBox pictureBox in pictures)
+            {
+                pictureBox.Image = null;
+            }
+            for (int i = 0; i < pokemonList.Count; i++)
+            {
+                pictures[i].Image = ImageHelper.GetImageById(false, pokemonList[i].ID);
+            };
         }
 
         private void LoadPicturesToList()
@@ -198,15 +206,7 @@ namespace Pokemon
                         pokemonList.Add(importedPokemon.ToDomainObject());
                     }
 
-                    foreach (PictureBox pictureBox in pictures)
-                    {
-                        pictureBox.Image = null;
-                    }
-
-                    for (int i = 0; i < pokemonList.Count; i++)
-                    {
-                        pictures[i].Image = ImageHelper.GetImageById(false, pokemonList[i].ID);
-                    }
+                    PrepareImages();
                 }
             }
             catch (Exception)
