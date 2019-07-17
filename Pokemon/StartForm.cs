@@ -2,6 +2,7 @@
 using Pokemon.Factory;
 using Pokemon.Models;
 using Pokemon.ObjectMappers;
+using Pokemon.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,13 +25,14 @@ namespace Pokemon
         {
             InitializeComponent();
             LoadPicturesToList();
-            StartRandomizing(1);
+            StartRandomizing(teamSize);
         }
 
         private void StartRandomizing(int pokeNumber)
         {
             teamSize = pokeNumber;
-            if (ValidateLevel())
+            var levelValidatorResult = LevelValidator.IsLevelValid(tbLevel.Text);
+            if (levelValidatorResult == LevelValidatorResult.OK)
             {
                 pokemonList.Clear();
 
@@ -43,9 +45,13 @@ namespace Pokemon
 
                 PrepareImages();
             }
-            else
+            else if(levelValidatorResult == LevelValidatorResult.InvalidFormat)
             {
-                MessageBox.Show("Please insert level of generated pokemon first");
+                MessageBox.Show("Incorrect level format (Only numbers)");
+            }
+            else if (levelValidatorResult == LevelValidatorResult.NotInRange)
+            {
+                MessageBox.Show("Level must be higher than 0 or 100 and less");
             }
         }
 
@@ -80,18 +86,11 @@ namespace Pokemon
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (pokemonList[0] != null)
+            if (pokemonList.Any())
             {
-                if (ValidateLevel())
-                {
-                    BattleForm battleForm = new BattleForm(pokemonList, teamSize);
-                    battleForm.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Something went wrong");
-                }
+                BattleForm battleForm = new BattleForm(pokemonList, teamSize);
+                battleForm.Show();
+                Hide();
             }
             else
             {
@@ -112,29 +111,6 @@ namespace Pokemon
             {
                 e.Handled = true;
             }
-        }
-
-        private void tbLevel_Validated(object sender, EventArgs e)
-        {
-            ValidateLevel();
-        }
-
-        private bool ValidateLevel()
-        {
-            if (Int32.TryParse(tbLevel.Text, out int level))
-            {
-                if (level > 100 || level <= 0)
-                {
-                    MessageBox.Show("Level must be higher than 0 or 100 and less");
-                    return false;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Incorrect level format (Only numbers)");
-                return false;
-            }
-            return true;
         }
 
         private void btnExport_Click(object sender, EventArgs e)

@@ -87,4 +87,10 @@ namespace Pokemon
         FastAttack = "Fast";
     }
 
+    public enum LevelValidatorResult
+    {
+        OK,
+        NotInRange,
+        InvalidFormat
+    }
 }
