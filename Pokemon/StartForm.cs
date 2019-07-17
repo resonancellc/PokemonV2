@@ -1,6 +1,7 @@
 ﻿using Dtos;
 using Pokemon.Factory;
 using Pokemon.Models;
+using Pokemon.ObjectMappers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -188,7 +189,15 @@ namespace Pokemon
 
                 PokemonImport pokemonImport = new PokemonImport(openFileDialog.FileName);
 
-                IEnumerable<PokemonDto> foo = pokemonImport.Import();
+                var importedPokemons = pokemonImport.Import();
+                if (importedPokemons.Any())
+                {
+                    pokemonList.Clear();
+                    foreach (var importedPokemon in importedPokemons)
+                    {
+                        pokemonList.Add(importedPokemon.ToDomainObject());
+                    }
+                }
             }
             catch (Exception)
             {
