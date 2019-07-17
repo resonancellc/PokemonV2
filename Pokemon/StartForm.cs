@@ -1,46 +1,50 @@
-﻿using Dtos;
-using Pokemon.Factory;
+﻿using Pokemon.Factory;
 using Pokemon.Models;
 using Pokemon.ObjectMappers;
 using Pokemon.Validators;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pokemon
 {
     public partial class StartForm : Form
     {
-        IList<PictureBox> pictures = new List<PictureBox>();
-        IList<IPokemon> pokemonList = new List<IPokemon>();
-        int teamSize = 1;
+        private readonly IList<PictureBox> _pictures;
+        private readonly IList<IPokemon> _pokemonList;
+        private int _teamSize = 1;
 
         public StartForm()
         {
             InitializeComponent();
-            LoadPicturesToList();
-            StartRandomizing(teamSize);
+            _pokemonList = new List<IPokemon>();
+            _pictures = new List<PictureBox>()
+            {
+                pictureBox1,
+                pictureBox2,
+                pictureBox3,
+                pictureBox4,
+                pictureBox5,
+                pictureBox6
+            };
+
+            StartRandomizing(_teamSize);
         }
 
         private void StartRandomizing(int pokeNumber)
         {
-            teamSize = pokeNumber;
+            _teamSize = pokeNumber;
             var levelValidatorResult = LevelValidator.IsLevelValid(tbLevel.Text);
             if (levelValidatorResult == LevelValidatorResult.OK)
             {
-                pokemonList.Clear();
+                _pokemonList.Clear();
 
                 int level = Convert.ToInt32(tbLevel.Text);
 
                 for (int i = 0; i < pokeNumber; i++)
                 {
-                    pokemonList.Add(PokemonFactory.CreatePokemon(level));
+                    _pokemonList.Add(PokemonFactory.CreatePokemon(level));
                 }
 
                 PrepareImages();
@@ -57,24 +61,14 @@ namespace Pokemon
 
         private void PrepareImages()
         {
-            foreach (PictureBox pictureBox in pictures)
+            foreach (PictureBox pictureBox in _pictures)
             {
                 pictureBox.Image = null;
             }
-            for (int i = 0; i < pokemonList.Count; i++)
+            for (int i = 0; i < _pokemonList.Count; i++)
             {
-                pictures[i].Image = ImageHelper.GetImageById(false, pokemonList[i].ID);
+                _pictures[i].Image = ImageHelper.GetImageById(false, _pokemonList[i].ID);
             };
-        }
-
-        private void LoadPicturesToList()
-        {
-            pictures.Add(pictureBox1);
-            pictures.Add(pictureBox2);
-            pictures.Add(pictureBox3);
-            pictures.Add(pictureBox4);
-            pictures.Add(pictureBox5);
-            pictures.Add(pictureBox6);
         }
 
         private void btnRandomize_Click(object sender, EventArgs e)
@@ -86,9 +80,9 @@ namespace Pokemon
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (pokemonList.Any())
+            if (_pokemonList.Any())
             {
-                BattleForm battleForm = new BattleForm(pokemonList, teamSize);
+                BattleForm battleForm = new BattleForm(_pokemonList, _teamSize);
                 battleForm.Show();
                 Hide();
             }
@@ -117,7 +111,7 @@ namespace Pokemon
         {
             try
             {
-                if (pokemonList[0] != null)
+                if (_pokemonList[0] != null)
                 {
                     SaveFileDialog saveFileDialog = new SaveFileDialog()
                     {
@@ -134,7 +128,7 @@ namespace Pokemon
                         return;
                     }
 
-                    PokemonExport pokemonExporter = new PokemonExport(pokemonList, saveFileDialog.FileName);
+                    PokemonExport pokemonExporter = new PokemonExport(_pokemonList, saveFileDialog.FileName);
                     var isExportSuccessful = pokemonExporter.Export();
                     if (isExportSuccessful)
                     {
@@ -176,10 +170,10 @@ namespace Pokemon
                 var importedPokemons = pokemonImport.Import();
                 if (importedPokemons.Any())
                 {
-                    pokemonList.Clear();
+                    _pokemonList.Clear();
                     foreach (var importedPokemon in importedPokemons)
                     {
-                        pokemonList.Add(importedPokemon.ToDomainObject());
+                        _pokemonList.Add(importedPokemon.ToDomainObject());
                     }
 
                     PrepareImages();
