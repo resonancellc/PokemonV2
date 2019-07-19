@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Pokemon.Models
+namespace Dtos
 {
-    public class AdditionalEffect : IAdditionalEffect
+    public class AdditionalEffectDto
     {
         public int ID { get; set; }
 

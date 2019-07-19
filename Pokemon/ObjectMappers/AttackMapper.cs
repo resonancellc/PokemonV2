@@ -1,20 +1,17 @@
 ﻿using Dtos;
-using System;
-using System.Collections.Generic;
+using Pokemon.Models;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon.ObjectMappers
 {
     public static class AttackMapper
     {
-        public static Attack ToDomainObject(this AttackDto dto)
+        public static IAttack ToDomainObject(this AttackDto dto)
         {
             return new Attack
             {
                 Accuracy = dto.Accuracy,
-                //AdditionalEffects = dto.AdditionalEffects,
+                AdditionalEffects = dto.AdditionalEffects.Select(x => x.ToDomainObject()).ToList(),
                 BoostStats = dto.BoostStats,
                 ElementalType = (ElementalType)dto.ElementalType,
                 ID = dto.ID,

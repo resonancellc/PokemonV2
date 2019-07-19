@@ -127,6 +127,7 @@
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="Models\StatsChange.cs" />
     <Compile Include="Models\StatsChangeValidator.cs" />
+    <Compile Include="ObjectMappers\AdditionalEffectMapper.cs" />
     <Compile Include="ObjectMappers\AttackMapper.cs" />
     <Compile Include="ObjectMappers\PokemonMapper.cs" />
     <Compile Include="ObjectMappers\StatsMapper.cs" />

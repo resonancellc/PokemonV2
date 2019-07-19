@@ -1,10 +1,13 @@
 ﻿using Dtos;
+using Pokemon.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Pokemon.ObjectMappers
 {
     public static class PokemonMapper
     {
-        public static Pokemon ToDomainObject(this PokemonDto dto)
+        public static IPokemon ToDomainObject(this PokemonDto dto)
         {
             return new Pokemon
             {
@@ -14,7 +17,7 @@ namespace Pokemon.ObjectMappers
                 HPMax = dto.HPMax,
                 Level = dto.Level,
                 Stats = dto.Stats.ToDomainObject(),
-                Attacks = null, //dto.Attacks.Select(x => x.ToDomainObject()),
+                Attacks = dto.Attacks.Select(x => x.ToDomainObject()).ToList(),
                 Condition = (Condition)dto.Condition,
                 PrimaryTypeID = dto.PrimaryTypeID,
                 SecondaryTypeID = dto.SecondaryTypeID

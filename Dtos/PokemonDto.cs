@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Dtos
 {
@@ -18,15 +14,5 @@ namespace Dtos
         public int Condition { get; set; }
         public int PrimaryTypeID { get; set; }
         public int? SecondaryTypeID { get; set; }
-    }
-
-    public interface IAdditionalEffect
-    {
-        int ID { get; set; }
-        string Name { get; set; }
-        string Description { get; set; }
-        int? PrimaryValue { get; set; }
-        int? SecondaryValue { get; set; }
-        bool IsOnSelf { get; set; }
     }
 }

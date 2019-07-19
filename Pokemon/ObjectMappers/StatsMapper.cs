@@ -1,15 +1,11 @@
 ﻿using Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Pokemon.Models;
 
 namespace Pokemon.ObjectMappers
 {
     public static class StatsMapper
     {
-        public static PokemonStats ToDomainObject(this StatsDto dto)
+        public static IPokemonStats ToDomainObject(this StatsDto dto)
         {
             return new PokemonStats
             {

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dtos
 {
@@ -16,6 +13,6 @@ namespace Dtos
         public string BoostStats { get; set; }
         public int ElementalType { get; set; }
         public bool IsSpecial { get; set; }
-        public ICollection<IAdditionalEffect> AdditionalEffects { get; set; }
+        public ICollection<AdditionalEffectDto> AdditionalEffects { get; set; }
     }
 }
