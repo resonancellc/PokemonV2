@@ -1,9 +1,6 @@
 ﻿using Pokemon.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon.Calculators
 {
@@ -17,7 +14,7 @@ namespace Pokemon.Calculators
             foreach (Pokemon pokemon in pokemonParty)
             {
                 if (pokemon == null) break;
-                sum += (float)pokemon.HPCurrent / (float)pokemon.HPMax;
+                sum += pokemon.HPCurrent / pokemon.HPMax;
             }
 
             winnings = Convert.ToInt32(sum * 100 / pokemonParty.Count());

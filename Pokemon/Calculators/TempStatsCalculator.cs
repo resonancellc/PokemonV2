@@ -1,9 +1,5 @@
 ﻿using Pokemon.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon.Calculators
 {
@@ -45,10 +41,5 @@ namespace Pokemon.Calculators
             int speed = Convert.ToInt32(pokemon.Stats.Speed / conditionMultipler * stageMultipler);
             return speed;
         }
-
-
-
-
-
     }
 }
