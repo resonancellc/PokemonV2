@@ -18,7 +18,7 @@ namespace Pokemon.Factory
         public static IPokemonStats CreateStats(int level, IPokemonStats pokemonBaseStats)
         {
             IPokemonStats pokemonStats = new PokemonStats();
-            pokemonStats = StatsCalculator.CalculateStats(pokemonStats, level, pokemonBaseStats);
+            pokemonStats = StatsCalculator.GetCalculatedStats(pokemonStats, level, pokemonBaseStats);
             return pokemonStats;
         }
     }
