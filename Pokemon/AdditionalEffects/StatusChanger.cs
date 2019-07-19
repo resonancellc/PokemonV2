@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Pokemon.Models;
+﻿using Pokemon.Models;
 using Pokemon.Calculators;
 
 namespace Pokemon.AdditionalEffects
@@ -11,10 +6,15 @@ namespace Pokemon.AdditionalEffects
     public class StatusChanger : IAdditionalEffect
     {
         public int ID { get; set; }
+
         public string Name { get; set; }
+
         public string Description { get; set; }
+
         public int? PrimaryValue { get; set; }
+
         public int? SecondaryValue { get; set; }
+
         public bool IsOnSelf { get; set; }
 
         public void ChangeStatus(IPokemon pokemon)

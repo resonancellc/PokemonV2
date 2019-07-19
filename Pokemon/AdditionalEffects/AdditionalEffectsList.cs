@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Pokemon.Models;
 using Pokemon.Factory;
 using System.Data;
@@ -22,7 +18,5 @@ namespace Pokemon.AdditionalEffects
                 AdditionalEffects.Add(additionalEffect.ID, additionalEffect);
             }
         }
-
-
     }
 }
