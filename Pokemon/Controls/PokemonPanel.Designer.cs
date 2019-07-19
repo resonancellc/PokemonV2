@@ -79,7 +79,6 @@
             this.Controls.Add(this.lblName);
             this.Name = "PokemonPanel";
             this.Size = new System.Drawing.Size(300, 50);
-            this.Load += new System.EventHandler(this.PokemonPanel_Load);
             this.Click += new System.EventHandler(this.PokemonPanel_Click);
             this.DoubleClick += new System.EventHandler(this.PokemonPanel_DoubleClick);
             this.ResumeLayout(false);

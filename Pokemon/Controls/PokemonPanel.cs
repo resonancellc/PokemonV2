@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pokemon.Models;
 
@@ -14,8 +10,10 @@ namespace Pokemon
     public partial class PokemonPanel : UserControl
     {
         public int Index { get; set; }
+
         public bool Selected { get; set; }
-        IPokemon _pokemon;
+
+        private readonly IPokemon _pokemon;
         PokemonPartyForm _parentForm;
 
         public PokemonPanel()
@@ -28,32 +26,27 @@ namespace Pokemon
             InitializeComponent();
 
             _pokemon = pokemon;
-            _parentForm = (PokemonPartyForm)this.Parent;
+            _parentForm = (PokemonPartyForm)Parent;
 
-            this.BackColor = Color.FromArgb(150, 200, 200);
+            BackColor = Color.FromArgb(150, 200, 200);
 
-            this.lblName.Text = pokemon.Name;
-            this.lblLevel.Text = pokemon.Condition == 0 ? pokemon.Level.ToString() + "lvl" : pokemon.Condition.ToString();
-            this.lblHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
-            this.barPkmnHealth.Maximum = pokemon.HPMax;
-            this.barPkmnHealth.Value =  pokemon.HPCurrent > 0 ? pokemon.HPCurrent : 0;
+            lblName.Text = pokemon.Name;
+            lblLevel.Text = pokemon.Condition == 0 ? pokemon.Level.ToString() + "lvl" : pokemon.Condition.ToString();
+            lblHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
+            barPkmnHealth.Maximum = pokemon.HPMax;
+            barPkmnHealth.Value = pokemon.HPCurrent > 0 ? pokemon.HPCurrent : 0;
 
-            this.Selected = false;
-        }
-
-        private void PokemonPanel_Load(object sender, EventArgs e)
-        {
-
+            Selected = false;
         }
 
         private void PokemonPanel_Click(object sender, EventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs)e;
-            if (me.Button == System.Windows.Forms.MouseButtons.Right)
+            if (me.Button == MouseButtons.Right)
             {
                 ShowDetails(((PokemonPanel)sender)._pokemon);
             }
-            _parentForm = (PokemonPartyForm)this.Parent;
+            _parentForm = (PokemonPartyForm)Parent;
             _parentForm.UnselectAll();
             MakePanelSelected(true);
         }
@@ -61,9 +54,8 @@ namespace Pokemon
         private void PokemonPanel_DoubleClick(object sender, EventArgs e)
         {
             Selected = true;
-            _parentForm = (PokemonPartyForm)this.Parent;
-            this.BackColor = Color.FromArgb(255, 200, 200);
-            //PokemonParty.ActivePokemonIndex = ((PokemonPanel)sender).Index;
+            _parentForm = (PokemonPartyForm)Parent;
+            BackColor = Color.FromArgb(255, 200, 200);
             _parentForm.PokemonPicked(_pokemon);
 
             PokemonDetailsForm pokemonDetailsForm = new PokemonDetailsForm();
@@ -77,15 +69,16 @@ namespace Pokemon
         private void MakePanelSelected(bool isSelected)
         {
             Selected = isSelected;
-            if (isSelected) this.BackColor = Color.FromArgb(255, 200, 200);
-            else this.BackColor = Color.FromArgb(150, 200, 200);
+            BackColor = isSelected
+                ? Color.FromArgb(255, 200, 200)
+                : Color.FromArgb(150, 200, 200);
         }
 
         private void ShowDetails(IPokemon pokemon)
         {
-            _parentForm = (PokemonPartyForm)this.Parent;
+            _parentForm = (PokemonPartyForm)Parent;
             PokemonDetailsForm pokemonDetailsForm = new PokemonDetailsForm(pokemon);
-            if (!StaticMain.openedForms.Where(x=>x.Name == pokemonDetailsForm.Name).Any())
+            if (!StaticMain.openedForms.Where(x => x.Name == pokemonDetailsForm.Name).Any())
             {
                 pokemonDetailsForm.Show();
                 pokemonDetailsForm.Location = new Point(_parentForm.Location.X + _parentForm.Width, _parentForm.Location.Y);
@@ -96,7 +89,6 @@ namespace Pokemon
                 pokemonDetailsForm = StaticMain.openedForms.Where(x => x.Name == pokemonDetailsForm.Name).First() as PokemonDetailsForm;
                 pokemonDetailsForm.UpdateData(pokemon);
             }
-            
         }
     }
 }
