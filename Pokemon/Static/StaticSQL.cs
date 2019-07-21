@@ -21,7 +21,7 @@ namespace Pokemon
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
-                    if (parameters.Any())
+                    if (parameters != null && parameters.Any())
                     {
                         foreach (var parameter in parameters)
                         {
