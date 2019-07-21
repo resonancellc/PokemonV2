@@ -2,15 +2,10 @@
 using Pokemon.Factory;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Pokemon.Calculators;
 
 namespace Pokemon
 {
@@ -23,7 +18,7 @@ namespace Pokemon
         IPokemonParty<IPokemon> _enemyParty;
         IEquipment _equipment;
 
-        public BattleForm(IList<IPokemon> pokemonList, int teamSize)
+        public BattleForm(IList<IPokemon> pokemonList, IList<IPokemon> enemyPokemonList)
         {
             InitializeComponent();
 
@@ -32,8 +27,8 @@ namespace Pokemon
             attackButtons[2] = btnAttack3;
             attackButtons[3] = btnAttack4;
 
-            _playerParty = PokemonPartyFactory.CreatePokemonParty(true, pokemonList);
-            _enemyParty = PokemonPartyFactory.CreateEnemyPokemonParty(teamSize, pokemonList.First().Level);
+            _playerParty = PokemonPartyFactory.CreatePokemonParty(pokemonList, true);
+            _enemyParty = PokemonPartyFactory.CreatePokemonParty(enemyPokemonList, false);
             _equipment = EquipmentFactory.CreateEquipment();
         }
 

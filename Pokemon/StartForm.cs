@@ -13,12 +13,14 @@ namespace Pokemon
     {
         private readonly IList<PictureBox> _pictures;
         private readonly IList<IPokemon> _pokemonList;
+        private readonly IList<IPokemon> _enemyPokemonList;
         private int _teamSize = 1;
 
         public StartForm()
         {
             InitializeComponent();
             _pokemonList = new List<IPokemon>();
+            _enemyPokemonList = new List<IPokemon>();
             _pictures = new List<PictureBox>()
             {
                 pictureBox1,
@@ -35,16 +37,19 @@ namespace Pokemon
         private void StartRandomizing(int pokeNumber)
         {
             _teamSize = pokeNumber;
+            
             var levelValidatorResult = LevelValidator.IsLevelValid(tbLevel.Text);
             if (levelValidatorResult == LevelValidatorResult.OK)
             {
                 _pokemonList.Clear();
+                _enemyPokemonList.Clear();
 
                 int level = Convert.ToInt32(tbLevel.Text);
 
                 for (int i = 0; i < pokeNumber; i++)
                 {
                     _pokemonList.Add(PokemonFactory.CreatePokemon(level));
+                    _enemyPokemonList.Add(PokemonFactory.CreatePokemon(level));
                 }
 
                 PrepareImages();
@@ -82,7 +87,7 @@ namespace Pokemon
         {
             if (_pokemonList.Any())
             {
-                BattleForm battleForm = new BattleForm(_pokemonList, _teamSize);
+                BattleForm battleForm = new BattleForm(_pokemonList, _enemyPokemonList);
                 battleForm.Show();
                 Hide();
             }
