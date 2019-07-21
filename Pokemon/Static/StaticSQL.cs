@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon
 {
@@ -17,13 +14,21 @@ namespace Pokemon
             ConnectionString = conn;
         }
 
-        private static DataTable ExecuteSQLQuery(string query)
+        private static DataTable ExecuteSQLQuery(string query, Dictionary<string, object> parameters = null)
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
+                    if (parameters.Any())
+                    {
+                        foreach (var parameter in parameters)
+                        {
+                            cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
+                        }
+                    }
+
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
                     {
                         using (DataSet ds = new DataSet())
@@ -39,21 +44,15 @@ namespace Pokemon
 
         public static DataTable GetPokemons()
         {
-            return ExecuteSQLQuery(@"SELECT 
-                                        Pokemons.ID, 
-                                        Pokemons.Name, 
-                                        BaseStats.Health, 
-                                        BaseStats.Attack,
-                                        BaseStats.Defence,
-                                        BaseStats.SpecialAttack,
-                                        BaseStats.SpecialDefence,
-                                        BaseStats.Speed,
-                                        BaseStats.PrimaryTypeID,
-                                        BaseStats.SecondaryTypeID,
-                                        BaseStats.MinimalLevel
-                                     FROM Pokemons 
-                                     INNER JOIN BaseStats ON Pokemons.ID = BaseStats.ID 
-                                     ORDER BY Pokemons.ID ASC");
+            string sql = 
+                @"SELECT Pokemons.ID, Pokemons.Name, BaseStats.Health, BaseStats.Attack,
+                    BaseStats.Defence, BaseStats.SpecialAttack, BaseStats.SpecialDefence,
+                    BaseStats.Speed, BaseStats.PrimaryTypeID, BaseStats.SecondaryTypeID, BaseStats.MinimalLevel 
+                FROM Pokemons 
+                INNER JOIN BaseStats ON Pokemons.ID = BaseStats.ID 
+                ORDER BY Pokemons.ID ASC";
+
+            return ExecuteSQLQuery(sql);
         }
 
         public static DataTable GetAttackByName(string attackName)
@@ -62,144 +61,74 @@ namespace Pokemon
                 @"SELECT Attacks.ID, Attacks.[Name], Attacks.[Power],
                 Attacks.Accuracy, Attacks.BoostStats, Attacks.TypeID, Attacks.IsSpecial 
                 FROM Attacks
-                WHERE Attacks.ID = @ID";
+                WHERE Attacks.Name = @attackName";
 
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            var parameters = new Dictionary<string, object>
             {
-                using (SqlCommand cmd = new SqlCommand(sql, con))
-                {
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@ID", attackName);
+                { "@attackName", attackName }
+            };
 
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                    {
-                        using (DataSet ds = new DataSet())
-                        {
-                            sda.Fill(ds);
-                            DataTable data = ds.Tables[0];
-                            return data;
-                        }
-                    }
-                }
-            }
+            return ExecuteSQLQuery(sql, parameters);
         }
 
         public static DataTable GetAttacks()
         {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(@"SELECT 
-                                                            Attacks.ID,
-                                                            Attacks.[Name],
-                                                            Attacks.[Power],
-                                                            Attacks.Accuracy,
-                                                            Attacks.BoostStats,
-                                                            Attacks.TypeID,
-                                                            Attacks.IsSpecial
-                                                         FROM Attacks", con))
-                {
+            string sql =
+                @"SELECT Attacks.ID, Attacks.[Name], Attacks.[Power],
+                Attacks.Accuracy, Attacks.BoostStats, Attacks.TypeID, Attacks.IsSpecial
+                FROM Attacks";
 
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                    {
-                        using (DataSet ds = new DataSet())
-                        {
-                            sda.Fill(ds);
-                            DataTable data = ds.Tables[0];
-                            return data;
-                        }
-                    }
-                }
-            }
+            return ExecuteSQLQuery(sql);
         }
 
         public static DataTable GetAdditionalEffects()
         {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(@"SELECT 
-                                                               [ID]
-                                                              ,[Name]
-                                                              ,[Description]
-                                                              ,[PrimaryParameter]
-                                                              ,[SecondaryParameter]
-                                                              ,[IsOnSelf]
-                                                          FROM [Pokemon].[dbo].[AdditionalEffects]", con))
-                {
+            string sql =
+                @"SELECT [ID], [Name], [Description],
+                [PrimaryParameter], [SecondaryParameter], [IsOnSelf]
+                FROM [Pokemon].[dbo].[AdditionalEffects]";
 
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                    {
-                        using (DataSet ds = new DataSet())
-                        {
-                            sda.Fill(ds);
-                            DataTable data = ds.Tables[0];
-                            return data;
-                        }
-                    }
-                }
-            }
+            return ExecuteSQLQuery(sql);
         }
 
         public static DataTable GetPokemonAttacks(int pokemonID)
         {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(@"SELECT 
-                                                            Attacks.ID,
-                                                            Attacks.[Name],
-                                                            Attacks.[Power],
-                                                            Attacks.Accuracy,
-                                                            Attacks.BoostStats,
-                                                            Attacks.TypeID,
-                                                            Attacks.IsSpecial,
-                                                            AttackPools.[Level]
-                                                         FROM AttackPools
-                                                         INNER JOIN Attacks ON AttackPools.AttackID = Attacks.ID 
-                                                         WHERE PokemonID = @ID", con))
-                {
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@ID", pokemonID);
+            string sql =
+                @"SELECT Attacks.ID, Attacks.[Name], Attacks.[Power], Attacks.Accuracy,
+                Attacks.BoostStats, Attacks.TypeID, Attacks.IsSpecial, AttackPools.[Level] 
+                FROM AttackPools
+                INNER JOIN Attacks ON AttackPools.AttackID = Attacks.ID
+                WHERE PokemonID = @ID";
 
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                    {
-                        using (DataSet ds = new DataSet())
-                        {
-                            sda.Fill(ds);
-                            DataTable data = ds.Tables[0];
-                            return data;
-                        }
-                    }
-                }
-            }
+            var parameters = new Dictionary<string, object>()
+            {
+                { "@ID" , pokemonID }
+            };
+
+            return ExecuteSQLQuery(sql, parameters);
         }
 
         public static DataTable GetAttackAdditionalEffectIDs(int attackID)
         {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(@"SELECT 
-                                                            AdditionalEffectID
-                                                         FROM Attacks_AdditionalEffects 
-                                                         WHERE AttackId = @ID", con))
-                {
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@ID", attackID);
+            string sql =
+                @"SELECT AdditionalEffectID
+                FROM Attacks_AdditionalEffects
+                WHERE AttackId = @ID";
 
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                    {
-                        using (DataSet ds = new DataSet())
-                        {
-                            sda.Fill(ds);
-                            DataTable data = ds.Tables[0];
-                            return data;
-                        }
-                    }
-                }
-            }
+            var parameters = new Dictionary<string, object>()
+            {
+                { "@ID", attackID }
+            };
+
+            return ExecuteSQLQuery(sql, parameters);
         }
 
         public static DataTable GetItemList()
         {
-            return ExecuteSQLQuery("SELECT ID, Name, Description, Cost FROM Items");
+            string sql =
+                @"SELECT ID, Name, Description, Cost FROM Items";
+
+            return ExecuteSQLQuery(sql);
         }
     }
 }
