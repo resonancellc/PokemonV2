@@ -56,6 +56,34 @@ namespace Pokemon
                                      ORDER BY Pokemons.ID ASC");
         }
 
+        public static DataTable GetAttackByName(string attackName)
+        {
+            string sql =
+                @"SELECT Attacks.ID, Attacks.[Name], Attacks.[Power],
+                Attacks.Accuracy, Attacks.BoostStats, Attacks.TypeID, Attacks.IsSpecial 
+                FROM Attacks
+                WHERE Attacks.ID = @ID";
+
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@ID", attackName);
+
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        using (DataSet ds = new DataSet())
+                        {
+                            sda.Fill(ds);
+                            DataTable data = ds.Tables[0];
+                            return data;
+                        }
+                    }
+                }
+            }
+        }
+
         public static DataTable GetAttacks()
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
