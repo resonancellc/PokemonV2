@@ -40,7 +40,7 @@ namespace Pokemon.Factory
             }
 
             pokemon.Level = level;
-            pokemon.Stats = PokemonStatsFactory.CreateStats(level, pokemon.Stats);
+            pokemon.Stats = PokemonStatsFactory.CreateStats(pokemon.Stats, level);
             pokemon.HPCurrent = pokemon.HPMax = pokemon.Stats.Health;
             pokemon.Attacks = PokemonAttacksFactory.GetAttacks(pokemon);
 

@@ -1,10 +1,5 @@
 ﻿using Pokemon.Calculators;
 using Pokemon.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon.Factory
 {
@@ -15,11 +10,9 @@ namespace Pokemon.Factory
             return new PokemonStats();
         }
 
-        public static IPokemonStats CreateStats(int level, IPokemonStats pokemonBaseStats)
+        public static IPokemonStats CreateStats(IPokemonStats pokemonBaseStats, int level)
         {
-            IPokemonStats pokemonStats = new PokemonStats();
-            pokemonStats = StatsCalculator.GetCalculatedStats(pokemonStats, level, pokemonBaseStats);
-            return pokemonStats;
+            return StatsCalculator.GetCalculatedStats(pokemonBaseStats, level);
         }
     }
 }
