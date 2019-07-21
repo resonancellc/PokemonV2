@@ -1,10 +1,5 @@
-﻿using Pokemon.Factory;
-using Pokemon.Models;
-using System;
-using System.Collections.Generic;
+﻿using Pokemon.Models;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon.Factory
 {
@@ -12,9 +7,11 @@ namespace Pokemon.Factory
     {
         public static IPokemon CreatePokemon()
         {
-            IPokemon pokemon = new Pokemon();
-            pokemon.Stats = PokemonStatsFactory.CreateStats();
-            pokemon.Attacks = PokemonAttacksFactory.CreateAttacks();
+            IPokemon pokemon = new Pokemon
+            {
+                Stats = PokemonStatsFactory.CreateStats(),
+                Attacks = PokemonAttacksFactory.CreateAttacks()
+            };
             return pokemon;
         }
 
@@ -22,57 +19,29 @@ namespace Pokemon.Factory
         {
             IPokemon pokemon;
             level = level < 1 || level > 100 ? 5 : level;
-            //PlayerID
+
             if (id != 0)
             {
-                // obtaining the one specific pokemon
                 id = PokemonList.Pokemons.Any(p => p.Key == id) ? id : 1;
-                pokemon = (IPokemon)PokemonList.Pokemons.Where(p => p.Key == id).FirstOrDefault().Value.Clone();
+
+                 pokemon = (IPokemon)PokemonList.Pokemons
+                    .Where(p => p.Key == id)
+                    .First()
+                    .Value
+                    .Clone();
             }
             else
             {
-                // filtering the overall list of pokemons by level, we don't want lvl 5 charizard
                 var availablePokemons = PokemonList.Pokemons.Where(p => p.Value.MinimalLevel <= level);
-                // selecting random entry from filtred list
                 pokemon = (IPokemon)availablePokemons
                             .ElementAt(GenerateRandomNumber.GetRandomNumber(0, availablePokemons.Count()))
-                            .Value.Clone();
+                            .Value
+                            .Clone();
             }
 
             pokemon.Level = level;
             pokemon.Stats = PokemonStatsFactory.CreateStats(level, pokemon.Stats);
             pokemon.HPCurrent = pokemon.HPMax = pokemon.Stats.Health;
-
-            pokemon.Attacks = PokemonAttacksFactory.GetAttacks(pokemon);
-
-            return pokemon;
-        }
-
-        public static IPokemon CreatePokemon(int level, int id, bool enemy = true)
-        {
-            IPokemon pokemon;
-            if (id > 0)
-            {
-                // obtaining the one specific pokemon
-                id = PokemonList.Pokemons.Any(p => p.Key != id) ? 1 : id;
-                
-                pokemon = (IPokemon)PokemonList.Pokemons.Where(p => p.Key == id).FirstOrDefault().Value.Clone();
-                
-            }
-            else
-            {
-                // filtering the overall list of pokemons by level, we don't want lvl 5 charizard
-                var availablePokemons = PokemonList.Pokemons.Where(p => p.Value.MinimalLevel <= level);
-                // selecting random entry from filtred list
-                pokemon = (IPokemon)availablePokemons
-                            .ElementAt(GenerateRandomNumber.GetRandomNumber(0, availablePokemons.Count()))
-                            .Value.Clone();
-            }
-
-            pokemon.Level = level;
-            pokemon.Stats = PokemonStatsFactory.CreateStats(level, pokemon.Stats);
-            pokemon.HPCurrent = pokemon.HPMax = pokemon.Stats.Health;
-
             pokemon.Attacks = PokemonAttacksFactory.GetAttacks(pokemon);
 
             return pokemon;
