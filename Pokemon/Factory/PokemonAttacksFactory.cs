@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon.Factory
 {
@@ -16,13 +14,12 @@ namespace Pokemon.Factory
 
         public static IAttack CreateAttack(string attackName)
         {
-            IAttack attack = CreateAttack();
-
-            attack.Power = 40;
-            attack.Accuracy = 100;
-            attack.ElementalType = 0;
-
-            return attack;
+            return new Attack() 
+            {
+                Power = 40,
+                Accuracy = 100,
+                ElementalType = 0,
+            };
         }
 
         public static IList<IAttack> CreateAttacks()
