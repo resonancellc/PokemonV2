@@ -87,7 +87,10 @@ namespace Pokemon
         {
             if (_pokemonList.Any())
             {
-                BattleForm battleForm = new BattleForm(_pokemonList, _enemyPokemonList);
+                var playerParty = PokemonPartyFactory.CreatePokemonParty(_pokemonList, true);
+                var enemyParty = PokemonPartyFactory.CreatePokemonParty(_enemyPokemonList, true);
+
+                BattleForm battleForm = new BattleForm(playerParty, enemyParty);
                 battleForm.Show();
                 Hide();
             }

@@ -18,7 +18,7 @@ namespace Pokemon
         IPokemonParty<IPokemon> _enemyParty;
         IEquipment _equipment;
 
-        public BattleForm(IList<IPokemon> pokemonList, IList<IPokemon> enemyPokemonList)
+        public BattleForm(IPokemonParty<IPokemon> pokemonParty, IPokemonParty<IPokemon> enemyPokemonParty)
         {
             InitializeComponent();
 
@@ -27,8 +27,8 @@ namespace Pokemon
             attackButtons[2] = btnAttack3;
             attackButtons[3] = btnAttack4;
 
-            _playerParty = PokemonPartyFactory.CreatePokemonParty(pokemonList, true);
-            _enemyParty = PokemonPartyFactory.CreatePokemonParty(enemyPokemonList, false);
+            _playerParty = pokemonParty;
+            _enemyParty = enemyPokemonParty;
             _equipment = EquipmentFactory.CreateEquipment();
         }
 
