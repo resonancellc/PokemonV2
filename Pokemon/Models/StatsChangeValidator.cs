@@ -12,11 +12,11 @@ namespace Pokemon.Models
         private readonly StatType _statType;
         private readonly int _stageValue;
 
-        public StatsChangeValidator(StatsChange statsChange)
+        public StatsChangeValidator(IPokemon affectedPokemon, StatsBoost statsBoost)
         {
-            _affectedPokemon = statsChange.AffectedPokemon;
-            _statType = statsChange.StatType;
-            _stageValue = statsChange.StageValue;
+            _affectedPokemon = affectedPokemon;
+            _statType = statsBoost.StatType;
+            _stageValue = statsBoost.Value;
         }
 
         public bool StatChangePossible()
