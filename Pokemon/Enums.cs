@@ -93,4 +93,10 @@ namespace Pokemon
         NotInRange,
         InvalidFormat
     }
+
+    public enum Target
+    {
+        Self,
+        Enemy
+    }
 }
