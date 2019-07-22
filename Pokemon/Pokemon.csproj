@@ -112,6 +112,7 @@
     <Compile Include="BattleForm.Designer.cs">
       <DependentUpon>BattleForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\StatsBoost.cs" />
     <Compile Include="Models\EnemyPokemonParty.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\EquipmentItem.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Models\StatsChangeValidator.cs" />
     <Compile Include="ObjectMappers\AdditionalEffectMapper.cs" />
     <Compile Include="ObjectMappers\AttackMapper.cs" />
+    <Compile Include="ObjectMappers\StatsBoostMapper.cs" />
     <Compile Include="ObjectMappers\PokemonMapper.cs" />
     <Compile Include="ObjectMappers\StatsMapper.cs" />
     <Compile Include="PokemonDetailsForm.cs">
