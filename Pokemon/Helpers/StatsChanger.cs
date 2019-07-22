@@ -1,5 +1,5 @@
 ﻿using Pokemon.Models;
-using System;
+using Pokemon.ObjectMappers;
 
 namespace Pokemon.Helpers
 {
@@ -8,35 +8,28 @@ namespace Pokemon.Helpers
         public static void ChangeTempStats(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
         {
             string[] boosts = attack.BoostStats.SplitBoosts();
-            foreach (string boost in boosts)
+            foreach (string boostString in boosts)
             {
-                string[] attributes = boost.SplitAttributes();
-                if (attributes.Length > 0)
+                StatsBoost statsBoost = StatsBoostMapper.ToDomainObject(boostString);
+                IPokemon affectedPokemon = statsBoost.Target == Target.Self ? attackingPokemon : targetPokemon;
+                StatsChangeValidator statsChangeValidator = new StatsChangeValidator(
+                    affectedPokemon,
+                    statsBoost);
+
+                if (statsChangeValidator.StatChangePossible())
                 {
-                    StatsChange statsChange = new StatsChange()
-                    {
-                        AffectedPokemon = attributes[0] == "enemy" ? targetPokemon : attackingPokemon,
-                        StatType = (StatType)Int32.Parse(attributes[1]),
-                        StageValue = Int32.Parse(attributes[2])
-                    };
-
-                    StatsChangeValidator statsChangeValidator = new StatsChangeValidator(statsChange);
-
-                    if (statsChangeValidator.StatChangePossible())
-                    {
-                        ChangeTempPokemonStats(statsChange);
-                    }
-                    else
-                    {
-                        BattleLog.AppendText($"{statsChange.AffectedPokemon.Name} {statsChange.StatType.ToString()} cannot go any higher");
-                    }
+                    ChangeTempPokemonStats(affectedPokemon, statsBoost);
+                }
+                else
+                {
+                    BattleLog.AppendText($"{affectedPokemon.Name} {statsBoost.StatType.ToString()} cannot go any higher");
                 }
             }
         }
 
-        public static void ChangeTempPokemonStats(StatsChange statsChange)
+        public static void ChangeTempPokemonStats(IPokemon affectedPokemon, StatsBoost statsBoost)
         {
-            statsChange.AffectedPokemon.StatModifierStages[(int)statsChange.StatType] += statsChange.StageValue;
+            affectedPokemon.StatModifierStages[(int)statsBoost.StatType] += statsBoost.Value;
         }
     }
 }
