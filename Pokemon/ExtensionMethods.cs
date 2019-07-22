@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pokemon.Models;
+using System;
 
 namespace Pokemon
 {
@@ -7,11 +8,6 @@ namespace Pokemon
         public static string[] SplitBoosts(this string boosts)
         {
             return boosts.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-        }
-
-        public static string[] SplitAttributes(this string boost)
-        {
-            return boost.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }
