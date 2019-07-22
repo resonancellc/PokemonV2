@@ -1,5 +1,4 @@
-﻿using Pokemon.Models;
-using System;
+﻿using System;
 
 namespace Pokemon
 {
