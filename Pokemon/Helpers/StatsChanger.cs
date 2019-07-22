@@ -13,7 +13,6 @@ namespace Pokemon.Helpers
                 string[] attributes = boost.SplitAttributes();
                 if (attributes.Length > 0)
                 {
-
                     StatsChange statsChange = new StatsChange()
                     {
                         AffectedPokemon = attributes[0] == "enemy" ? targetPokemon : attackingPokemon,

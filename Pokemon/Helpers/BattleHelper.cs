@@ -1,12 +1,7 @@
 ﻿using Pokemon.AdditionalEffects;
 using Pokemon.Calculators;
-using Pokemon.Factory;
 using Pokemon.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon
 {
@@ -31,24 +26,21 @@ namespace Pokemon
             return true;
         }
 
-        public static bool IsMiss(IAttack attack)
-        {
-            return !ChanceCalculator.CalculateChance(attack.Accuracy.Value);
-        }
+        public static bool IsMiss(IAttack attack) => !ChanceCalculator.CalculateChance(attack.Accuracy.Value);
 
-        public static bool HasFailedConfusion(IPokemon attackingPokemon)
-        {
-            if (!attackingPokemon.IsConfused) return false;
-            return ChanceCalculator.CalculateChance(50, 100);
-        }
+        public static bool HasFailedConfusion(IPokemon attackingPokemon) => ChanceCalculator.CalculateChance(50, 100);
 
-        public static bool IsCritical(IAttack attack, IPokemon attackingPokemon)
+        public static bool IsCritical(ICollection<IAdditionalEffect> attackAdditionalEffects, bool isAttackingPokemonFocused)
         {
-            int boostCrit = attackingPokemon.IsEnergyFocused ? 20 : 0;
-            if (AdditionalEffectAvailability.ContainsEffectType(attack.AdditionalEffects, typeof(HighCriticalRatio)))
+            int boostCrit = isAttackingPokemonFocused ? 20 : 0;
+            if (AdditionalEffectAvailability.ContainsEffectType(attackAdditionalEffects, typeof(HighCriticalRatio)))
+            {
                 return ChanceCalculator.CalculateChance(21 + boostCrit, 255);
+            }
             else
+            {
                 return ChanceCalculator.CalculateChance(1 + boostCrit, 255);
+            }
         }
 
         public static bool IsAbleToAttackAfterConditionEffect(IPokemon pokemon)
@@ -89,11 +81,10 @@ namespace Pokemon
                     }
                     BattleLog.AppendText($"{pokemon.Name} is still sleeping");
                     return false;
+
                 default:
                     return true;
             }
         }
-        
-
     }
 }

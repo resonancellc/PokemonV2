@@ -1,9 +1,5 @@
 ﻿using Pokemon.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon
 {
@@ -34,7 +30,6 @@ namespace Pokemon
 
         public static void UseItem(IPokemon pokemon, int itemId)
         {
-            //Equipment.playerItems[itemId]--;
             switch (itemId)
             {
                 case 1: //potion
@@ -52,11 +47,6 @@ namespace Pokemon
             }
         }
 
-        public static string GetItemNameByID(int ID)
-        {
-           return ItemsList.Items.Where(i => i.Key == ID).First().Value.Name;
-        }
-
-
+        public static string GetItemNameByID(int ID) => ItemsList.Items.Where(i => i.Key == ID).First().Value.Name;
     }
 }

@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pokemon
+﻿namespace Pokemon
 {
     public static class StageHelper
     {
-        /// <summary>
-        /// Converts stage to multipler
-        /// </summary>
-        /// <param name="stage"></param>
-        /// <returns>Multipler</returns>
         public static float StageToMultipler(int stage)
         {
             float value = 1;

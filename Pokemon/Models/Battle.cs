@@ -34,7 +34,7 @@ namespace Pokemon
             }
 
             // pokemon is confused and failed confusion test - he damaged himself and is not able to perform given attack
-            if (BattleHelper.HasFailedConfusion(attackingPokemon))
+            if (attackingPokemon.IsConfused && BattleHelper.HasFailedConfusion(attackingPokemon))
             {
                 IAttack confusionHit = PokemonAttacksFactory.CreateAttack("ConfusionHit");
                 int damage = DamageCalculator.CalculateAttackDamage(confusionHit, attackingPokemon, attackingPokemon);
@@ -75,7 +75,7 @@ namespace Pokemon
             {
                 damage = DamageCalculator.CalculateAttackDamage(attack, attackingPokemon, targetPokemon);
                 if (damage < 1) damage = 1;
-                if (BattleHelper.IsCritical(attack, attackingPokemon))
+                if (BattleHelper.IsCritical(attack.AdditionalEffects, attackingPokemon.IsEnergyFocused))
                 {
                     damage *= 2;
                     BattleLog.AppendText("Critical hit!");
