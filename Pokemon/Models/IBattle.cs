@@ -1,6 +1,4 @@
-﻿using Pokemon.Models;
-
-namespace Pokemon
+﻿namespace Pokemon.Models
 {
     public interface IBattle
     {

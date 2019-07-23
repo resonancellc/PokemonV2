@@ -1,4 +1,4 @@
-﻿namespace Pokemon
+﻿namespace Pokemon.Models
 {
     public class EquipmentItem : IEquipmentItem
     {

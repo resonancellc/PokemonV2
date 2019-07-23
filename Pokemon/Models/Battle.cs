@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-using Pokemon.Models;
 using Pokemon.Factory;
 using Pokemon.AdditionalEffects;
 using Pokemon.Calculators;
 using Pokemon.Helpers;
 
-namespace Pokemon
+namespace Pokemon.Models
 {
     public class Battle : IBattle
     {

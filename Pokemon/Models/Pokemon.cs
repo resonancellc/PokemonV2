@@ -1,10 +1,9 @@
 ﻿using Pokemon.Factory;
-using Pokemon.Models;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace Pokemon
+namespace Pokemon.Models
 {
     [DataContract]
     public class Pokemon : IPokemon

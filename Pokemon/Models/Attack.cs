@@ -1,7 +1,6 @@
-﻿using Pokemon.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Pokemon
+namespace Pokemon.Models
 {
     public class Attack : IAttack
     {
