@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Linq;
 using Pokemon.Models;
 using Pokemon.Factory;
 using Pokemon.AdditionalEffects;
@@ -15,45 +10,44 @@ namespace Pokemon
     public class Battle : IBattle
     {
         public IPokemon PlayerPokemon { get; set; }
+
         public IPokemon EnemyPokemon { get; set; }
 
         public Battle(IPokemon pokemon, IPokemon enemyPokemon)
         {
-            this.PlayerPokemon = pokemon;
-            this.EnemyPokemon = enemyPokemon;
+            PlayerPokemon = pokemon;
+            EnemyPokemon = enemyPokemon;
         }
 
         public void PreparePokemonAttack(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
         {
-            // pokemon is scared to attack
             if (attackingPokemon.IsFlinched)
             {
                 attackingPokemon.IsFlinched = false;
                 BattleLog.AppendText($"{attackingPokemon.Name} is flinched");
                 return;
             }
-
-            // pokemon is confused and failed confusion test - he damaged himself and is not able to perform given attack
+            
             if (attackingPokemon.IsConfused && BattleHelper.HasFailedConfusion(attackingPokemon))
             {
-                IAttack confusionHit = PokemonAttacksFactory.CreateAttack("ConfusionHit");
+                var confusionHit = PokemonAttacksFactory.CreateAttack("ConfusionHit");
                 int damage = DamageCalculator.CalculateAttackDamage(confusionHit, attackingPokemon, attackingPokemon);
                 attackingPokemon.Hurt(damage);
                 BattleLog.AppendText($"{attackingPokemon.Name} hurts itself in its confusion");
                 return;
             }
 
-            // pokemon is not able to attack after applying condition effects - sleeping or dead for example
-            if (!BattleHelper.IsAbleToAttackAfterConditionEffect(attackingPokemon)) return;
+            if (!BattleHelper.IsAbleToAttackAfterConditionEffect(attackingPokemon))
+            {
+                return;
+            }
 
-            // pokemon dind't use attack that always hits and missed
             if(!attack.AdditionalEffects.ContainsEffectType(typeof(AlwaysHits)) && BattleHelper.IsMiss(attack))
             {
                 BattleLog.AppendText($"{attackingPokemon.Name} missed!");
                 return;
             }
-
-            // If you reached that part that means you succesfully attacked opposite pokemon! :)
+            
             BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
             PerformPokemonAttack(attack, attackingPokemon, targetPokemon);
 
@@ -74,15 +68,18 @@ namespace Pokemon
             if (damage == 0 && attack.Power.HasValue)
             {
                 damage = DamageCalculator.CalculateAttackDamage(attack, attackingPokemon, targetPokemon);
-                if (damage < 1) damage = 1;
+                if (damage < 1)
+                {
+                    damage = 1;
+
+                }
                 if (BattleHelper.IsCritical(attack.AdditionalEffects, attackingPokemon.IsEnergyFocused))
                 {
                     damage *= 2;
                     BattleLog.AppendText("Critical hit!");
                 }
             }
-
-            // post attack effects
+            
             if (AdditionalEffectAvailability.ContainsEffectType(attack.AdditionalEffects, typeof(CritBoosting)))
             {
                 if (attack.AdditionalEffects.Any(e => e.ID == (int)AdditionalEffectEnum.BoostCriticalSelf))

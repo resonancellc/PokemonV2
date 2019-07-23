@@ -1,13 +1,8 @@
 ﻿using Pokemon.Factory;
 using Pokemon.Models;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon
 {
@@ -63,19 +58,20 @@ namespace Pokemon
         {
             HPCurrent -= value;
         }
+
         public void Heal(int value)
         {
             if (HPCurrent + value > HPMax)
+            {
                 HPCurrent = HPMax;
+            }
             else
+            {
                 HPCurrent += value;
+            }
         }
 
-        public bool IsPokemonAlive()
-        {
-            if (HPCurrent > 0) return true;  
-            return false;
-        }
+        public bool IsPokemonAlive() => HPCurrent > 0;
 
         public void ResetStats()
         {

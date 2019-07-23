@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon.Models
 {
@@ -24,15 +22,9 @@ namespace Pokemon.Models
             return pokemon;
         }
 
-        public IPokemon GetPokemonByIndex(int index)
-        {
-            return Pokemons[index];
-        }
+        public IPokemon GetPokemonByIndex(int index) => Pokemons[index];
 
-        public bool IsAnyPokemonAlive()
-        {
-            return Pokemons.Any(p => p.HPCurrent > 0);
-        }
+        public bool IsAnyPokemonAlive() => Pokemons.Any(p => p.HPCurrent > 0);
 
         public void ResetParty()
         {
