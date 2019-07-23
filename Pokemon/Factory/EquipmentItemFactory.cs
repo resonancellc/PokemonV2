@@ -1,4 +1,6 @@
-﻿namespace Pokemon.Factory
+﻿using Pokemon.Models;
+
+namespace Pokemon.Factory
 {
     public static class EquipmentItemFactory
     {

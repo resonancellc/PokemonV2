@@ -1,4 +1,5 @@
 ﻿using Pokemon.Factory;
+using Pokemon.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
