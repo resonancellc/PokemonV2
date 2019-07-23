@@ -1,6 +1,5 @@
 ﻿using Dtos;
 using Pokemon.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Pokemon.ObjectMappers
@@ -9,7 +8,7 @@ namespace Pokemon.ObjectMappers
     {
         public static IPokemon ToDomainObject(this PokemonDto dto)
         {
-            return new Pokemon
+            return new Models.Pokemon
             {
                 ID = dto.ID,
                 Name = dto.Name,

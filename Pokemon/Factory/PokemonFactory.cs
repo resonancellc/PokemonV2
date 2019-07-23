@@ -7,7 +7,7 @@ namespace Pokemon.Factory
     {
         public static IPokemon CreatePokemon()
         {
-            IPokemon pokemon = new Pokemon
+            IPokemon pokemon = new Models.Pokemon
             {
                 Stats = PokemonStatsFactory.CreateStats(),
                 Attacks = PokemonAttacksFactory.CreateAttacks()

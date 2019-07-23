@@ -11,7 +11,7 @@ namespace Pokemon.Calculators
             float sum = 0;
             int winnings = 0;
 
-            foreach (Pokemon pokemon in pokemonParty)
+            foreach (var pokemon in pokemonParty)
             {
                 if (pokemon == null) break;
                 sum += pokemon.HPCurrent / pokemon.HPMax;
