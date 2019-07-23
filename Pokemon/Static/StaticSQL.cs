@@ -17,27 +17,23 @@ namespace Pokemon
         private static DataTable ExecuteSQLQuery(string query, Dictionary<string, object> parameters = null)
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlCommand cmd = new SqlCommand(query, con))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                cmd.CommandType = CommandType.Text;
+                if (parameters != null && parameters.Any())
                 {
-                    cmd.CommandType = CommandType.Text;
-                    if (parameters != null && parameters.Any())
+                    foreach (var parameter in parameters)
                     {
-                        foreach (var parameter in parameters)
-                        {
-                            cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
-                        }
+                        cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
                     }
+                }
 
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                    {
-                        using (DataSet ds = new DataSet())
-                        {
-                            sda.Fill(ds);
-                            DataTable data = ds.Tables[0];
-                            return data;
-                        }
-                    }
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                using (DataSet ds = new DataSet())
+                {
+                    sda.Fill(ds);
+                    DataTable data = ds.Tables[0];
+                    return data;
                 }
             }
         }
