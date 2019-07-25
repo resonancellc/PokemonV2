@@ -81,7 +81,8 @@ namespace Pokemon
 
         public static List<AdditionalEffect> GetAdditionalEffects()
         {
-            string sql = @"SELECT * FROM AdditionalEffects";
+            string sql = 
+                @"SELECT * FROM AdditionalEffects";
 
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
@@ -106,19 +107,17 @@ namespace Pokemon
             return ExecuteSQLQuery(sql, parameters);
         }
 
-        public static DataTable GetAttackAdditionalEffectIDs(int attackID)
+        public static List<int> GetAttackAdditionalEffectIDs(int ID)
         {
             string sql =
                 @"SELECT AdditionalEffectID
                 FROM Attacks_AdditionalEffects
                 WHERE AttackId = @ID";
 
-            var parameters = new Dictionary<string, object>()
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                { "@ID", attackID }
-            };
-
-            return ExecuteSQLQuery(sql, parameters);
+                return db.Query<int>(sql, new { ID }).ToList();
+            }
         }
 
         public static DataTable GetItemList()

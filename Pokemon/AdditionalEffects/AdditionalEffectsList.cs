@@ -16,5 +16,19 @@ namespace Pokemon.AdditionalEffects
                 .Select(AdditionalEffectFactory.CreateAdditionalEffect)
                 .ToDictionary(e => e.ID, e => e);
         }
+
+        public static ICollection<IAdditionalEffect> GetAdditionalEffects(int attackID)
+        {
+            var additionalEffectIds = StaticSQL.GetAttackAdditionalEffectIDs(attackID);
+            if (!additionalEffectIds.Any())
+            {
+                return null;
+            }
+
+            return AdditionalEffects
+                .Where(t => additionalEffectIds.IndexOf(t.Key) != -1)
+                .Select(x => x.Value)
+                .ToList();
+        }
     }
 }

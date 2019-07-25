@@ -1,4 +1,5 @@
-﻿using Pokemon.Factory;
+﻿using Pokemon.AdditionalEffects;
+using Pokemon.Factory;
 using Pokemon.Models;
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace Pokemon
                     attack.IsSpecial = (bool)values[6];
                     attack.Level = (int)values[7];
 
-                    attack.AdditionalEffects = AdditionalEffectFactory.GetAdditionalEffects(attack.ID);
+                    attack.AdditionalEffects = AdditionalEffectsList.GetAdditionalEffects(attack.ID);
 
                     pokemon.Attacks.Add(attack);
                 }

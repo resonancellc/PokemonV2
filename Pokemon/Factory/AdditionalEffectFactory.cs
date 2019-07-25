@@ -118,19 +118,5 @@ namespace Pokemon.Factory
             additionalEffect = additionalEffectRow.ToDomainObject();
             return additionalEffect;
         }
-
-        public static ICollection<IAdditionalEffect> GetAdditionalEffects(int attackID)
-        {
-            DataRowCollection additionalEffectDataRows = StaticSQL.GetAttackAdditionalEffectIDs(attackID).Rows;
-            ICollection<IAdditionalEffect> additionalEffects = new List<IAdditionalEffect>();
-
-            foreach (DataRow additionalEffectRow in additionalEffectDataRows)
-            {
-                int id = (int)additionalEffectRow.ItemArray[0];
-                additionalEffects.Add(AdditionalEffects.AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == id).FirstOrDefault().Value);
-            }
-
-            return additionalEffects;
-        }
     }
 }
