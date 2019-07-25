@@ -11,9 +11,9 @@ namespace Pokemon.AdditionalEffects
 
         public string Description { get; set; }
 
-        public int? PrimaryValue { get; set; }
+        public int? PrimaryParameter { get; set; }
 
-        public int? SecondaryValue { get; set; }
+        public int? SecondaryParameter { get; set; }
 
         public bool IsOnSelf { get; set; }
 
@@ -21,7 +21,7 @@ namespace Pokemon.AdditionalEffects
         {
             if (Name.Contains("Poison"))
             {
-                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryParameter, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now poisoned");
                     pokemon.Condition = Condition.PSN;
@@ -29,7 +29,7 @@ namespace Pokemon.AdditionalEffects
             }
             else if (Name.Contains("Burn"))
             {
-                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryParameter, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now burning");
                     pokemon.Condition = Condition.BRN;
@@ -42,7 +42,7 @@ namespace Pokemon.AdditionalEffects
                     BattleLog.AppendText($"{pokemon.Name} is unaffected");
                     return;
                 }
-                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryParameter, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now paralysed");
                     pokemon.Condition = Condition.PAR;
@@ -55,7 +55,7 @@ namespace Pokemon.AdditionalEffects
                     BattleLog.AppendText($"{pokemon.Name} is unaffected");
                     return;
                 }
-                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryParameter, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now asleep");
                     pokemon.Condition = Condition.SLP;
@@ -68,7 +68,7 @@ namespace Pokemon.AdditionalEffects
                     BattleLog.AppendText($"{pokemon.Name} is unaffected");
                     return;
                 }
-                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryParameter, 100))
                 {
                     BattleLog.AppendText($"{pokemon.Name} is now confused");
                     pokemon.IsConfused = true;
@@ -76,7 +76,7 @@ namespace Pokemon.AdditionalEffects
             }
             else if(Name.Contains("Flinch"))
             {
-                if (ChanceCalculator.CalculateChance((int)PrimaryValue, 100))
+                if (ChanceCalculator.CalculateChance((int)PrimaryParameter, 100))
                 {
                     pokemon.IsFlinched = true;
                 }

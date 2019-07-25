@@ -8,9 +8,9 @@
 
         string Description { get; set; }
 
-        int? PrimaryValue { get; set; }
+        int? PrimaryParameter { get; set; }
 
-        int? SecondaryValue { get; set; }
+        int? SecondaryParameter { get; set; }
 
         bool IsOnSelf { get; set; }
     }

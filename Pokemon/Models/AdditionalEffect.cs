@@ -8,9 +8,9 @@
 
         public string Description { get; set; }
 
-        public int? PrimaryValue { get; set; }
+        public int? PrimaryParameter { get; set; }
 
-        public int? SecondaryValue { get; set; }
+        public int? SecondaryParameter { get; set; }
 
         public bool IsOnSelf { get; set; }
     }

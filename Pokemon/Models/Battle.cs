@@ -61,7 +61,7 @@ namespace Pokemon.Models
             if (attack.AdditionalEffects.ContainsEffectType(typeof(AlwaysSameDamage)))
             {
                 AlwaysSameDamage alwaysSameDamage = attack.AdditionalEffects.First(e => e is AlwaysSameDamage) as AlwaysSameDamage;
-                damage = alwaysSameDamage.IsBasedOnLevel() ? attackingPokemon.Level : (int)alwaysSameDamage.PrimaryValue;
+                damage = alwaysSameDamage.IsBasedOnLevel() ? attackingPokemon.Level : (int)alwaysSameDamage.PrimaryParameter;
             }
 
             if (damage == 0 && attack.Power.HasValue)

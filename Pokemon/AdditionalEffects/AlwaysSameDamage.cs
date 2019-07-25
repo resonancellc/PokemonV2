@@ -10,12 +10,12 @@ namespace Pokemon.AdditionalEffects
 
         public string Description { get; set; }
 
-        public int? PrimaryValue { get; set; }
+        public int? PrimaryParameter { get; set; }
 
-        public int? SecondaryValue { get; set; }
+        public int? SecondaryParameter { get; set; }
 
         public bool IsOnSelf { get; set; }
 
-        public bool IsBasedOnLevel() => PrimaryValue == 0;
+        public bool IsBasedOnLevel() => PrimaryParameter == 0;
     }
 }
