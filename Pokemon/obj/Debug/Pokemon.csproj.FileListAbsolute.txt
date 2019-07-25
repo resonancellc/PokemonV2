@@ -29,3 +29,5 @@ D:\Git\Pokemon\Pokemon\bin\Debug\Newtonsoft.Json.dll
 D:\Git\Pokemon\Pokemon\bin\Debug\Newtonsoft.Json.xml
 D:\Git\Pokemon\Pokemon\bin\Debug\Dtos.dll
 D:\Git\Pokemon\Pokemon\bin\Debug\Dtos.pdb
+D:\Git\Pokemon\Pokemon\bin\Debug\Dapper.dll
+D:\Git\Pokemon\Pokemon\bin\Debug\Dapper.xml
