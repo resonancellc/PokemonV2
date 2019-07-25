@@ -1,5 +1,6 @@
 ﻿using Pokemon.AdditionalEffects;
 using Pokemon.Models;
+using Pokemon.ObjectMappers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,10 +10,10 @@ namespace Pokemon.Factory
 {
     public static class AdditionalEffectFactory
     {
-        public static IAdditionalEffect CreateAdditionalEffect(object[] data)
+        public static IAdditionalEffect CreateAdditionalEffect(AdditionalEffect additionalEffectRow)
         {
             IAdditionalEffect additionalEffect = null;
-            int id = (int)data[0];
+            int id = additionalEffectRow.ID;
 
             switch (id)
             {
@@ -114,24 +115,8 @@ namespace Pokemon.Factory
                     break;
             }
 
-            additionalEffect = FillAdditionalEffectData(additionalEffect, data);
+            additionalEffect = additionalEffectRow.ToDomainObject();
             return additionalEffect;
-        }
-
-        public static IAdditionalEffect FillAdditionalEffectData(IAdditionalEffect additionalEffect, object[] data)
-        {
-            additionalEffect.ID = (int)data[0];
-            additionalEffect.Name = (string)data[1];
-            additionalEffect.Description = data[2] != DBNull.Value ? (string)data[2] : "";
-            additionalEffect.PrimaryValue = data[3] != DBNull.Value ? (int?)data[3] : null;
-            additionalEffect.SecondaryValue = data[4] != DBNull.Value ? (int?)data[4] : null;
-            additionalEffect.IsOnSelf = data[5] != DBNull.Value ? (bool)data[5] : false;
-            return additionalEffect;
-        }
-
-        public static IAdditionalEffect GetAdditionalEffect(int id)
-        {
-            return AdditionalEffectsList.AdditionalEffects.Where(p => p.Key == id).FirstOrDefault().Value;
         }
 
         public static ICollection<IAdditionalEffect> GetAdditionalEffects(int attackID)
