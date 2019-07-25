@@ -12,9 +12,22 @@ namespace Pokemon.ObjectMappers
                 ID = dto.ID,
                 Name = dto.Name,
                 Description = dto.Description,
-                PrimaryValue = dto.PrimaryValue,
-                SecondaryValue = dto.SecondaryValue,
+                PrimaryParameter = dto.PrimaryValue,
+                SecondaryParameter = dto.SecondaryValue,
                 IsOnSelf = dto.IsOnSelf
+            };
+        }
+
+        public static IAdditionalEffect ToDomainObject(this AdditionalEffect additionalEffect)
+        {
+            return new AdditionalEffect
+            {
+                ID = additionalEffect.ID,
+                Name = additionalEffect.Name,
+                Description = additionalEffect.Description,
+                PrimaryParameter = additionalEffect.PrimaryParameter,
+                SecondaryParameter = additionalEffect.SecondaryParameter,
+                IsOnSelf = additionalEffect.IsOnSelf
             };
         }
     }
