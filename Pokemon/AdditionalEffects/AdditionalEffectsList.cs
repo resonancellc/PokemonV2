@@ -2,6 +2,7 @@
 using Pokemon.Models;
 using Pokemon.Factory;
 using System.Data;
+using System.Linq;
 
 namespace Pokemon.AdditionalEffects
 {
@@ -11,12 +12,9 @@ namespace Pokemon.AdditionalEffects
 
         public static void FillAdditionalEffectsList()
         {
-            DataRowCollection additionalEffectDataRows = StaticSQL.GetAdditionalEffects().Rows;
-            foreach (DataRow additionalEffectRow in additionalEffectDataRows)
-            {
-                IAdditionalEffect additionalEffect = AdditionalEffectFactory.CreateAdditionalEffect(additionalEffectRow.ItemArray);
-                AdditionalEffects.Add(additionalEffect.ID, additionalEffect);
-            }
+            AdditionalEffects = StaticSQL.GetAdditionalEffects()
+                .Select(AdditionalEffectFactory.CreateAdditionalEffect)
+                .ToDictionary(e => e.ID, e => e);
         }
     }
 }
