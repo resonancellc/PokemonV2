@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using Pokemon.Models;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -77,14 +79,14 @@ namespace Pokemon
             return ExecuteSQLQuery(sql);
         }
 
-        public static DataTable GetAdditionalEffects()
+        public static List<AdditionalEffect> GetAdditionalEffects()
         {
-            string sql =
-                @"SELECT [ID], [Name], [Description],
-                [PrimaryParameter], [SecondaryParameter], [IsOnSelf]
-                FROM [Pokemon].[dbo].[AdditionalEffects]";
+            string sql = @"SELECT * FROM AdditionalEffects";
 
-            return ExecuteSQLQuery(sql);
+            using (IDbConnection db = new SqlConnection(ConnectionString))
+            {
+                return db.Query<AdditionalEffect>(sql).ToList();
+            }
         }
 
         public static DataTable GetPokemonAttacks(int pokemonID)
