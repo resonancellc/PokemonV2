@@ -1,11 +1,6 @@
 ﻿using Pokemon.AdditionalEffects;
 using Pokemon.Models;
 using Pokemon.ObjectMappers;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-
 namespace Pokemon.Factory
 {
     public static class AdditionalEffectFactory
@@ -115,7 +110,8 @@ namespace Pokemon.Factory
                     break;
             }
 
-            additionalEffect = additionalEffectRow.ToDomainObject();
+            additionalEffect.SetAdditionalEffectProperties(additionalEffectRow);
+
             return additionalEffect;
         }
     }

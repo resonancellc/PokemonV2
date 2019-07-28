@@ -30,5 +30,15 @@ namespace Pokemon.ObjectMappers
                 IsOnSelf = additionalEffect.IsOnSelf
             };
         }
+
+        public static void SetAdditionalEffectProperties(this IAdditionalEffect additionalEffect, IAdditionalEffect objectToBeMapped)
+        {
+            additionalEffect.ID = objectToBeMapped.ID;
+            additionalEffect.Name = objectToBeMapped.Name;
+            additionalEffect.Description = objectToBeMapped.Description;
+            additionalEffect.PrimaryParameter = objectToBeMapped.PrimaryParameter;
+            additionalEffect.SecondaryParameter = objectToBeMapped.SecondaryParameter;
+            additionalEffect.IsOnSelf = objectToBeMapped.IsOnSelf;
+        }
     }
 }
