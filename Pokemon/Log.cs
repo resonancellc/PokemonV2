@@ -1,28 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class Log
-    {
-
-    }
-
     public static class BattleLog
     {
         public static string Log { get; set; }
 
+        public static StringBuilder StringBuilder = new StringBuilder();
+
         public static void AppendText(string text)
         {
-            Log += text + Environment.NewLine;
+            StringBuilder.AppendLine(text);
         }
 
         public static void ClearText()
         {
-            Log = "";
+            StringBuilder.Clear();
         }
     }
 

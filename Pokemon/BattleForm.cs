@@ -313,7 +313,7 @@ namespace Pokemon
                     battleEnded = true;
             }
             RedrawUI();
-            if (!battleEnded) tbLog.Text = BattleLog.Log;
+            if (!battleEnded) tbLog.Text = BattleLog.StringBuilder.ToString();
         }  
     }
 }
