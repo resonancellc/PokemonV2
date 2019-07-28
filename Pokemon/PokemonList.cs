@@ -42,23 +42,10 @@ namespace Pokemon
         {
             foreach (IPokemon pokemon in Pokemons.Values)
             {
-                DataRowCollection attackDataRows = StaticSQL.GetPokemonAttacks(pokemon.ID).Rows;
-                foreach (DataRow attackDataRow in attackDataRows)
+                var attacks = StaticSQL.GetPokemonAttacks(pokemon.ID);
+                foreach (var attack in attacks)
                 {
-                    var values = attackDataRow.ItemArray;
-                    IAttack attack = PokemonAttacksFactory.CreateAttack();
-
-                    attack.ID = (int)values[0];
-                    attack.Name = (string)values[1];
-                    attack.Power = values[2] != DBNull.Value ? (int?)values[2] : null;
-                    attack.Accuracy = (int)values[3];
-                    attack.BoostStats = values[4] != DBNull.Value ? (string)values[4] : "";
-                    attack.ElementalType = values[5] != DBNull.Value ? (ElementalType)values[5] : 0;
-                    attack.IsSpecial = (bool)values[6];
-                    attack.Level = (int)values[7];
-
                     attack.AdditionalEffects = AdditionalEffectsList.GetAdditionalEffects(attack.ID);
-
                     pokemon.Attacks.Add(attack);
                 }
             }

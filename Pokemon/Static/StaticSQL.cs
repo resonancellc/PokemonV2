@@ -90,7 +90,7 @@ namespace Pokemon
             }
         }
 
-        public static DataTable GetPokemonAttacks(int pokemonID)
+        public static List<Attack> GetPokemonAttacks(int ID)
         {
             string sql =
                 @"SELECT Attacks.ID, Attacks.[Name], Attacks.[Power], Attacks.Accuracy,
@@ -99,12 +99,10 @@ namespace Pokemon
                 INNER JOIN Attacks ON AttackPools.AttackID = Attacks.ID
                 WHERE PokemonID = @ID";
 
-            var parameters = new Dictionary<string, object>()
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                { "@ID" , pokemonID }
-            };
-
-            return ExecuteSQLQuery(sql, parameters);
+                return db.Query<Attack>(sql, new { ID }).ToList();
+            }
         }
 
         public static List<int> GetAttackAdditionalEffectIDs(int ID)
