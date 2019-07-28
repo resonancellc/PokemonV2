@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pokemon
+﻿namespace Pokemon
 {
     public enum ElementalType
     {
@@ -77,14 +71,6 @@ namespace Pokemon
         FlinchWeak = 1060,
         ConfusionWeak = 1070,
         ConfusionMax = 1074
-    }
-
-    public class StringEnums
-    {
-        public const string
-        SameDamage = "Same Damage",
-        AlwaysHits = "Always Hits",
-        FastAttack = "Fast";
     }
 
     public enum LevelValidatorResult
