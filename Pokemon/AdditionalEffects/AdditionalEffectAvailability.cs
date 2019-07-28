@@ -9,6 +9,10 @@ namespace Pokemon.AdditionalEffects
     {
         public static bool ContainsEffectType(this ICollection<IAdditionalEffect> additionalEffects, Type type)
         {
+            if (additionalEffects == null)
+            {
+                return false;
+            }
             return additionalEffects.Any(e => e.GetType() == type);
         }
     }

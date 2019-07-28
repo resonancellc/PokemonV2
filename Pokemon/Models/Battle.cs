@@ -50,7 +50,7 @@ namespace Pokemon.Models
             BattleLog.AppendText($"{attackingPokemon.Name} used {attack.Name}");
             PerformPokemonAttack(attack, attackingPokemon, targetPokemon);
 
-            if (attack.BoostStats != string.Empty)
+            if (!string.IsNullOrWhiteSpace(attack.BoostStats))
                 StatsChanger.ChangeTempStats(attack, attackingPokemon, targetPokemon);
         }
 
