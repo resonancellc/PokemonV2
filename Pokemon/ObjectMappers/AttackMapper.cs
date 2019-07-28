@@ -13,7 +13,7 @@ namespace Pokemon.ObjectMappers
                 Accuracy = dto.Accuracy,
                 AdditionalEffects = dto.AdditionalEffects.Select(x => x.ToDomainObject()).ToList(),
                 BoostStats = dto.BoostStats,
-                ElementalType = (ElementalType)dto.ElementalType,
+                TypeID = (ElementalType)dto.TypeID,
                 ID = dto.ID,
                 IsSpecial = dto.IsSpecial,
                 Level = dto.Level,

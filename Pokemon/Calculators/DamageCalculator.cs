@@ -22,7 +22,7 @@ namespace Pokemon.Calculators
 
                 float multipler = CalculateMultipler(
                     targetPokemon.PrimaryTypeID,
-                    (int)attack.ElementalType,
+                    (int)attack.TypeID,
                     targetPokemon.SecondaryTypeID);
 
                 if (multipler != 1)

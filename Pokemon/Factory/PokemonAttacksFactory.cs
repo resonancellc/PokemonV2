@@ -24,7 +24,7 @@ namespace Pokemon.Factory
                 Power = attackData[2] != DBNull.Value ? (int?)attackData[2] : null,
                 Accuracy = (int)attackData[3],
                 BoostStats = attackData[4] != DBNull.Value ? (string)attackData[4] : "",
-                ElementalType = attackData[5] != DBNull.Value ? (ElementalType)attackData[5] : 0,
+                TypeID = attackData[5] != DBNull.Value ? (ElementalType)attackData[5] : 0,
                 IsSpecial = attackData[6] != DBNull.Value ? (bool)attackData[6] : false
             };
         }
