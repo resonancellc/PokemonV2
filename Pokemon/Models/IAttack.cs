@@ -10,7 +10,7 @@ namespace Pokemon.Models
 
         string BoostStats { get; set; }
 
-        ElementalType ElementalType { get; set; }
+        ElementalType TypeID { get; set; }
 
         int ID { get; set; }
 

@@ -16,7 +16,7 @@ namespace Dtos
 
         public string BoostStats { get; set; }
 
-        public int ElementalType { get; set; }
+        public int TypeID { get; set; }
 
         public bool IsSpecial { get; set; }
 

@@ -16,7 +16,7 @@ namespace Pokemon.Models
 
         public string BoostStats { get; set; }
 
-        public ElementalType ElementalType { get; set; }
+        public ElementalType TypeID { get; set; }
 
         public bool IsSpecial { get; set; }
 
