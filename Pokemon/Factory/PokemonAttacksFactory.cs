@@ -1,5 +1,4 @@
 ﻿using Pokemon.Models;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,18 +14,7 @@ namespace Pokemon.Factory
 
         public static IAttack CreateAttack(string attackName)
         {
-            var attackData = StaticSQL.GetAttackByName(attackName).Rows[0];
-
-            return new Attack() 
-            {
-                ID = (int)attackData[0],
-                Name = (string)attackData[1],
-                Power = attackData[2] != DBNull.Value ? (int?)attackData[2] : null,
-                Accuracy = (int)attackData[3],
-                BoostStats = attackData[4] != DBNull.Value ? (string)attackData[4] : "",
-                TypeID = attackData[5] != DBNull.Value ? (ElementalType)attackData[5] : 0,
-                IsSpecial = attackData[6] != DBNull.Value ? (bool)attackData[6] : false
-            };
+            return StaticSQL.GetAttackByName(attackName);
         }
 
         public static IList<IAttack> CreateAttacks()

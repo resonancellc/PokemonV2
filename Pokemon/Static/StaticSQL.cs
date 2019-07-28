@@ -53,7 +53,7 @@ namespace Pokemon
             return ExecuteSQLQuery(sql);
         }
 
-        public static DataTable GetAttackByName(string attackName)
+        public static Attack GetAttackByName(string attackName)
         {
             string sql =
                 @"SELECT Attacks.ID, Attacks.[Name], Attacks.[Power],
@@ -61,12 +61,10 @@ namespace Pokemon
                 FROM Attacks
                 WHERE Attacks.Name = @attackName";
 
-            var parameters = new Dictionary<string, object>
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                { "@attackName", attackName }
-            };
-
-            return ExecuteSQLQuery(sql, parameters);
+                return db.QueryFirstOrDefault<Attack>(sql, new { attackName });
+            }
         }
 
         public static DataTable GetAttacks()
