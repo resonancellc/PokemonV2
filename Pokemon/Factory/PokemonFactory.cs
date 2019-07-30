@@ -32,7 +32,7 @@ namespace Pokemon.Factory
             }
             else
             {
-                var availablePokemons = PokemonList.Pokemons.Where(p => p.Value.MinimalLevel <= level);
+                var availablePokemons = PokemonList.Pokemons.Where(p => p.Value.MinimalLevel <= level && p.Value.MinimalLevel > 0);
                 pokemon = (IPokemon)availablePokemons
                             .ElementAt(GenerateRandomNumber.GetRandomNumber(0, availablePokemons.Count()))
                             .Value
