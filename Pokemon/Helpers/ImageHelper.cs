@@ -34,7 +34,9 @@ namespace Pokemon
                     case 37: return Properties.Resources._037_vulpix_back;
                     case 69: return Properties.Resources._069_bellsprout_back;
                     case 74: return Properties.Resources._074_geodude_back;
+                    case 77: return Properties.Resources._077_ponyta_back;
                     case 81: return Properties.Resources._081_magnemite_back;
+                    case 131: return Properties.Resources._131_lapras_back;
                     case 147: return Properties.Resources._147_dratini_back;
 
                     default:
@@ -69,7 +71,9 @@ namespace Pokemon
                     case 37: return Properties.Resources._037_vulpix_front;
                     case 69: return Properties.Resources._069_bellsprout_front;
                     case 74: return Properties.Resources._074_geodude_front;
+                    case 77: return Properties.Resources._077_ponyta_front;
                     case 81: return Properties.Resources._081_magnemite_front;
+                    case 131: return Properties.Resources._131_lapras_front;
                     case 147: return Properties.Resources._147_dratini_front;
 
                     default:

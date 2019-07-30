@@ -414,5 +414,17 @@
       <Name>Dtos</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\077_ponyta_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\077_ponyta_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\131_lapras_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\131_lapras_back.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

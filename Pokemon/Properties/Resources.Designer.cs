@@ -543,6 +543,26 @@ namespace Pokemon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _077_ponyta_back {
+            get {
+                object obj = ResourceManager.GetObject("_077_ponyta_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _077_ponyta_front {
+            get {
+                object obj = ResourceManager.GetObject("_077_ponyta_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _081_magnemite_back {
             get {
                 object obj = ResourceManager.GetObject("_081_magnemite_back", resourceCulture);
@@ -556,6 +576,26 @@ namespace Pokemon.Properties {
         internal static System.Drawing.Bitmap _081_magnemite_front {
             get {
                 object obj = ResourceManager.GetObject("_081_magnemite_front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _131_lapras_back {
+            get {
+                object obj = ResourceManager.GetObject("_131_lapras_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _131_lapras_front {
+            get {
+                object obj = ResourceManager.GetObject("_131_lapras_front", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
