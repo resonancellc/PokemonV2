@@ -11,7 +11,9 @@ namespace Pokemon.ObjectMappers
             return new Attack
             {
                 Accuracy = dto.Accuracy,
-                AdditionalEffects = dto.AdditionalEffects.Select(x => x.ToDomainObject()).ToList(),
+                AdditionalEffects = dto.AdditionalEffects != null
+                    ? dto.AdditionalEffects.Select(x => x.ToDomainObject()).ToList()
+                    : null,
                 BoostStats = dto.BoostStats,
                 TypeID = (ElementalType)dto.TypeID,
                 ID = dto.ID,
