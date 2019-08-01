@@ -15,17 +15,5 @@ namespace Pokemon.AdditionalEffects
         public int? SecondaryParameter { get; set; }
 
         public bool IsOnSelf { get; set; }
-
-        public void SetPokemonFocus(IPokemon pokemon)
-        {
-            if (pokemon.IsEnergyFocused)
-            {
-                BattleLog.AppendText($"{pokemon.Name} is already focused");
-            }
-            else
-            {
-                pokemon.IsEnergyFocused = true;
-            }
-        }
     }
 }
