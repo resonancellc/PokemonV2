@@ -127,6 +127,7 @@ namespace Pokemon
         {
             tbLog.Text = "You can't run from this battle!";
         }
+
         private void SwitchPokemon()
         {
             PokemonPartyForm pokemonPartyForm = new PokemonPartyForm(this, _playerParty);

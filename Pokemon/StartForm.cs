@@ -88,7 +88,7 @@ namespace Pokemon
             if (_pokemonList.Any())
             {
                 var playerParty = PokemonPartyFactory.CreatePokemonParty(_pokemonList, true);
-                var enemyParty = PokemonPartyFactory.CreatePokemonParty(_enemyPokemonList, true);
+                var enemyParty = PokemonPartyFactory.CreatePokemonParty(_enemyPokemonList, false);
 
                 BattleForm battleForm = new BattleForm(playerParty, enemyParty);
                 battleForm.Show();
@@ -179,9 +179,11 @@ namespace Pokemon
                 if (importedPokemons.Any())
                 {
                     _pokemonList.Clear();
+                    _enemyPokemonList.Clear();
                     foreach (var importedPokemon in importedPokemons)
                     {
                         _pokemonList.Add(importedPokemon.ToDomainObject());
+                        _enemyPokemonList.Add(PokemonFactory.CreatePokemon(importedPokemon.Level));
                     }
 
                     PrepareImages();

@@ -8,6 +8,7 @@ namespace Pokemon.Models
     public class EnemyPokemonParty : IPokemonParty<IPokemon>
     {
         public IList<IPokemon> Pokemons { get; set; }
+
         public IPokemon ActivePokemon { get; set; }
 
         public EnemyPokemonParty()
