@@ -70,7 +70,7 @@ namespace Pokemon
             StaticMain.FormClosed(this);
         }
 
-        private Color GetColorBasedOnValueDiffrence(int currentValue, int defaultValue)
+        private Color GetColorBasedOnValueDiffrence(float currentValue, float defaultValue)
         {
             if (currentValue == defaultValue) return Color.Black;
             return currentValue > defaultValue

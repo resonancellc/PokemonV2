@@ -40,7 +40,7 @@ namespace Pokemon.Calculators
 
         private static int CalculateBaseDamage(int level) => (2 * level / 5) + 2;
 
-        private static float CalculateAttackDefenceRatio(int attackStat, int defenceStat) => attackStat / defenceStat;
+        private static float CalculateAttackDefenceRatio(float attackStat, float defenceStat) => attackStat / defenceStat;
 
         private static float CalculateMultipler(int targetPrimaryType, int attackType, int? targetSecondaryType = null)
         {
