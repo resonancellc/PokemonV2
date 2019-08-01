@@ -43,48 +43,6 @@ namespace Pokemon
             }
         }
 
-        public static bool IsAbleToAttackAfterConditionEffect(IPokemon pokemon)
-        {
-            int damage;
-            switch (pokemon.Condition)
-            {
-                case 0:
-                    return true;
 
-                case Condition.BRN:
-                    damage = pokemon.HPMax / 16;
-                    pokemon.Hurt(damage);
-                    BattleLog.AppendText($"{pokemon.Name} is burning (Damage: {damage})");
-                    return pokemon.IsPokemonAlive();
-
-                case Condition.FRZ:
-                    BattleLog.AppendText($"{pokemon.Name} is frozen");
-                    return false;
-
-                case Condition.PAR:
-                    if (ChanceCalculator.CalculateChance(50)) return true;
-                    BattleLog.AppendText($"{pokemon.Name} is unable to move");
-                    return false;
-
-                case Condition.PSN:
-                    damage = pokemon.HPMax / 16;
-                    pokemon.Hurt(damage);
-                    BattleLog.AppendText($"{pokemon.Name} is hurt by poison (Damage: {damage})");
-                    return pokemon.IsPokemonAlive();
-
-                case Condition.SLP:
-                    if (ChanceCalculator.CalculateChance(50))
-                    {
-                        BattleLog.AppendText($"{pokemon.Name} woke up");
-                        pokemon.Condition = 0;
-                        return true;
-                    }
-                    BattleLog.AppendText($"{pokemon.Name} is still sleeping");
-                    return false;
-
-                default:
-                    return true;
-            }
-        }
     }
 }
