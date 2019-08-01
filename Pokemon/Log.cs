@@ -1,32 +1,29 @@
-﻿using System;
+﻿using Pokemon.Views;
+using System;
 using System.Text;
 
 namespace Pokemon
 {
-    public static class BattleLog
+    public class BattleLogController : IBattleLogController
     {
-        public static string Log { get; set; }
+        public StringBuilder StringBuilder = new StringBuilder();
+        private readonly IBattleView _battleView;
 
-        public static StringBuilder StringBuilder = new StringBuilder();
-
-        public static void AppendText(string text)
+        public BattleLogController(IBattleView battleView)
         {
-            StringBuilder.AppendLine(text);
+            _battleView = battleView;
         }
 
-        public static void ClearText()
+        public void SetText(string text)
+        {
+            ClearText();
+            StringBuilder.AppendLine(text);
+            _battleView.RefreshBattleLog();
+        }
+
+        public void ClearText()
         {
             StringBuilder.Clear();
-        }
-    }
-
-    public static class DebugLog
-    {
-        public static string Log { get; set; }
-
-        public static void AppendText(string text)
-        {
-            Log += text + Environment.NewLine;
         }
     }
 }
