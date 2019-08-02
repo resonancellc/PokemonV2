@@ -27,9 +27,9 @@ namespace Pokemon.Calculators
 
                 if (multipler != 1)
                 {
-                    BattleLog.AppendText(multipler > 1
-                        ? "It's super effective!"
-                        : "It's not very effective!");
+                    //BattleLog.AppendText(multipler > 1
+                    //    ? "It's super effective!"
+                    //    : "It's not very effective!");
                 }
 
                 damage = Convert.ToInt32(baseDamage * (int)attack.Power * attackDefenceRatio * multipler / 50);
