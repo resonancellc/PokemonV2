@@ -42,5 +42,9 @@ namespace Pokemon.Models
         void Heal(int value);
 
         void ResetStats();
+
+        bool IsAbleToAttackAfterConditionEffect();
+
+        bool IsAbleToAttack();
     }
 }
