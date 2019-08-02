@@ -5,7 +5,7 @@ namespace Pokemon.Helpers
 {
     public static class StatsChanger
     {
-        public static void ChangeTempStats(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
+        public static bool ChangeTempStats(IAttack attack, IPokemon attackingPokemon, IPokemon targetPokemon)
         {
             string[] boosts = attack.BoostStats.SplitBoosts();
             foreach (string boostString in boosts)
@@ -19,12 +19,14 @@ namespace Pokemon.Helpers
                 if (statsChangeValidator.StatChangePossible())
                 {
                     ChangeTempPokemonStats(affectedPokemon, statsBoost);
+                    return true;
                 }
                 else
                 {
-                    BattleLog.AppendText($"{affectedPokemon.Name} {statsBoost.StatType.ToString()} cannot go any higher");
+                    return false;
                 }
             }
+            return true;
         }
 
         public static void ChangeTempPokemonStats(IPokemon affectedPokemon, StatsBoost statsBoost)
