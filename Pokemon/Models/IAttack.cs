@@ -21,5 +21,9 @@ namespace Pokemon.Models
         string Name { get; set; }
 
         int? Power { get; set; }
+
+        bool Missed();
+
+        int CalculateDamage(IPokemon pokemon, IPokemon target);
     }
 }
