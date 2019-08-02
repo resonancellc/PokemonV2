@@ -6,17 +6,20 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Pokemon.Views;
 
 namespace Pokemon
 {
-    public partial class BattleForm : Form
+    public partial class BattleForm : Form, IBattleView
     {
         AttackButton[] attackButtons = new AttackButton[4];
-        IBattle battle;
+        IBattle _battleController;
+        BattleLogController _battleLogController;
 
         IPokemonParty<IPokemon> _playerParty;
         IPokemonParty<IPokemon> _enemyParty;
         IEquipment _equipment;
+
 
         public BattleForm(IPokemonParty<IPokemon> pokemonParty, IPokemonParty<IPokemon> enemyPokemonParty)
         {
@@ -27,6 +30,7 @@ namespace Pokemon
             attackButtons[2] = btnAttack3;
             attackButtons[3] = btnAttack4;
 
+            _battleLogController = new BattleLogController(this);
             _playerParty = pokemonParty;
             _enemyParty = enemyPokemonParty;
             _equipment = EquipmentFactory.CreateEquipment();
@@ -34,12 +38,17 @@ namespace Pokemon
 
         private void BattleForm_Load(object sender, EventArgs e)
         {
-            battle = BattleFactory.CreateBattle(_playerParty.GetFirstAlivePokemon(), _enemyParty.GetFirstAlivePokemon());
-            SetAttackButtons(battle.PlayerPokemon);
+            _battleController = BattleFactory.CreateBattle(
+                _playerParty.GetFirstAlivePokemon(),
+                _enemyParty.GetFirstAlivePokemon(),
+                this,
+                _battleLogController);
+
+            SetAttackButtons(_battleController.PlayerPokemon);
 
             this.Show();
             RedrawUI();
-            tbLog.Text = $"Wild {battle.EnemyPokemon.Name} appears!";
+            _battleLogController.SetText($"Wild {_battleController.EnemyPokemon.Name} appears!");
         }
 
         private void BattleResult(bool isWin)
@@ -95,7 +104,6 @@ namespace Pokemon
             }
         }
 
-        #region events
         private void btnAttack_Click(object sender, EventArgs e)
         {
             AttackButton attackButton = sender as AttackButton;
@@ -114,45 +122,37 @@ namespace Pokemon
         {
             ShowItemForm();
         }
-        private void tbLog_TextChanged(object sender, EventArgs e)
-        {
-            tbLog.SelectionStart = tbLog.Text.Length;
-            tbLog.ScrollToCaret();
-        }
-        #endregion
-
-        #region BattleActionButtons
 
         private void RunFromBattle()
         {
-            tbLog.Text = "You can't run from this battle!";
+            _battleLogController.SetText("You can't run from this battle!");
         }
 
         private void SwitchPokemon()
         {
-            PokemonPartyForm pokemonPartyForm = new PokemonPartyForm(this, _playerParty);
-            pokemonPartyForm.BringToFront();
+            //PokemonPartyForm pokemonPartyForm = new PokemonPartyForm(this, _playerParty);
+            //pokemonPartyForm.BringToFront();
 
-            if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
-            {
-                IPokemon pokemon = pokemonPartyForm.PickedPokemon;
-                if (pokemon != battle.PlayerPokemon)
-                {
-                    BattleLog.ClearText();
-                    tbLog.Text = string.Empty;
-                    pokemon.ResetStats();
-                    this.battle.PlayerPokemon = pokemon;
-                    _playerParty.ActivePokemon = pokemon;
-                    SetAttackButtons(pokemon);
-                    BattleLog.AppendText($"Go {pokemon.Name}!");
+            //if (pokemonPartyForm.ShowDialog() == DialogResult.OK)
+            //{
+            //    IPokemon pokemon = pokemonPartyForm.PickedPokemon;
+            //    if (pokemon != _battleController.PlayerPokemon)
+            //    {
+            //        _battleLogController.ClearText();
+            //        tbLog.Text = string.Empty;
+            //        pokemon.ResetStats();
+            //        _battleController.PlayerPokemon = pokemon;
+            //        _playerParty.ActivePokemon = pokemon;
+            //        SetAttackButtons(pokemon);
+            //        _battleLogController.SetText($"Go {pokemon.Name}!");
 
-                    IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, battle.EnemyPokemon.Attacks.Count)];
-                    battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
+            //        IAttack enemyAttack = _battleController.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, _battleController.EnemyPokemon.Attacks.Count)];
+            //        _battleController.PreparePokemonAttack(enemyAttack, _battleController.EnemyPokemon, _battleController.PlayerPokemon);
 
-                    RedrawUI();
-                    tbLog.Text = BattleLog.Log;
-                }
-            }
+            //        RedrawUI();
+            //        RefreshBattleLog();
+            //    }
+            //}
         }
         private void AfterBattlePokemonSwitch()
         {
@@ -181,19 +181,16 @@ namespace Pokemon
 
         public void AfterItemPickAction(bool hasItemBeenUsed)
         {
-            this.BringToFront();
-            if (hasItemBeenUsed)
-            {
-                IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, battle.EnemyPokemon.Attacks.Count)];
-                battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
-            }
+            //this.BringToFront();
+            //if (hasItemBeenUsed)
+            //{
+            //    IAttack enemyAttack = _battleController.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0, _battleController.EnemyPokemon.Attacks.Count)];
+            //    _battleController.PreparePokemonAttack(enemyAttack, _battleController.EnemyPokemon, _battleController.PlayerPokemon);
+            //}
 
-            RedrawUI();
-            tbLog.Text = BattleLog.Log;
+            //RedrawUI();
         }
-        #endregion
-
-        #region UI etc
+        
         private void BlockUI()
         {
             foreach (var item in attackButtons)
@@ -204,9 +201,9 @@ namespace Pokemon
 
         private void RedrawUI()
         {
-            SetPokemonImages(battle.PlayerPokemon.ID, battle.EnemyPokemon.ID);
-            SetPkmnLabels(battle.PlayerPokemon, battle.EnemyPokemon);
-            SetPkmnHealthBars(battle.PlayerPokemon, battle.EnemyPokemon);
+            SetPokemonImages(_battleController.PlayerPokemon.ID, _battleController.EnemyPokemon.ID);
+            SetPokemonLabels(_battleController.PlayerPokemon, _battleController.EnemyPokemon);
+            SetPokemonHealthBars(_battleController.PlayerPokemon, _battleController.EnemyPokemon);
             tbLog.Refresh();
         }
 
@@ -222,7 +219,7 @@ namespace Pokemon
             barPlayerPkmnHealth.Value = pokemon.HPCurrent;
         }
 
-        private void SetPkmnHealthBars(IPokemon pokemon, IPokemon enemyPokemon)
+        private void SetPokemonHealthBars(IPokemon pokemon, IPokemon enemyPokemon)
         {
             if (pokemon.IsPokemonAlive())
             {
@@ -232,7 +229,7 @@ namespace Pokemon
             else
             {
                 barPlayerPkmnHealth.Value = 0;
-                BattleLog.AppendText($"{pokemon.Name} has fainted!");
+                _battleLogController.SetText($"{pokemon.Name} has fainted!");
                 BlockUI();
                 SwitchPokemon();
             }
@@ -244,7 +241,7 @@ namespace Pokemon
             else
             {
                 barEnemyPkmnHealth.Value = 0;
-                BattleLog.AppendText($"{enemyPokemon.Name} has fainted!");
+                _battleLogController.SetText($"{enemyPokemon.Name} has fainted!");
                 BlockUI();
 
 
@@ -258,11 +255,10 @@ namespace Pokemon
                     tbLog.AppendText($"Next pokemon: {_enemyParty.GetFirstAlivePokemon().Name}");
                     AfterBattlePokemonSwitch();
                 }
-                
             }
-
         }
-        private void SetPkmnLabels(IPokemon pokemon, IPokemon enemyPokemon)
+
+        private void SetPokemonLabels(IPokemon pokemon, IPokemon enemyPokemon)
         {
             lblPlayerPkmnLevel.Text = pokemon.Condition == 0 ? "L" + pokemon.Level.ToString() : (pokemon.Condition).ToString();
             lblPlayerPkmnHealth.Text = $"{pokemon.HPCurrent}/{pokemon.HPMax}";
@@ -279,42 +275,25 @@ namespace Pokemon
                 lblEnemyPkmnHealth.Text = $"0/{enemyPokemon.HPMax}";
             }
         }
-        private void PrintBattleInfo(string battleInfo)
-        {
-            BattleLog.AppendText(battleInfo);
-            tbLog.Text += Environment.NewLine + battleInfo;
-        }
-
-        #endregion
-
-        private void BeginAttackPhase(IAttack attack)
+        
+        private void BeginAttackPhase(IAttack playerAttack)
         {
             bool battleEnded = false;
-            BattleLog.ClearText();
 
-            IAttack playerAttack = attack;
-            IAttack enemyAttack = battle.EnemyPokemon.Attacks[GenerateRandomNumber.GetRandomNumber(0,battle.EnemyPokemon.Attacks.Count)];
+            _battleController.PerformAttack(playerAttack);
 
-            if (BattleHelper.IsPlayerPokemonFaster(attack.AdditionalEffects, enemyAttack.AdditionalEffects, battle))
-            {
-                battle.PreparePokemonAttack(attack, battle.PlayerPokemon, battle.EnemyPokemon);
-
-                if (battle.EnemyPokemon.IsPokemonAlive())
-                    battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
-                else
-                    battleEnded = true;
-            }
-            else
-            {
-                battle.PreparePokemonAttack(enemyAttack, battle.EnemyPokemon, battle.PlayerPokemon);
-
-                if (battle.PlayerPokemon.IsPokemonAlive())
-                    battle.PreparePokemonAttack(attack, battle.PlayerPokemon, battle.EnemyPokemon);
-                else
-                    battleEnded = true;
-            }
             RedrawUI();
-            if (!battleEnded) tbLog.Text = BattleLog.StringBuilder.ToString();
-        }  
+            if (!battleEnded)
+            {
+                _battleLogController.SetText($"What will {_battleController.PlayerPokemon.Name} do?");
+            }
+        }
+
+        public void RefreshBattleLog()
+        {
+            tbLog.Text = _battleLogController.StringBuilder.ToString();
+            RedrawUI();
+            Refresh();
+        }
     }
 }

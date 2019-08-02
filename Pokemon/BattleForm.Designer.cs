@@ -33,10 +33,10 @@
             this.btnSwitchPkmn = new System.Windows.Forms.Button();
             this.btnItem = new System.Windows.Forms.Button();
             this.panelAttackPool = new System.Windows.Forms.Panel();
-            this.btnAttack2 = new AttackButton();
-            this.btnAttack4 = new AttackButton();
-            this.btnAttack3 = new AttackButton();
-            this.btnAttack1 = new AttackButton();
+            this.btnAttack2 = new Pokemon.AttackButton();
+            this.btnAttack4 = new Pokemon.AttackButton();
+            this.btnAttack3 = new Pokemon.AttackButton();
+            this.btnAttack1 = new Pokemon.AttackButton();
             this.barPlayerPkmnHealth = new System.Windows.Forms.ProgressBar();
             this.lblPlayerPkmnName = new System.Windows.Forms.Label();
             this.lblPlayerPkmnHealth = new System.Windows.Forms.Label();
@@ -111,6 +111,7 @@
             // 
             // btnAttack2
             // 
+            this.btnAttack2.Attack = null;
             this.btnAttack2.Enabled = false;
             this.btnAttack2.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAttack2.Location = new System.Drawing.Point(100, 4);
@@ -123,6 +124,7 @@
             // 
             // btnAttack4
             // 
+            this.btnAttack4.Attack = null;
             this.btnAttack4.Enabled = false;
             this.btnAttack4.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAttack4.Location = new System.Drawing.Point(100, 41);
@@ -135,6 +137,7 @@
             // 
             // btnAttack3
             // 
+            this.btnAttack3.Attack = null;
             this.btnAttack3.Enabled = false;
             this.btnAttack3.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAttack3.Location = new System.Drawing.Point(4, 41);
@@ -147,6 +150,7 @@
             // 
             // btnAttack1
             // 
+            this.btnAttack1.Attack = null;
             this.btnAttack1.Enabled = false;
             this.btnAttack1.Font = new System.Drawing.Font("Unispace", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAttack1.Location = new System.Drawing.Point(4, 4);
@@ -203,7 +207,6 @@
             this.tbLog.Size = new System.Drawing.Size(634, 132);
             this.tbLog.TabIndex = 8;
             this.tbLog.Text = "";
-            this.tbLog.TextChanged += new System.EventHandler(this.tbLog_TextChanged);
             // 
             // barEnemyPkmnHealth
             // 
