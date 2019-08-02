@@ -103,10 +103,11 @@
     <Compile Include="Helpers\ItemHelper.cs" />
     <Compile Include="Helpers\StageHelper.cs" />
     <Compile Include="Helpers\StatsChanger.cs" />
+    <Compile Include="IBattleLogController.cs" />
     <Compile Include="ItemsList.cs" />
     <Compile Include="Models\AdditionalEffect.cs" />
     <Compile Include="Models\Attack.cs" />
-    <Compile Include="Models\Battle.cs" />
+    <Compile Include="Models\BattleController.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="BattleForm.cs">
@@ -168,6 +169,7 @@
     <Compile Include="Static\StaticMain.cs" />
     <Compile Include="Static\StaticSQL.cs" />
     <Compile Include="Validators\LevelValidator.cs" />
+    <Compile Include="Views\IBattleView.cs" />
     <EmbeddedResource Include="AfterWinForm.resx">
       <DependentUpon>AfterWinForm.cs</DependentUpon>
     </EmbeddedResource>
