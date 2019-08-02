@@ -20,7 +20,6 @@ namespace Pokemon
         IPokemonParty<IPokemon> _enemyParty;
         IEquipment _equipment;
 
-
         public BattleForm(IPokemonParty<IPokemon> pokemonParty, IPokemonParty<IPokemon> enemyPokemonParty)
         {
             InitializeComponent();

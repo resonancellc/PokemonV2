@@ -50,7 +50,6 @@ namespace Pokemon
 
         public void ItemPicked(int id)
         {
-            BattleLog.ClearText();
             bool itemUsed = false;
             if (id == 4)
             {
@@ -80,11 +79,11 @@ namespace Pokemon
             {
                 _equipment.UseItem(pokemon, id);
                 itemUsed = true;
-                BattleLog.AppendText($"Used {ItemHelper.GetItemNameByID(id)} on {pokemon.Name}!");
+                //BattleLog.AppendText($"Used {ItemHelper.GetItemNameByID(id)} on {pokemon.Name}!");
             }
             else
             {
-                BattleLog.AppendText($"It is not the right moment to use this");
+                //BattleLog.AppendText($"It is not the right moment to use this");
             }
 
             return itemUsed;
