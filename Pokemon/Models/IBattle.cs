@@ -16,6 +16,7 @@ namespace Pokemon.Models
             ICollection<IAdditionalEffect> playerPokemonAdditionalEffects,
             ICollection<IAdditionalEffect> enemyPokemonAdditionalEffects);
 
-
+        void ExecuteNextAction();
     }
+
 }
