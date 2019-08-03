@@ -33,6 +33,8 @@ namespace Pokemon
             _playerParty = pokemonParty;
             _enemyParty = enemyPokemonParty;
             _equipment = EquipmentFactory.CreateEquipment();
+
+            this.KeyDown -= new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
         }
 
         private void BattleForm_Load(object sender, EventArgs e)
@@ -106,8 +108,10 @@ namespace Pokemon
         private void btnAttack_Click(object sender, EventArgs e)
         {
             AttackButton attackButton = sender as AttackButton;
+            if (attackButton.Name == "---") return;
             tbLog.Text = "";
             BeginAttackPhase(attackButton.Attack);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
         }
         private void btnRun_Click(object sender, EventArgs e)
         {
@@ -277,15 +281,34 @@ namespace Pokemon
         
         private void BeginAttackPhase(IAttack playerAttack)
         {
-            bool battleEnded = false;
+            //bool battleEnded = false;
 
             _battleController.PerformAttack(playerAttack);
-
+            BlockUI();
             RedrawUI();
-            if (!battleEnded)
+            //if (!battleEnded)
+            //{
+            //    _battleLogController.SetText($"What will {_battleController.PlayerPokemon.Name} do?");
+            //}
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A)
             {
-                _battleLogController.SetText($"What will {_battleController.PlayerPokemon.Name} do?");
+                _battleController.ExecuteNextAction();
             }
+            RedrawUI();
+        }
+
+        public void AttacksExecutionOver()
+        {
+            this.KeyDown -= new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            foreach (var item in attackButtons)
+            {
+                item.Enabled = true;
+            }
+            _battleLogController.SetText($"What will {_battleController.PlayerPokemon.Name} do?");
         }
 
         public void RefreshBattleLog()
