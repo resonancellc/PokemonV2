@@ -5,7 +5,5 @@
         void Refresh();
 
         void RefreshBattleLog();
-
-        void AttacksExecutionOver();
     }
 }
