@@ -295,7 +295,6 @@
             this.Controls.Add(this.panelAttackPool);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.playerPkmnImage);
-            this.KeyPreview = true;
             this.Name = "BattleForm";
             this.Text = "Battle";
             this.Load += new System.EventHandler(this.BattleForm_Load);
