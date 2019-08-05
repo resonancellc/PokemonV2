@@ -5,17 +5,27 @@ using Pokemon.Calculators;
 using Pokemon.Helpers;
 using Pokemon.Views;
 using System.Collections.Generic;
+using System;
 
 namespace Pokemon.Models
 {
     public class BattleController : IBattle
     {
         public IPokemon PlayerPokemon { get; set; }
-
         public IPokemon EnemyPokemon { get; set; }
+        IPokemon fasterPokemon;
+        IPokemon slowerPokemon;
+        IAttack fasterPokemonAttack;
+        IAttack slowerPokemonAttack;
+
+
 
         private readonly IBattleView _battleView;
         private readonly IBattleLogController _battleLogController;
+
+        private List<Action> attackActionQueue = new List<Action>();
+        private int _actionIndex = 0;
+
 
         public BattleController(IPokemon pokemon, IPokemon enemyPokemon, IBattleView battleView, IBattleLogController battleLogController)
         {
@@ -23,17 +33,21 @@ namespace Pokemon.Models
             EnemyPokemon = enemyPokemon;
             _battleView = battleView;
             _battleLogController = battleLogController;
+
+            attackActionQueue.Add(() => ExecuteAttack(fasterPokemon, fasterPokemonAttack, slowerPokemon));
+            attackActionQueue.Add(() => ExecuteAfterAttackAdditionalEffects(fasterPokemon, fasterPokemonAttack, slowerPokemon));
+            attackActionQueue.Add(() => ExecuteChangeStatsAfterAttack(fasterPokemon, fasterPokemonAttack, slowerPokemon));
+
+            attackActionQueue.Add(() => ExecuteAttack(slowerPokemon, slowerPokemonAttack, fasterPokemon));
+            attackActionQueue.Add(() => ExecuteAfterAttackAdditionalEffects(slowerPokemon, slowerPokemonAttack, fasterPokemon));
+            attackActionQueue.Add(() => ExecuteChangeStatsAfterAttack(slowerPokemon, slowerPokemonAttack, fasterPokemon));
+
+            attackActionQueue.Add(null);
         }
 
         public void PerformAttack(IAttack playerAttack)
         {
-            // prepare
             var enemyAttack = GetEnemyAttack();
-
-            IPokemon fasterPokemon;
-            IPokemon slowerPokemon;
-            IAttack fasterPokemonAttack;
-            IAttack slowerPokemonAttack;
 
             if (PlayerPokemon == GetFasterPokemon(playerAttack.AdditionalEffects, enemyAttack.AdditionalEffects))
             {
@@ -51,26 +65,48 @@ namespace Pokemon.Models
             }
 
             PerformAttack(fasterPokemon, fasterPokemonAttack, slowerPokemon);
-            PerformAttack(slowerPokemon, slowerPokemonAttack, fasterPokemon);
+            _actionIndex++;
         }
 
-        private void PerformAttack(IPokemon pokemon, IAttack attack, IPokemon target)
+        private bool ExecutePreAttackConditions(IPokemon pokemon)
         {
             if (pokemon.IsAbleToAttackAfterConditionEffect())
             {
                 if (pokemon.IsAbleToAttack())
                 {
-                    _battleLogController.SetText($"{pokemon.Name} used {attack.Name}");
-                    ExecuteAttack(pokemon, attack, target);
-                    ExecuteAfterAttackAdditionalEffects(pokemon, attack, target);
-                    ExecuteChangeStatsAfterAttack(pokemon, attack, target);
+                    return true;
                 }
             }
+            return false;
+        }
 
+        public void ExecuteNextAction()
+        {
+            if (attackActionQueue.ElementAt(_actionIndex) != null)
+            {
+                attackActionQueue.ElementAt(_actionIndex).Invoke();
+            }
+
+            _actionIndex++;
+
+            if (_actionIndex == attackActionQueue.Count)
+            {
+                _actionIndex = 0;
+                _battleView.AttacksExecutionOver();
+            }
+        }
+
+        private void PerformAttack(IPokemon pokemon, IAttack attack, IPokemon target)
+        {
+            if (ExecutePreAttackConditions(pokemon))
+            {
+                attackActionQueue.ElementAt(_actionIndex).Invoke();
+            }
         }
 
         private void ExecuteAttack(IPokemon pokemon, IAttack attack, IPokemon target)
         {
+            _battleLogController.SetText($"{pokemon.Name} used {attack.Name}");
             int damage = attack.CalculateDamage(pokemon, target);
             if (damage != 0)
             {
@@ -82,12 +118,8 @@ namespace Pokemon.Models
         {
             if (!string.IsNullOrWhiteSpace(attack.BoostStats))
             {
-                var statsChangeHappened = StatsChanger.ChangeTempStats(attack, pokemon, target);
-                if (!statsChangeHappened)
-                {
-                    _battleLogController.SetText($"Nothing happened");
-                    //_battleLogController.SetText($"{target.Name} {statsBoost.StatType.ToString()} cannot go any higher");
-                }
+                var statsChangeOutput = StatsChanger.ChangeTempStats(attack, pokemon, target);
+                _battleLogController.SetText(statsChangeOutput);
             }
         }
 
