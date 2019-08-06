@@ -83,11 +83,7 @@ namespace Pokemon.Models
             if (!string.IsNullOrWhiteSpace(attack.BoostStats))
             {
                 var statsChangeHappened = StatsChanger.ChangeTempStats(attack, pokemon, target);
-                if (!statsChangeHappened)
-                {
-                    _battleLogController.SetText($"Nothing happened");
-                    //_battleLogController.SetText($"{target.Name} {statsBoost.StatType.ToString()} cannot go any higher");
-                }
+                _battleLogController.SetText(statsChangeHappened);
             }
         }
 
