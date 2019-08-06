@@ -288,3 +288,4 @@ Pokemon.UnitTests/bin/Debug/Pokemon.exe
 .vs/Pokemon/v15/Server/sqlite3/storage.ide
 .vs/Pokemon/v15/Server/sqlite3/storage.ide-shm
 .vs/Pokemon/v15/Server/sqlite3/storage.ide-wal
+.vs/Pokemon/v15/Server/sqlite3/db.lock
